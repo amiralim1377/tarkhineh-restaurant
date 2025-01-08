@@ -3,7 +3,7 @@ import FooterForm from "../FooterForm/FooterForm";
 
 function Footer() {
   return (
-    <footer className="bg-backgroundfooter mt-14 flex h-full w-full flex-row items-center justify-between bg-black py-16">
+    <footer className="bg-backgroundfooter mt-14 flex w-full flex-row items-center justify-between md:py-16">
       <div className="mx-auto flex w-full max-w-8xl justify-between">
         <div className="flex w-full max-w-xl flex-row items-start justify-start gap-4 px-2 py-5 md:justify-between">
           <div className="flex h-full w-full max-w-28 flex-col space-y-2 md:max-w-48">

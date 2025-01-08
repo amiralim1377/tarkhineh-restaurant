@@ -4,7 +4,7 @@ import Footer from "../Footer/Footer";
 
 function AppLayout() {
   return (
-    <div className="mx-auto flex min-h-screen flex-col items-center">
+    <div className="mx-auto flex min-h-screen flex-col items-center justify-between">
       <Header />
       <main className="w-full flex-grow">
         <Outlet />

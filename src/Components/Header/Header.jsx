@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white px-2 py-9">
+    <header className="sticky top-0 z-50 w-full bg-white px-2 py-9 shadow-2xl">
       <div className="mx-auto flex w-full max-w-8xl items-center justify-between">
         <button
           id="menu-btn"
@@ -41,7 +41,7 @@ function Header() {
               <NavLink>درباره ما</NavLink>
             </li>
             <li>
-              <NavLink>تماس باما</NavLink>
+              <NavLink to="contact-us">تماس باما</NavLink>
             </li>
           </ul>
         </nav>

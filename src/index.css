@@ -82,9 +82,25 @@ body {
 
 .bg-backgroundfooter {
   width: 100;
-  height: 320px;
+  height: 168px;
+  @screen md {
+    height: 320px;
+  }
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url("/footer/9346f0ad088135a337fb916e224331cf.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-contactus {
+  width: 100;
+  min-height: 152px;
+  @screen md {
+    min-height: 320px;
+  }
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("/contact-us/24ed2e8bb74567abb104f433e0138e38.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
