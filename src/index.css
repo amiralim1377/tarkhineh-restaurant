@@ -1,68 +1,146 @@
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
 }
 
-a {
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-ExtraLight.woff2") format("woff2");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-Medium.woff2") format("woff2");
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
+  font-style: normal;
 }
-a:hover {
-  color: #535bf2;
+
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Estedad";
+  src: url("/fonts/Estedad-FD-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  font-family: "Estedad", sans-serif;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.bg-homepageinformation {
+  width: 100;
+  height: 390px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/homepage/59b196e28516c1c3e8bc6842aa238885.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  @apply filter;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+.bg-backgroundfooter {
+  width: 100;
+  height: 320px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/footer/9346f0ad088135a337fb916e224331cf.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+/* HAMBURGER MENU */
+
+.hamburger {
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  width: 24px;
+  height: 24px;
+  transition: all 0.25s;
+  position: relative;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.hamburger-top,
+.hamburger-middle,
+.hamburger-bottom {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 3px;
+  top: 0;
+  left: 0;
+  background: #417f56;
+  transform: rotate(0);
+  transition: all 0.5s;
+}
+
+.hamburger-middle {
+  transform: translateY(7px);
+}
+
+.hamburger-bottom {
+  transform: translateY(14px);
+  background: #417f56;
+}
+
+.open {
+  transform: rotate(90deg);
+  transform: translateY(0px);
+  position: fixed;
+  top: 50px;
+  right: 25px;
+}
+
+.open .hamburger-top {
+  transform: rotate(45deg) translateY(6px) translateX(6px);
+  background: #417f56;
+}
+
+.open .hamburger-middle {
+  display: none;
+}
+
+.open .hamburger-bottom {
+  transform: rotate(-45deg) translateY(6px) translateX(-6px);
+  background: #417f56;
 }
