@@ -106,6 +106,19 @@ body {
   background-position: center;
 }
 
+.bg-aboutus {
+  width: 100;
+  min-height: 152px;
+  @screen md {
+    min-height: 320px;
+  }
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("/about-us/a184b0a2eda096baec6229c93f4ea140.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 /* HAMBURGER MENU */
 
 .hamburger {
