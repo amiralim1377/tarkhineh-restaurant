@@ -1,24 +1,26 @@
+import AboutUsFeatures from "../../Components/AboutUsFeatures/AboutUsFeatures";
+
 function AboutUs() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center justify-between">
       <div className="bg-aboutus flex w-full items-center justify-center">
         <h2 className="text-base font-bold text-white md:text-4xl">
           درباره ترخینه بیشتر بدانید!
         </h2>
       </div>
-      <div className="mx-auto mt-6 w-full max-w-7xl">
-        <h2 className="px-2 text-2xl font-bold text-[#353535]">درباره‌ما</h2>
-        <div className="mx-auto w-full max-w-72 md:hidden">
-          <div className="mx-auto flex w-full max-w-72 flex-row justify-between gap-2">
-            <p className="w-full max-w-40 text-justify text-[10px]">
+      <div className="mx-auto mt-6 w-full max-w-8xl">
+        <h2 className="px-2 text-2xl font-bold text-[#353535]">درباره‌ما:</h2>
+        <div className="mx-auto w-full max-w-md px-2 md:hidden">
+          <div className="mx-auto flex w-full max-w-md flex-row justify-between gap-2">
+            <p className="w-full max-w-md text-justify text-[10px] text-[#717171]">
               رستوران‌های زنجیره‌ای ترخینه در سال ۱۳۶۸ افتتاح گردیده‌اند و در طی
               این سال‌ها همواره با ارائه غذاهای باکیفیت و سرویس سریع و به موقع
               در تلاش برای جلب رضایت مشتریان خود بوده‌اند. در طی این سال‌ها
               اولویت جلب رضایت مشتریان بوده است.
             </p>
-            <div className="flex w-full max-w-40 items-start justify-end">
+            <div className="flex w-full max-w-40 items-start justify-start">
               <img
-                src="/public/about-us/6ea6f971b29ed1930912d8ecff3a24ed.jpg"
+                src="/about-us/6ea6f971b29ed1930912d8ecff3a24ed.jpg"
                 className="h-32 w-full rounded-md object-cover"
                 alt=""
               />
@@ -37,8 +39,8 @@ function AboutUs() {
             بود . به امید آن روز که همه ایرانیان سالم و سلامت باشند.
           </p>
         </div>
-        <div className="hidden flex-row gap-4 px-2 md:flex">
-          <p className="md:text-md w-full max-w-2xl text-justify text-[#717171] md:leading-7 lg:leading-9 xl:text-xl xl:leading-10">
+        <div className="hidden flex-row justify-between gap-2 px-2 md:flex">
+          <p className="w-full max-w-2xl text-justify text-[#717171] md:text-base md:leading-7 lg:leading-9 xl:text-xl xl:leading-10">
             رستوران‌های زنجیره‌ای ترخینه در سال ۱۳۶۸ افتتاح گردیده‌اند و در طی
             این سال‌ها همواره با ارائه غذاهای باکیفیت و سرویس سریع و به موقع در
             تلاش برای جلب رضایت مشتریان خود بوده‌اند. در طی این سال‌ها اولیت جلب
@@ -55,13 +57,14 @@ function AboutUs() {
           </p>
           <div className="w-full max-w-2xl">
             <img
-              src="/public/about-us/6ea6f971b29ed1930912d8ecff3a24ed.jpg"
+              src="/about-us/6ea6f971b29ed1930912d8ecff3a24ed.jpg"
               alt=""
               className="h-96 min-h-[492px] w-full rounded-lg object-cover"
             />
           </div>
         </div>
       </div>
+      <AboutUsFeatures />
     </div>
   );
 }

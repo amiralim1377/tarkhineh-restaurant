@@ -1,6 +1,6 @@
 function TharkhineBranches() {
   return (
-    <div className="mx-auto mt-4 grid max-w-8xl grid-cols-1 justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-4">
+    <div className="mx-auto my-4 grid max-w-8xl grid-cols-1 justify-items-center gap-5 md:grid-cols-2 lg:grid-cols-4">
       <div className="group relative flex max-w-72 flex-col items-center overflow-hidden rounded-lg border-2 hover:border-green-primary-500 hover:shadow-2xl">
         <img
           src="/branches/d5c39ff5c7dcfd7412a964561eb2869d.jpg"

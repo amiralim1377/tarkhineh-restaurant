@@ -1,6 +1,6 @@
 function ContactusBranches() {
   return (
-    <div className="flex flex-col space-y-3">
+    <div className="mb-8 flex flex-col space-y-3">
       <div className="mx-auto flex w-full max-w-80 flex-col items-center overflow-hidden rounded-md border border-gray-300 md:h-72 md:max-w-8xl md:flex-row">
         <div className="h-28 w-full flex-none bg-gray-600 md:h-full md:w-1/2 lg:h-full lg:max-w-3xl">
           <img
