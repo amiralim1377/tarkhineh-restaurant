@@ -13,13 +13,13 @@ function Footer() {
             <div className="flex flex-col space-y-3 text-nowrap px-4">
               <ul className="flex flex-col space-y-3 text-xs font-medium text-white md:text-sm">
                 <li>
-                  <Link>پرسش‌های متداول</Link>
+                  <Link to="FAQ">پرسش‌های متداول</Link>
                 </li>
                 <li>
-                  <Link>قوانین ترخینه</Link>
+                  <Link to="Rules">قوانین ترخینه</Link>
                 </li>
                 <li>
-                  <Link>حریم خصوصی</Link>
+                  <Link to="Privacy">حریم خصوصی</Link>
                 </li>
               </ul>
               <div>

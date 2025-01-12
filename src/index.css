@@ -131,6 +131,46 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+.bg-FAQ {
+  width: 100;
+  min-height: 152px;
+  @screen md {
+    min-height: 320px;
+  }
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/public/FAQ/6956321429c870b11fe0695ce138fd8f.jfif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-Rules {
+  width: 100;
+  min-height: 152px;
+  @screen md {
+    min-height: 320px;
+  }
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/FAQ/rules.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-Privacy {
+  width: 100;
+  min-height: 152px;
+  @screen md {
+    min-height: 320px;
+  }
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("/FAQ/privacy (2).jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 /* React Multi Date Picker */
 .custom-input {
   border-radius: 15px;

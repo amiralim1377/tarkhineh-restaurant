@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import HeaderNavbarMenu from "../HeaderNavbarMenu/HeaderNavbarMenu";
 
 function Header() {
   return (
@@ -29,18 +30,8 @@ function Header() {
                 صفحه اصلی
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/branches"
-                className={({ isActive }) =>
-                  isActive
-                    ? "block font-bold text-green-primary-500 underline-offset-2 transition-all duration-300"
-                    : "transition-all duration-300"
-                }
-              >
-                شعبه
-              </NavLink>
-            </li>
+            <HeaderNavbarMenu />
+
             <li>
               <NavLink
                 to="/menu"

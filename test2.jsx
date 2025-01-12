@@ -1,5 +1,6 @@
 import "swiper/css";
 import {
+  Navigation,
   Mousewheel,
   Keyboard,
   FreeMode,
@@ -14,7 +15,7 @@ import "swiper/css/autoplay";
 
 function BranchesSlider() {
   return (
-    <div className="bg-red-400 p-5">
+    <div className="overflow-hidden bg-red-400 p-4">
       <Swiper
         spaceBetween={20}
         slidesPerView="auto"
@@ -25,13 +26,13 @@ function BranchesSlider() {
         grabCursor={true}
         scrollbar={{ draggable: true }}
         loop={true}
-        loopedslides={20} // افزودن این ویژگی برای جلوگیری از فضای خالی
+        loopedSlides={20} // افزودن این ویژگی برای جلوگیری از فضای خالی
         autoplay={{
           delay: 2500,
           disableOnInteraction: false,
         }}
         modules={[Mousewheel, Keyboard, FreeMode, Scrollbar, Autoplay]}
-        className="overflow-hidden"
+        className=""
       >
         {Array.from({ length: 20 }).map((_, index) => (
           <SwiperSlide key={index} className="!w-auto">
@@ -59,7 +60,7 @@ function BranchesSlider() {
                     </span>
                   </div>
                 </div>
-                <div className="flex w-full items-center justify-between">
+                <div className="justify بین flex w-full items-center">
                   <div className="flex items-center gap-1 text-[10px]">
                     <img src="/SpecialOffer/Star rate.svg" alt="" />
                     <span>۵</span>

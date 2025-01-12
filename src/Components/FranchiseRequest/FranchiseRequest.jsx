@@ -6,7 +6,7 @@ function FranchiseRequest() {
       </h2>
       <form action="">
         <div className="flex flex-col items-start">
-          <h3 className="text-xs text-[#353535] md:text-lg">
+          <h3 className="text-right text-base font-semibold md:text-lg">
             مشخصات فردی متقاضی{" "}
           </h3>
           <div className="mt-3 flex w-full max-w-md flex-col items-start justify-between gap-3 md:max-w-8xl md:flex-row">
@@ -28,7 +28,9 @@ function FranchiseRequest() {
           </div>
         </div>
         <div>
-          <h3 className="text-xs text-[#353535] md:text-lg">آدرس ملک متقاضی</h3>
+          <h3 className="mt-8 text-right text-base font-semibold md:text-lg">
+            آدرس ملک متقاضی
+          </h3>
           <div className="mt-3 flex w-full max-w-md flex-col items-start justify-between gap-3 md:max-w-8xl md:flex-row">
             <div className="flex w-full max-w-[943px] flex-col justify-between gap-4">
               <div className="flex w-full flex-col justify-between gap-2 md:flex-row">

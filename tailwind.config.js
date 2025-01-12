@@ -10,6 +10,7 @@ export default {
       },
       maxWidth: {
         "8xl": "1440px",
+        "9xl": "1500px",
       },
       fontFamily: { estedad: ["Estedad", "sans-serif"] },
     },

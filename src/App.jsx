@@ -4,6 +4,13 @@ import Homepage from "./pages/Homepage/Homepage";
 import Contactus from "./pages/Contactus/contactus";
 import AboutUs from "./pages/AboutUs/AboutUs";
 import Franchise from "./pages/Franchise/Franchise";
+import FAQ from "./pages/FAQ/FAQ";
+import Privacy from "./pages/Privacy/Privacy";
+import Rules from "./pages/Rules/Rules";
+import EkbatanPage from "./pages/EkbatanPage/EkbatanPage";
+import VanakPage from "./pages/VanakPage/VanakPage";
+import AghadsiePage from "./pages/AghadsiePage/AghadsiePage";
+import ChalousPage from "./pages/ChalousPage/ChalousPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,6 +19,23 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Homepage />,
+      },
+      {
+        path: "branches/ekbatan",
+        element: <EkbatanPage />,
+      },
+      {
+        path: "branches/chalous",
+        element: <ChalousPage />,
+      },
+
+      {
+        path: "branches/aghadsie",
+        element: <AghadsiePage />,
+      },
+      {
+        path: "branches/vanak",
+        element: <VanakPage />,
       },
       {
         path: "contact-us",
@@ -24,6 +48,18 @@ const router = createBrowserRouter([
       {
         path: "franchise",
         element: <Franchise />,
+      },
+      {
+        path: "FAQ",
+        element: <FAQ />,
+      },
+      {
+        path: "Rules",
+        element: <Rules />,
+      },
+      {
+        path: "Privacy",
+        element: <Privacy />,
       },
     ],
   },

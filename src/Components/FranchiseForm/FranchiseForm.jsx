@@ -4,7 +4,7 @@ import FranchiseSpecifications from "../FranchiseSpecifications/FranchiseSpecifi
 
 function FranchiseForm() {
   return (
-    <form className="my-8 flex w-full flex-col items-center space-y-4 rounded-md border-2 border-gray-300 p-2">
+    <form className="my-8 flex w-full flex-col items-center space-y-4 rounded-md border border-gray-300 p-4">
       <FranchiseRequest />
       <FranchiseSpecifications />
       <FranchiseFacilities />
