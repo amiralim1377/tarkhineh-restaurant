@@ -4,7 +4,7 @@ function PopularFoods() {
   return (
     <div className="mt-8 w-full bg-[#315F41]">
       <div className="mx-auto mt-8 max-w-8xl">
-        <h3 className="w-full text-base font-bold text-white md:text-2xl">
+        <h3 className="w-full px-2 text-base font-bold text-white md:text-2xl">
           غذاهای محبوب
         </h3>
       </div>

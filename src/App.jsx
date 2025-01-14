@@ -11,6 +11,10 @@ import EkbatanPage from "./pages/EkbatanPage/EkbatanPage";
 import VanakPage from "./pages/VanakPage/VanakPage";
 import AghadsiePage from "./pages/AghadsiePage/AghadsiePage";
 import ChalousPage from "./pages/ChalousPage/ChalousPage";
+import Menu from "./pages/Menu/Menu";
+import Cart from "./pages/Cart/Cart";
+import CompletionInformation from "./pages/CompletionInformation/CompletionInformation";
+import Payment from "./pages/Payment/Payment";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +41,23 @@ const router = createBrowserRouter([
         path: "branches/vanak",
         element: <VanakPage />,
       },
+      {
+        path: "menu",
+        element: <Menu />,
+      },
+      {
+        path: "cart",
+        element: <Cart />,
+      },
+      {
+        path: "completion-of-information",
+        element: <CompletionInformation />,
+      },
+      {
+        path: "payment",
+        element: <Payment />,
+      },
+
       {
         path: "contact-us",
         element: <Contactus />,

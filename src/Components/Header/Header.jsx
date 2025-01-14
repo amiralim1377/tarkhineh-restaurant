@@ -1,9 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import HeaderNavbarMenu from "../HeaderNavbarMenu/HeaderNavbarMenu";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white px-2 py-9 shadow-2xl transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full bg-white px-2 py-9 shadow-xl transition-all duration-300">
       <div className="mx-auto flex w-full max-w-8xl items-center justify-between">
         <button
           id="menu-btn"
@@ -14,7 +14,9 @@ function Header() {
           <span className="hamburger-bottom"></span>
         </button>
         <div>
-          <img src="/logo/Logo.png" alt="Logo" className="h-10" />
+          <Link to="/">
+            <img src="/logo/Logo.png" alt="Logo" className="h-10" />
+          </Link>
         </div>
         <nav className="hidden max-w-4xl md:block">
           <ul className="font-Esteedad flex items-center gap-3 text-base font-normal leading-9 text-[#717171] transition-all duration-300 lg:gap-5 lg:text-xl">
@@ -90,13 +92,15 @@ function Header() {
               className="h-5 w-5"
             />
           </div>
-          <div className="rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300">
-            <img
-              src="/icons/shopping-cart.svg"
-              alt="Shopping Cart"
-              className="h-5 w-5"
-            />
-          </div>
+          <Link to="cart">
+            <div className="rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300">
+              <img
+                src="/icons/shopping-cart.svg"
+                alt="Shopping Cart"
+                className="h-5 w-5"
+              />
+            </div>
+          </Link>
           <div className="rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300">
             <img src="/icons/user2.svg" alt="User" className="h-5 w-5" />
           </div>

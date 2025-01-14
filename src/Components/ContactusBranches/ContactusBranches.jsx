@@ -90,7 +90,7 @@ function ContactusBranches() {
       <div className="mx-auto flex w-full max-w-80 flex-col items-center overflow-hidden rounded-md border border-gray-300 md:h-72 md:max-w-8xl md:flex-row">
         <div className="h-28 w-full flex-none bg-gray-600 md:h-full md:w-1/2 lg:h-full lg:max-w-3xl">
           <img
-            src="/public/contact-us/3.png"
+            src="/contact-us/3.png"
             className="h-full w-full object-cover"
             alt=""
           />

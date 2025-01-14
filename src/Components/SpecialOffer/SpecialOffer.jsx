@@ -4,7 +4,7 @@ function SpecialOffer() {
   return (
     <div className="w-full">
       <div className="mx-auto mt-8 max-w-8xl">
-        <h3 className="w-full text-base font-bold text-[#353535] md:text-2xl">
+        <h3 className="w-full px-2 text-base font-bold text-[#353535] md:text-2xl">
           پیشنهاد ویژه
         </h3>
       </div>

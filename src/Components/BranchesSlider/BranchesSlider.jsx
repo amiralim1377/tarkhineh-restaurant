@@ -32,7 +32,7 @@ function BranchesSlider() {
       modules={[Mousewheel, Keyboard, FreeMode, Scrollbar, Autoplay]}
       className="overflow-hidden"
     >
-      {Array.from({ length: 20 }).map((_, index) => (
+      {Array.from({ length: 40 }).map((_, index) => (
         <SwiperSlide key={index} className="!w-auto">
           <div className="w-full max-w-44 overflow-hidden rounded-lg border border-gray-300 bg-white md:min-w-80">
             <img

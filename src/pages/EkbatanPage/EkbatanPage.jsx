@@ -16,7 +16,7 @@ function EkbatanPage() {
         <img src="/icons/note.svg" alt="" />
         مشاهده منوی کامل
       </button>
-      <h2 className="mb-4 mt-16 text-2xl font-bold text-[#353535]">
+      <h2 className="mb-4 mt-8 text-base font-bold text-[#353535] md:text-2xl">
         شعبه اکباتان
       </h2>
       <BranchPagePhotoSlider />
