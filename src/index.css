@@ -171,6 +171,18 @@ body {
   background-position: center;
 }
 
+.bg-Celebration {
+  width: 100;
+  min-height: 400px;
+  @screen md {
+    min-height: 650px;
+  }
+  background-image: url("/icons/Selebration.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
 /* React Multi Date Picker */
 .custom-input {
   border-radius: 15px;

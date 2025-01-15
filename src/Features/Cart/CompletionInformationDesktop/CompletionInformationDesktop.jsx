@@ -5,13 +5,15 @@ import CompletionInformationDesktopFactor from "../CompletionInformationDesktopF
 
 function CompletionInformationDesktop() {
   return (
-    <div className="felx-row mx-auto my-8 flex max-w-8xl items-start gap-4">
-      <div className="flex w-full flex-col space-y-2">
+    <div className="felx-row mx-auto my-8 hidden max-w-8xl items-start justify-between md:flex">
+      <div className="flex w-full max-w-4xl flex-col space-y-2">
         <OrderDeliveryMethod />
         <OrderDeliveryAddresses />
         <OrderDescription />
       </div>
-      <CompletionInformationDesktopFactor />
+      <div className="max-w-lg">
+        <CompletionInformationDesktopFactor />
+      </div>
     </div>
   );
 }

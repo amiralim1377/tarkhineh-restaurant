@@ -13,12 +13,14 @@ function PaymentMethod() {
         <div className="flex w-full flex-row gap-3 py-2 md:max-w-96 md:flex-row md:justify-between">
           <div className="flex items-center gap-1">
             <input type="checkbox" />
-            <h5 className="text-xs text-[#717171]">پرداخت اینترنتی</h5>
+            <h5 className="text-xs text-[#717171] md:text-sm">
+              پرداخت اینترنتی
+            </h5>
             <img src="/icons/card-pos.svg" alt="" />
           </div>
           <div className="flex items-center gap-1">
             <input type="checkbox" />
-            <h5 className="text-xs text-[#717171]">پرداخت در محل</h5>
+            <h5 className="text-xs text-[#717171] md:text-sm">پرداخت در محل</h5>
             <img src="/icons/wallet-3.svg" alt="" />
           </div>
         </div>

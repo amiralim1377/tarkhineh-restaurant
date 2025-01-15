@@ -1,6 +1,6 @@
 function PaymentRegisterDiscountCode() {
   return (
-    <div className="w-full rounded-md border border-gray-300 bg-white p-4">
+    <div className="w-full rounded-md border border-gray-300 bg-white p-4 text-white">
       <div className="divide-y md:flex md:w-full md:flex-row md:divide-none">
         <div className="flex w-full items-center py-2 md:max-w-44">
           <div>
@@ -16,7 +16,7 @@ function PaymentRegisterDiscountCode() {
             placeholder="کد تخفیف"
             className="w-full rounded-md border border-gray-300"
           />
-          <button className="text-nowrap rounded-md bg-[#CBCBCB] p-1">
+          <button className="text-nowrap rounded-md bg-[#CBCBCB] p-1 md:px-6 md:py-2">
             ثبت کد
           </button>
         </div>

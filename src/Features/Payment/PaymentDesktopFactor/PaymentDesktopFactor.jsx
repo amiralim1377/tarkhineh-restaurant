@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 function PaymentDesktopFactor() {
+  const navigate = useNavigate();
   return (
     <div className="rounded-lg border border-gray-300 bg-white p-3">
       <div className="flex flex-col items-start space-y-4 divide-y">
@@ -50,7 +53,10 @@ function PaymentDesktopFactor() {
         </div>
 
         <div className="mt-3 w-full">
-          <button className="flex w-full flex-row items-center justify-center rounded-md bg-green-primary-500 p-2 text-xs text-white">
+          <button
+            onClick={() => navigate("/successful-payment")}
+            className="flex w-full flex-row items-center justify-center rounded-md bg-green-primary-500 p-2 text-xs text-white"
+          >
             <img src="/icons/tick-circle.svg" alt="" />
             تایید و پرداخت
           </button>

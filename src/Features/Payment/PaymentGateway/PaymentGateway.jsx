@@ -10,37 +10,35 @@ function PaymentGateway() {
             درگاه پرداخت
           </h4>
         </div>
-        <div className="flex w-full flex-col gap-3 py-2 md:max-w-96 md:flex-row md:justify-between">
-          <div className="flex flex-col">
-            <div className="mx-auto flex flex-row items-center gap-2">
-              <div className="max-w-16 rounded-md border">
-                <img
-                  src="/payment/204bd79c6f9ca84db147c0ae7b6f64a6.jpg"
-                  className="min-h-16 object-cover"
-                  alt=""
-                />
-              </div>
-              <div className="max-w-16 rounded-md border">
-                <img
-                  src="/payment/5e8c0b6e9950b56d479a86910e1c9af4.jpg"
-                  className="min-h-16 object-cover"
-                  alt=""
-                />
-              </div>
-              <div className="max-w-16 rounded-md border">
-                <img
-                  src="/payment/d4cfd0003de2a111d436dfa9b41ce150.jpg"
-                  className="min-h-16 object-cover"
-                  alt=""
-                />
-              </div>
+        <div className="flex flex-col items-center">
+          <div className="mx-auto flex flex-row items-center gap-2">
+            <div className="max-w-16 rounded-md border md:max-w-24">
+              <img
+                src="/payment/204bd79c6f9ca84db147c0ae7b6f64a6.jpg"
+                className="min-h-16 object-cover md:min-h-24"
+                alt=""
+              />
             </div>
-            <div className="mt-2">
-              <p className="text-justify text-xs text-[#717171]">
-                پرداخت از طریق کلیه کارت‌های عضو شتاب امکان‌پذیر است.‌(لطفا قبل
-                از پرداخت فیلترشکن خود را خاموش کنید.)
-              </p>
+            <div className="max-w-16 rounded-md border md:max-w-24">
+              <img
+                src="/payment/5e8c0b6e9950b56d479a86910e1c9af4.jpg"
+                className="min-h-16 object-cover md:min-h-24"
+                alt=""
+              />
             </div>
+            <div className="max-w-16 rounded-md border md:max-w-24">
+              <img
+                src="/payment/d4cfd0003de2a111d436dfa9b41ce150.jpg"
+                className="min-h-16 object-cover md:min-h-24"
+                alt=""
+              />
+            </div>
+          </div>
+          <div className="mt-2 max-w-72">
+            <p className="text-center text-xs text-[#717171]">
+              پرداخت از طریق کلیه کارت‌های عضو شتاب امکان‌پذیر است.‌(لطفا قبل از
+              پرداخت فیلترشکن خود را خاموش کنید.)
+            </p>
           </div>
         </div>
       </div>

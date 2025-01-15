@@ -36,8 +36,10 @@ function Payment() {
           </h3>
         </div>
       </div>
-      <PaymentMobile />
-      <PaymentDesktop />
+      <div className="mt-8">
+        <PaymentMobile />
+        <PaymentDesktop />
+      </div>
     </div>
   );
 }

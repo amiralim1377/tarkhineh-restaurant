@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 function MobileCartItem() {
+  const navigate = useNavigate();
   return (
     <div className="mt-4 rounded-lg border border-gray-300 bg-white p-3">
       <div className="flex flex-col items-start">
@@ -52,7 +55,10 @@ function MobileCartItem() {
           </div>
         </div>
         <div className="mt-3 w-full">
-          <button className="flex w-full flex-row items-center justify-center rounded-md bg-green-primary-500 p-2 text-xs text-white">
+          <button
+            onClick={() => navigate("/completion-of-information")}
+            className="flex w-full flex-row items-center justify-center rounded-md bg-green-primary-500 p-2 text-xs text-white"
+          >
             تکمیل اطلاعات <img src="/icons/arrow-left.svg" alt="" />
           </button>
         </div>

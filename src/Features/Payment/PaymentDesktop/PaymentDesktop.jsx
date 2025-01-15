@@ -1,3 +1,4 @@
+import ImportantPaymentPoint from "../ImportantPaymentPoint/ImportantPaymentPoint";
 import PaymentDesktopFactor from "../PaymentDesktopFactor/PaymentDesktopFactor";
 
 import PaymentGateway from "../PaymentGateway/PaymentGateway";
@@ -6,13 +7,14 @@ import PaymentRegisterDiscountCode from "../PaymentRegisterDiscountCode/PaymentR
 
 function PaymentDesktop() {
   return (
-    <div className="mx-auto flex w-full max-w-8xl flex-row justify-between gap-4">
+    <div className="mx-auto hidden w-full max-w-8xl flex-row justify-between gap-4 md:flex">
       <div className="flex w-full max-w-4xl flex-col space-y-4">
         <PaymentRegisterDiscountCode />
         <PaymentMethod />
         <PaymentGateway />
+        <ImportantPaymentPoint />
       </div>
-      <div className="w-full max-w-xl">
+      <div className="w-full max-w-lg">
         <PaymentDesktopFactor />
       </div>
     </div>

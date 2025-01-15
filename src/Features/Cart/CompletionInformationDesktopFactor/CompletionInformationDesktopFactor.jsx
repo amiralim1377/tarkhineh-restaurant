@@ -35,7 +35,7 @@ function CompletionInformationDesktopFactor() {
             </div>
           ))}
         </div>
-        <div className="mt-2 flex w-full items-center justify-between">
+        <div className="mt-2 flex w-full items-center justify-between py-2">
           <h5 className="text-sm text-[#353535]">تخفیف محصولات</h5>
           <div className="text-sm text-[#717171]">۶۳٬۰۰۰تومان</div>
         </div>

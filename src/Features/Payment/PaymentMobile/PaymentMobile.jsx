@@ -1,3 +1,4 @@
+import ImportantPaymentPoint from "../ImportantPaymentPoint/ImportantPaymentPoint";
 import PaymentFactor from "../PaymentFactor/PaymentFactor";
 import PaymentGateway from "../PaymentGateway/PaymentGateway";
 import PaymentMethod from "../PaymentMethod/PaymentMethod";
@@ -22,6 +23,7 @@ function PaymentMobile() {
         <PaymentRegisterDiscountCode />
         <PaymentMethod />
         <PaymentGateway />
+        <ImportantPaymentPoint />
         <PaymentFactor />
       </div>
     </div>

@@ -15,6 +15,7 @@ import Menu from "./pages/Menu/Menu";
 import Cart from "./pages/Cart/Cart";
 import CompletionInformation from "./pages/CompletionInformation/CompletionInformation";
 import Payment from "./pages/Payment/Payment";
+import SuccessfulPayment from "./pages/SuccessfulPayment/SuccessfulPayment";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,7 +58,10 @@ const router = createBrowserRouter([
         path: "payment",
         element: <Payment />,
       },
-
+      {
+        path: "successful-payment",
+        element: <SuccessfulPayment />,
+      },
       {
         path: "contact-us",
         element: <Contactus />,
