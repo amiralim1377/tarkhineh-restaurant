@@ -14,7 +14,7 @@ function PaymentRegisterDiscountCode() {
           <input
             type="text"
             placeholder="کد تخفیف"
-            className="w-full rounded-md border border-gray-300"
+            className="w-full rounded-md border border-gray-300 p-1"
           />
           <button className="text-nowrap rounded-md bg-[#CBCBCB] p-1 md:px-6 md:py-2">
             ثبت کد

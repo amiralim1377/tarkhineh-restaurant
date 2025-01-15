@@ -4,8 +4,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useSelector } from "react-redux";
 
 function BranchPagePhotoSlider() {
+  const branches = useSelector((state) => state.branches?.branches);
+
+  if (!branches || branches.length === 0) {
+    return <div>بارگذاری اطلاعات شعبه...</div>;
+  }
+
+  const { address, phone_number, working_hours } = branches[0];
+
   return (
     <div className="relative w-full">
       <div className="font-Estedad relative flex h-[336px] w-full flex-col">
@@ -48,14 +57,14 @@ function BranchPagePhotoSlider() {
           <div className="mx-auto flex w-full flex-col items-center justify-evenly md:flex-row-reverse">
             <div className="flex w-full flex-row items-center gap-1 md:max-w-52 md:flex-col">
               <img src="/icons/location.svg" className="md:h-8 md:w-8" alt="" />
-              <span className="text-[10px] md:text-base">
-                شهرک اکباتان، فاز ۳، مجتمع تجاری کوروش، طبقه سوم
+              <span className="text-center text-[10px] md:text-base">
+                {address}
               </span>
             </div>
             <div className="flex w-full flex-row items-center gap-1 md:max-w-52 md:flex-col">
               <img src="/icons/clock.svg" className="md:h-8 md:w-8" alt="" />
-              <h6 className="w-full text-[10px] md:text-base">
-                همه‌روزه از ساعت ۱۲ الی ۲۳
+              <h6 className="w-full text-center text-[10px] md:text-base">
+                {working_hours}
               </h6>
             </div>
           </div>
@@ -65,7 +74,7 @@ function BranchPagePhotoSlider() {
               className="md:h-8 md:w-8"
               alt=""
             />
-            <span className="text-[10px] md:text-base">۰۲۱-۵۴۸۹۱۲۵۰-۵۱</span>
+            <span className="text-[10px] md:text-base">{phone_number}</span>
           </div>
         </div>
       </div>

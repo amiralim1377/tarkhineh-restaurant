@@ -7,15 +7,18 @@ import Franchise from "./pages/Franchise/Franchise";
 import FAQ from "./pages/FAQ/FAQ";
 import Privacy from "./pages/Privacy/Privacy";
 import Rules from "./pages/Rules/Rules";
-import EkbatanPage from "./pages/EkbatanPage/EkbatanPage";
-import VanakPage from "./pages/VanakPage/VanakPage";
-import AghadsiePage from "./pages/AghadsiePage/AghadsiePage";
-import ChalousPage from "./pages/ChalousPage/ChalousPage";
+
 import Menu from "./pages/Menu/Menu";
 import Cart from "./pages/Cart/Cart";
 import CompletionInformation from "./pages/CompletionInformation/CompletionInformation";
 import Payment from "./pages/Payment/Payment";
 import SuccessfulPayment from "./pages/SuccessfulPayment/SuccessfulPayment";
+import { Provider } from "react-redux";
+import store from "../store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import BranchesPages from "./pages/BranchesPages/BranchesPages";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,21 +29,8 @@ const router = createBrowserRouter([
         element: <Homepage />,
       },
       {
-        path: "branches/ekbatan",
-        element: <EkbatanPage />,
-      },
-      {
-        path: "branches/chalous",
-        element: <ChalousPage />,
-      },
-
-      {
-        path: "branches/aghadsie",
-        element: <AghadsiePage />,
-      },
-      {
-        path: "branches/vanak",
-        element: <VanakPage />,
+        path: "branches/:branchname",
+        element: <BranchesPages />,
       },
       {
         path: "menu",
@@ -90,10 +80,18 @@ const router = createBrowserRouter([
   },
 ]);
 
+// Create a client
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <Provider store={store}>
+          <RouterProvider router={router} />
+        </Provider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   );
 }

@@ -1,9 +1,9 @@
-import SpecialOffer from "../../../test";
 import BranchPagePhotoSlider from "../../Components/BranchPagePhotoSlider/BranchPagePhotoSlider";
 import BranchUsersComments from "../../Components/BranchUsersComments/BranchUsersComments";
 import HomepageSlider from "../../Components/HomepageSlider/HomepageSlider";
 import NoniranianFoods from "../../Components/NoniranianFoods/NoniranianFoods";
 import PopularFoods from "../../Components/PopularFoods/PopularFoods";
+import SpecialOffer from "../../Components/SpecialOffer/SpecialOffer";
 
 function VanakPage() {
   return (

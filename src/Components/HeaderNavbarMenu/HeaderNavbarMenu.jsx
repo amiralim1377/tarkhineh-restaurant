@@ -1,18 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedBranch } from "../../Slice/branchesSlice";
 
 function HeaderNavbarMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedBranch, setSelectedBranch] = useState("شعبه");
   const dropdownRef = useRef(null);
+  const dispatch = useDispatch();
+  const selectedBranch = useSelector((state) => state.branches.selectedBranch);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleBranchClick = (branchName) => {
-    setSelectedBranch(`شعبه ${branchName}`);
+    dispatch(setSelectedBranch(branchName));
     setIsOpen(false); // بستن منو بعد از انتخاب
   };
 
@@ -35,7 +38,7 @@ function HeaderNavbarMenu() {
         onClick={toggleDropdown}
         className={`flex items-center transition-all duration-300 ${selectedBranch !== "شعبه" ? "text-green-primary-500" : ""}`}
       >
-        <span>{selectedBranch}</span>
+        <span>{`شعبه ${selectedBranch || ""}`}</span>
         {isOpen ? (
           <ExpandLess className="ml-2 rounded-full hover:bg-gray-200" />
         ) : (
@@ -59,7 +62,7 @@ function HeaderNavbarMenu() {
           </li>
           <li className="border-b border-gray-300">
             <NavLink
-              to="/branches/chalous"
+              to="/branches/chalus"
               onClick={() => handleBranchClick("چالوس")}
               className={({ isActive }) =>
                 isActive
@@ -72,7 +75,7 @@ function HeaderNavbarMenu() {
           </li>
           <li className="border-b border-gray-300">
             <NavLink
-              to="/branches/aghadsie"
+              to="/branches/aghdasieh"
               onClick={() => handleBranchClick("اقدسیه")}
               className={({ isActive }) =>
                 isActive

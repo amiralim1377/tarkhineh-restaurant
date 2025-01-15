@@ -1,4 +1,3 @@
-import BranchesSlider from "../BranchesSlider/BranchesSlider";
 import BranchUsersCommentsSlider from "../BranchUsersCommentsSlider/BranchUsersCommentsSlider";
 
 function BranchUsersComments() {

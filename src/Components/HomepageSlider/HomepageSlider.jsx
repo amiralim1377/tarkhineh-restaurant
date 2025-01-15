@@ -4,10 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { useNavigate } from "react-router-dom";
 
 function HomepageSlider() {
+  const navigate = useNavigate();
   return (
-    <div className="flex h-[336px] w-full font-Estedad">
+    <div className="font-Estedad flex h-[336px] w-full">
       <Swiper
         spaceBetween={10}
         slidesPerView="auto"
@@ -25,11 +27,14 @@ function HomepageSlider() {
             alt="اولین اسلاید"
             className="h-[336px] w-full object-cover brightness-50 filter"
           />
-          <div className="font-estedad absolute inset-0 flex flex-col items-center justify-center text-white">
+          <div className="absolute inset-0 flex flex-col items-center justify-center font-estedad text-white">
             <h2 className="text-center text-xl font-bold md:text-5xl">
               تجربه غذای سالم وگیاهی به سبک ترخینه
             </h2>
-            <button className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold">
+            <button
+              onClick={() => navigate("/menu")}
+              className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold"
+            >
               سفارش آنلاین غذا
             </button>
           </div>
@@ -40,11 +45,14 @@ function HomepageSlider() {
             alt="دومین اسلاید"
             className="h-[336px] w-full object-cover brightness-50 filter"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center font-Estedad text-white">
+          <div className="font-Estedad absolute inset-0 flex flex-col items-center justify-center text-white">
             <h2 className="text-center text-xl font-bold md:text-5xl">
               طعم بی‌نظیر طبیعت!
             </h2>
-            <button className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold">
+            <button
+              onClick={() => navigate("/menu")}
+              className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold"
+            >
               سفارش آنلاین غذا
             </button>
           </div>
@@ -55,11 +63,16 @@ function HomepageSlider() {
             alt="دومین اسلاید"
             className="h-[336px] w-full object-cover brightness-50 filter"
           />
-          <div className="absolute inset-0 flex flex-col items-center justify-center font-Estedad text-white">
+          <div className="font-Estedad absolute inset-0 flex flex-col items-center justify-center text-white">
             <h2 className="text-center text-xl font-bold md:text-5xl">
-              {" "}
               لذت غذای سالم و گیاهی را با ترخینه تجربه کنید!
             </h2>
+            <button
+              onClick={() => navigate("/menu")}
+              className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold"
+            >
+              سفارش آنلاین غذا
+            </button>
           </div>
         </SwiperSlide>
       </Swiper>

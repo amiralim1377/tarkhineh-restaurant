@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FooterForm from "../FooterForm/FooterForm";
 
 function Footer() {
+  const navigate = useNavigate();
   return (
     <footer className="bg-backgroundfooter flex w-full flex-row items-center justify-between md:py-16">
       <div className="mx-auto flex w-full max-w-8xl justify-between">
@@ -34,16 +35,16 @@ function Footer() {
             <div className="flex flex-col space-y-3 px-4">
               <ul className="flex flex-col space-y-3 text-nowrap text-xs text-white md:text-sm">
                 <li>
-                  <Link>شعبه اکباتان</Link>
+                  <Link to="/branches/ekbatan">شعبه اکباتان</Link>
                 </li>
                 <li>
-                  <Link>شعبه چالوس</Link>
+                  <Link to="/branches/chalous">شعبه چالوس</Link>
                 </li>
                 <li>
-                  <Link>شعبه اقدسیه</Link>
+                  <Link to="/branches/aghadsie">شعبه اقدسیه</Link>
                 </li>
                 <li>
-                  <Link>شعبه ونک</Link>
+                  <Link to="/branches/vanak">شعبه ونک</Link>
                 </li>
               </ul>
             </div>

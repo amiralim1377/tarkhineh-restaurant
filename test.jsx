@@ -1,84 +1,84 @@
-import "swiper/css";
-import {
-  Mousewheel,
-  Keyboard,
-  FreeMode,
-  Scrollbar,
-  Autoplay,
-} from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/scrollbar";
-import "swiper/css/autoplay";
-
-function BranchesSlider() {
-  return (
-    <div className="bg-red-400 p-5">
-      <Swiper
-        spaceBetween={20}
-        slidesPerView="auto"
-        centeredSlides={true}
-        mousewheel={{ forceToAxis: true }}
-        keyboard={true}
-        freeMode={true}
-        grabCursor={true}
-        scrollbar={{ draggable: true }}
-        loop={true}
-        loopedslides={20} // افزودن این ویژگی برای جلوگیری از فضای خالی
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Mousewheel, Keyboard, FreeMode, Scrollbar, Autoplay]}
-        className="overflow-hidden"
-      >
-        {Array.from({ length: 20 }).map((_, index) => (
-          <SwiperSlide key={index} className="!w-auto">
-            <div className="w-full max-w-44 overflow-hidden rounded-lg border border-gray-300 bg-white md:min-w-80">
-              <img
-                src="/SpecialOffer/1.jpg"
-                className="h-28 w-full overflow-hidden object-cover md:h-64"
-                alt=""
-              />
-              <div className="mx-auto flex w-full flex-col items-center space-y-3 p-2 md:p-4">
-                <h4 className="text-center text-xs md:text-xl">دلمه برگ کلم</h4>
-                <div className="flex w-full flex-row items-center justify-between">
-                  <div className="flex items-center gap-1">
-                    <img src="/SpecialOffer/Heart.svg" alt="" />
-                    <h6 className="hidden text-xs text-[#ADADAD] md:block">
-                      افزودن به علاقمندی‌ها
-                    </h6>
-                  </div>
-                  <div className="justify بین flex items-center gap-1">
-                    <span className="text-[10px] text-[#ADADAD] line-through">
-                      ۲۲۰٬۰۰۰
-                    </span>
-                    <span className="w-full rounded-full bg-red-200 px-2 text-center text-[10px] text-red-700 md:text-sm">
-                      %۸
-                    </span>
-                  </div>
-                </div>
-                <div className="flex w-full items-center justify-between">
-                  <div className="flex items-center gap-1 text-[10px]">
-                    <img src="/SpecialOffer/Star rate.svg" alt="" />
-                    <span>۵</span>
-                    <span className="text-[#ADADAD]">(۵۲ امتیاز)</span>
-                  </div>
-                  <span className="text-[10px] md:text-base">
-                    ۲۰۹٬۰۰۰ تومان
-                  </span>
-                </div>
-                <button className="w-full rounded-lg bg-green-primary-500 p-2 text-xs text-white">
-                  افزودن به سبد خرید
-                </button>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
-}
-
-export default BranchesSlider;
+<div className="mx-auto flex w-full max-w-80 flex-col items-center overflow-hidden rounded-md border border-gray-300 md:h-72 md:max-w-8xl md:flex-row">
+        <div className="h-28 w-full flex-none bg-gray-600 md:h-full md:w-1/2 lg:h-full lg:max-w-3xl">
+          <img
+            src="/contact-us/1.jpg"
+            className="h-full w-full object-cover"
+            alt=""
+          />
+        </div>
+        <div className="mx-auto flex w-full max-w-64 flex-col items-center space-y-1 py-3 text-[10px] text-[#717171] md:max-w-xl md:text-sm lg:max-w-2xl lg:text-lg">
+          <h3 className="text-xs text-[#353535] md:text-lg md:font-semibold lg:text-xl lg:font-bold">
+            شعبه اقدسیه
+          </h3>
+          <p>خیابان اقدسیه ، نرسیده به میدان خیام، پلاک ۸</p>
+          <div className="flex flex-row space-x-1">
+            <span>شماره تماس:</span>
+            <span>۰۲۱-۵۴۸۹۱۲۵۰-۵۱</span>
+          </div>
+          <p>ساعت کاری: همه روزه از ساعت ۱۲ تا ۲۳ بجز روزهای تعطیل</p>
+          <div className="flex w-full flex-row items-center justify-center gap-2 px-2">
+            <button className="w-full max-w-32 rounded-md border border-green-primary-500 py-1 text-green-primary-500">
+              صفحه شعبه
+            </button>
+            <button className="w-full max-w-32 text-nowrap rounded-md bg-green-primary-500 py-1 text-white">
+              دیدن در نقشه
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto flex w-full max-w-80 flex-col items-center overflow-hidden rounded-md border border-gray-300 md:h-72 md:max-w-8xl md:flex-row">
+        <div className="h-28 w-full flex-none bg-gray-600 md:h-full md:w-1/2 lg:h-full lg:max-w-3xl">
+          <img
+            src="/contact-us/3.jpg"
+            className="h-full w-full object-cover"
+            alt=""
+          />
+        </div>
+        <div className="mx-auto flex w-full max-w-64 flex-col items-center space-y-1 py-3 text-[10px] text-[#717171] md:max-w-xl md:text-sm lg:max-w-2xl lg:text-lg">
+          <h3 className="text-xs text-[#353535] md:text-lg md:font-semibold lg:text-xl lg:font-bold">
+            شعبه ونک
+          </h3>
+          <p>میدان ونک، خیابان فردوسی، نبش کوچه نیلوفر، پلاک ۲۶</p>
+          <div className="flex flex-row space-x-1">
+            <span>شماره تماس:</span>
+            <span>۰۲۱-۵۴۸۹۱۲۵۰-۵۱</span>
+          </div>
+          <p>ساعت کاری: همه روزه از ساعت ۱۲ تا ۲۳ بجز روزهای تعطیل</p>
+          <div className="flex w-full flex-row items-center justify-center gap-2 px-2">
+            <button className="w-full max-w-32 rounded-md border border-green-primary-500 py-1 text-green-primary-500">
+              صفحه شعبه
+            </button>
+            <button className="w-full max-w-32 text-nowrap rounded-md bg-green-primary-500 py-1 text-white">
+              دیدن در نقشه
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="mx-auto flex w-full max-w-80 flex-col items-center overflow-hidden rounded-md border border-gray-300 md:h-72 md:max-w-8xl md:flex-row">
+        <div className="h-28 w-full flex-none bg-gray-600 md:h-full md:w-1/2 lg:h-full lg:max-w-3xl">
+          <img
+            src="/contact-us/3.png"
+            className="h-full w-full object-cover"
+            alt=""
+          />
+        </div>
+        <div className="mx-auto flex w-full max-w-64 flex-col items-center space-y-1 py-3 text-[10px] text-[#717171] md:max-w-xl md:text-sm lg:max-w-2xl lg:text-lg">
+          <h3 className="text-xs text-[#353535] md:text-lg md:font-semibold lg:text-xl lg:font-bold">
+            شعبه اکباتان
+          </h3>
+          <p>آدرس: شهرک اکباتان، فاز ۳، مجتمع تجاری کوروش، طبقه سوم</p>
+          <div className="flex flex-row space-x-1">
+            <span>شماره تماس:</span>
+            <span>۰۲۱-۵۴۸۹۱۲۵۰-۵۱</span>
+          </div>
+          <p>ساعت کاری: همه روزه از ساعت ۱۲ تا ۲۳ بجز روزهای تعطیل</p>
+          <div className="flex w-full flex-row items-center justify-center gap-2 px-2">
+            <button className="w-full max-w-32 rounded-md border border-green-primary-500 py-1 text-green-primary-500">
+              صفحه شعبه
+            </button>
+            <button className="w-full max-w-32 text-nowrap rounded-md bg-green-primary-500 py-1 text-white">
+              دیدن در نقشه
+            </button>
+          </div>
+        </div>
+      </div>

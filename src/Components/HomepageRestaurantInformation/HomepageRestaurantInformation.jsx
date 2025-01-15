@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 function HomepageRestaurantInformation() {
+  const navigate = useNavigate();
   return (
     <div className="bg-homepageinformation mt-16 flex flex-col items-center justify-center md:justify-center">
       <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between space-y-2 p-2 md:flex-row md:items-center md:space-y-6">
@@ -14,7 +17,10 @@ function HomepageRestaurantInformation() {
             شان شما عزیزان ارائه دهیم.
           </p>
           <div className="flex justify-end">
-            <button className="flex items-center rounded-md border-2 border-white p-2 md:px-4 md:py-2">
+            <button
+              onClick={() => navigate("/about-us")}
+              className="flex items-center rounded-md border-2 border-white p-2 hover:border-gray-400 md:px-4 md:py-2"
+            >
               اطلاعات بیشتر
               <img src="/icons/arrow-left.svg" alt="" />
             </button>
