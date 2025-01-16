@@ -4,16 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { useSelector } from "react-redux";
 
-function BranchPagePhotoSlider() {
-  const branches = useSelector((state) => state.branches?.branches);
-
-  if (!branches || branches.length === 0) {
-    return <div>بارگذاری اطلاعات شعبه...</div>;
-  }
-
-  const { address, phone_number, working_hours } = branches[0];
+function BranchPagePhotoSlider({ branchData }) {
+  const { address, phone_number, working_hours } = branchData;
 
   return (
     <div className="relative w-full">
@@ -46,7 +39,7 @@ function BranchPagePhotoSlider() {
           <SwiperSlide className="relative bg-gray-200">
             <img
               src="/branches/8295be0e464709726a66931b63d8cfdb.jpg"
-              alt="دومین اسلاید"
+              alt="سومین اسلاید"
               className="h-[336px] w-full object-cover brightness-50 filter"
             />
           </SwiperSlide>

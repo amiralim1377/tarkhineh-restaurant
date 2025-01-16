@@ -8,19 +8,22 @@ import SpecialOffer from "../../Components/SpecialOffer/SpecialOffer";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Components/Loading/Loading";
 import { fetchBranchesByname } from "../../Services/fetchBranchesByname";
-import { useDispatch } from "react-redux";
-import { setBranches, setSelectedBranch } from "../../Slice/branchesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setBranches,
+  setSelectedBranch,
+} from "../../Slice/branchesSlice/branchesSlice";
 import { useEffect } from "react";
 
 function BranchesPages() {
   const { branchname } = useParams();
   const dispatch = useDispatch();
+  const branchData = useSelector((state) => state.branches?.branches);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["branch", branchname],
     queryFn: () => fetchBranchesByname(branchname),
     onSuccess: () => {
-      console.log("Data received on success:", data); // لاگ گرفتن داده‌های دریافتی
       dispatch(setSelectedBranch(data));
     },
   });
@@ -37,8 +40,6 @@ function BranchesPages() {
 
   const { name_fa } = data;
 
-  console.log(data);
-
   return (
     <div className="flex flex-col items-center">
       <HomepageSlider />
@@ -52,8 +53,8 @@ function BranchesPages() {
       <h2 className="mb-4 mt-8 text-base font-bold text-[#353535] md:text-2xl">
         شعبه {name_fa}
       </h2>
-      <BranchPagePhotoSlider />
-      <BranchUsersComments />
+      <BranchPagePhotoSlider branchData={branchData} />
+      <BranchUsersComments branchData={branchData} />
     </div>
   );
 }

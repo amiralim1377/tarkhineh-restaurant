@@ -2,7 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   branches: [],
-  selectedBranch: null,
+  selectedBranch: {
+    id: "865cfad1-cf88-4900-bb56-f767b4f39aaf",
+    name: "ekbatan",
+  },
 };
 
 const branchesSlice = createSlice({
@@ -10,7 +13,7 @@ const branchesSlice = createSlice({
   initialState,
   reducers: {
     setBranches(state, action) {
-      state.branches = [action.payload];
+      state.branches = action.payload; // جایگزینی کامل آرایه
     },
     setSelectedBranch(state, action) {
       state.selectedBranch = action.payload;

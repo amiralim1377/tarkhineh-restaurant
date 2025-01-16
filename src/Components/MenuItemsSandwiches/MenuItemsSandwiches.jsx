@@ -13,7 +13,10 @@ function MenuItemsSandwiches() {
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         {Array.from({ length: 10 }, (_, i) => (
           <>
-            <div className="flex max-w-md flex-row items-center justify-between overflow-hidden rounded-lg border border-gray-300 md:max-w-3xl md:gap-2">
+            <div
+              key={i}
+              className="flex max-w-md flex-row items-center justify-between overflow-hidden rounded-lg border border-gray-300 md:max-w-3xl md:gap-2"
+            >
               <div className="w-full max-w-24 md:max-w-52">
                 <img
                   src="/menu/IranianFood/e6cffba4adc1773badfc393fdcd5331f.jpg"

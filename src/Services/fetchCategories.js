@@ -1,10 +1,14 @@
-// api/fetchCategories.js
+import supabase from "./supabase";
+
 export const fetchCategories = async (branchId) => {
-  const response = await fetch(
-    `http://your-api-base-url.com/branches/${branchId}/categories`,
-  );
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
+  const { data: categories, error } = await supabase
+    .from("categories")
+    .select("*")
+    .eq("branch_id", branchId);
+
+  if (error) {
+    throw new Error(error.message);
   }
-  return response.json();
+
+  return categories;
 };

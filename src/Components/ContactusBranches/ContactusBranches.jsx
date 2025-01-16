@@ -1,22 +1,36 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchBranches } from "../../Services/fetchBranches";
 import ContactusBranchesItem from "../ContactusBranchesItem/ContactusBranchesItem";
 import Loading from "../Loading/Loading";
+import { fetchBranches } from "../../Services/fetchBranches";
 
 function ContactusBranches() {
-  const { isLoading, error, data } = useQuery({
+  const {
+    data: branches,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["branches"],
     queryFn: fetchBranches,
   });
-  if (isLoading) return <Loading />;
 
-  if (error) return `An error has occurred: ${error.message}`;
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="mb-8 flex flex-col space-y-3">
-      {data.map((branches) => (
-        <ContactusBranchesItem branches={branches} key={branches.id} />
-      ))}
+      {branches && branches.length > 0 ? (
+        branches.map((branch) => (
+          <ContactusBranchesItem branches={branch} key={branch.id} />
+        ))
+      ) : (
+        <div>No branches available</div>
+      )}
     </div>
   );
 }
