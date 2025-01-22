@@ -5,6 +5,7 @@ import { setSelectedBranch } from "../../Slice/branchesSlice/branchesSlice";
 import { ExpandMore, ExpandLess } from "@mui/icons-material";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBranches } from "../../Services/fetchBranches";
+import { setCategory } from "../../Slice/categorySlice/categorySlice";
 
 function HeaderNavbarMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,7 @@ function HeaderNavbarMenu() {
 
   const handleBranchClick = (branch) => {
     dispatch(setSelectedBranch({ id: branch.id, name: branch.name }));
+    dispatch(setCategory(branch.default_category));
     setIsOpen(false);
   };
 

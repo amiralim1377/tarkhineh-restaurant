@@ -27,9 +27,7 @@ function EmptyShoppingCart() {
         </div>
 
         <div className="flex flex-row items-center">
-          <span className="font-bold text-green-primary-500">
-            ----------------
-          </span>
+          <span className="text-[#CBCBCB]">----------------</span>
           <span className="text-[#CBCBCB]">--------</span>
         </div>
 
@@ -46,14 +44,14 @@ function EmptyShoppingCart() {
       </div>
       <div className="mx-auto my-8 flex min-h-80 max-w-8xl flex-col items-center justify-center rounded-md border border-gray-300">
         <div className="relative flex w-full flex-col items-center justify-center">
-          <h2 className="absolute z-20 text-lg text-[#757575]">
+          <h2 className="absolute z-20 text-center text-sm text-[#757575] md:text-lg">
             شما در حال حاضر هیچ سفارشی ثبت نکرده‌اید!
           </h2>
           <img src="/icons/Empty page.svg" className="md:w-52" alt="" />
         </div>
         <button
           onClick={() => navigate("/menu")}
-          className="border border-green-primary-500 px-6 py-2 text-green-primary-500"
+          className="rounded-lg border border-green-primary-500 px-6 py-2 text-green-primary-500"
         >
           منوی رستوران
         </button>

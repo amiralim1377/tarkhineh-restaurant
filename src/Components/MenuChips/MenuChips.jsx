@@ -1,64 +1,70 @@
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../../Slice/categorySlice/categorySlice"; // تصحیح نام اکشن
-import { fetchSubcategories } from "../../Services/fetchSubcategories"; // فرض می‌کنیم این تابع ساب کتگوری‌ها رو واکشی می‌کنه
+import { setSubCategory } from "../../Slice/categorySlice/categorySlice";
+import { fetchSubcategoriesByBranchAndCategory } from "../../Services/fetchSubcategoriesByBranchAndCategory";
+import MenuChipsSearchInput from "../MenuChipsSearchInput/MenuChipsSearchInput";
 
 function MenuChips() {
   const dispatch = useDispatch();
+  const selectedBranchId = useSelector(
+    (state) => state.branches.selectedBranch.id,
+  );
   const selectedCategory = useSelector(
     (state) => state.category.selectedCategory,
   );
-  console.log(selectedCategory);
+  const selectedSubCategoryId = useSelector(
+    (state) => state.category.selectedSubCategory.id,
+  );
 
   const {
     data: subcategories,
-    isLoading: subcategoriesLoading,
-    isError: subcategoriesError,
-    error: subcategoriesErrorMessage,
+    isLoading,
+    isError,
+    error,
   } = useQuery({
-    queryKey: ["subcategories", selectedCategory], // اینجا ساب کتگوری‌ها بر اساس selectedCategory واکشی میشه
-    queryFn: fetchSubcategories,
-    enabled: !!selectedCategory, // فقط زمانی که یک کتگوری انتخاب شده باشه واکشی انجام بشه
+    queryKey: ["subcategories", selectedBranchId, selectedCategory],
+    queryFn: () =>
+      fetchSubcategoriesByBranchAndCategory(selectedBranchId, selectedCategory),
+    enabled: !!selectedBranchId && !!selectedCategory,
   });
 
-  const handleCategoryClick = (categoryId) => {
-    dispatch(setCategory(categoryId)); // تصحیح فراخوانی اکشن
+  const handleSubCategoryClick = (subCategory) => {
+    dispatch(
+      setSubCategory({
+        id: subCategory.id,
+        name: subCategory.name,
+        name_fa: subCategory.name_fa,
+      }),
+    );
   };
 
-  if (subcategoriesLoading) {
-    return <div>در حال بارگذاری...</div>;
-  }
-
-  if (subcategoriesError) {
-    return <div>خطا: {subcategoriesErrorMessage}</div>;
-  }
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="mx-auto mt-4 flex w-full max-w-md flex-col items-center justify-center gap-3 md:max-w-8xl md:flex-row">
-      <ul className="mx-auto flex w-full gap-3 text-nowrap p-2 text-[10px] md:max-w-3xl md:text-sm xl:text-base">
+    <div className="mx-auto mt-4 flex w-full max-w-md flex-col items-center justify-between gap-3 md:max-w-8xl md:flex-row">
+      <ul className="flex w-full gap-3 overflow-y-scroll p-2 text-center text-sm md:max-w-3xl md:overflow-visible xl:text-base">
         {subcategories?.map((subcategory) => (
           <li
             key={subcategory.id}
-            onClick={() => handleCategoryClick(subcategory.id)} // اضافه کردن کلیک برای انتخاب کتگوری
-            className="flex w-full items-center justify-center rounded-lg bg-[#EDEDED] p-2 text-center text-[#353535] md:max-w-36"
+            onClick={() => handleSubCategoryClick(subcategory)}
+            className={`flex w-full cursor-pointer items-center justify-center text-nowrap rounded-lg px-4 py-3 text-xs transition-all duration-300 ${
+              selectedSubCategoryId === subcategory.id
+                ? "bg-gray-200 font-bold text-green-primary-500"
+                : "bg-[#EDEDED] text-gray-700"
+            }`}
           >
             {subcategory.name_fa}
-            <img src="/icons/arrow-left-blakc.svg" className="h-3 w-3" alt="" />
+            <img
+              src="/icons/arrow-left-blakc.svg"
+              className="ml-2 h-3 w-3"
+              alt="Arrow"
+            />
           </li>
         ))}
       </ul>
-      <div className="relative w-full px-2">
-        <input
-          type="text"
-          className="w-full rounded-sm border border-gray-200 p-2 pl-14 focus:outline-none focus:ring-2 focus:ring-green-900"
-          placeholder="جست وجو"
-        />
-        <img
-          src="/icons/search-normal.svg"
-          alt="آیکون جست وجو"
-          className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
-        />
-      </div>
+
+      <MenuChipsSearchInput />
     </div>
   );
 }

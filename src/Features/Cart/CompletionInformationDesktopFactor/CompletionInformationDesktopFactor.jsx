@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import MobileCartListing from "../../../Components/MobileCartListing/MobileCartListing";
+import { useSelector } from "react-redux";
+import useCart from "../../../Components/React Custom Hooks/useCart/useCart";
 
 function CompletionInformationDesktopFactor() {
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart?.cart);
+  const { handleClearCart } = useCart();
   return (
     <div className="rounded-lg border border-gray-300 bg-white p-3">
       <div className="flex flex-col items-start space-y-4 divide-y">
@@ -9,30 +14,13 @@ function CompletionInformationDesktopFactor() {
           <div>
             <h4>سبد خرید(۴)</h4>
           </div>
-          <button>
+          <button onClick={() => handleClearCart()}>
             <img src="/icons/trash.svg" className="w-6" alt="" />
           </button>
         </div>
         <div className="max-h-44 w-full overflow-y-scroll rounded-md bg-[#F9F9F9] p-2">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <div
-              key={index}
-              className="mx-auto flex w-full flex-row items-center justify-between space-y-4 hover:bg-[#EDEDED]"
-            >
-              <div className="flex flex-col">
-                <h5 className="text-xs">پاستا سبزیجات</h5>
-                <h6 className="text-[10px]">۱۴۰٬۰۰۰تومان</h6>
-              </div>
-              <div className="flex w-full max-w-14 items-center justify-between">
-                <div>
-                  <img src="/icons/+.svg" alt="" />
-                </div>
-                <span>1</span>
-                <div>
-                  <img src="/icons/greentrash.svg" alt="" />
-                </div>
-              </div>
-            </div>
+          {cart.map((cartItem) => (
+            <MobileCartListing key={cartItem.id} cartItem={cartItem} />
           ))}
         </div>
         <div className="mt-2 flex w-full items-center justify-between py-2">

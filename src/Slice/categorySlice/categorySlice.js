@@ -1,8 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  selectedCategory: "main",
-  selectedSubCategory: "all",
+  selectedCategory: "",
+  selectedSubCategory: {
+    id: "",
+    name: "",
+    name_Fa: "",
+  },
 };
 
 const categorySlice = createSlice({
@@ -13,7 +17,11 @@ const categorySlice = createSlice({
       state.selectedCategory = action.payload;
     },
     setSubCategory: (state, action) => {
-      state.selectedSubCategory = action.payload;
+      state.selectedSubCategory = {
+        id: action.payload.id,
+        name: action.payload.name,
+        name_fa: action.payload.name_fa,
+      };
     },
   },
 });

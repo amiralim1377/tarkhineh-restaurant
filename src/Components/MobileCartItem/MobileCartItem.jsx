@@ -1,40 +1,32 @@
 import { useNavigate } from "react-router-dom";
+import MobileCartListing from "../MobileCartListing/MobileCartListing";
+import { useSelector } from "react-redux";
+import useCartCalculations from "../React Custom Hooks/useCartCalculations/useCartCalculations";
+import { formatPrice } from "../../helper_functions/formatPrice";
 
 function MobileCartItem() {
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart?.cart);
+  const { totalDiscount, totalPrice } = useCartCalculations();
+
   return (
     <div className="mt-4 rounded-lg border border-gray-300 bg-white p-3">
       <div className="flex flex-col items-start">
         <div className="max-h-44 w-full overflow-y-scroll rounded-md bg-[#F9F9F9] p-2">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <div
-              key={index}
-              className="mx-auto flex w-full flex-row items-center justify-between space-y-4 hover:bg-[#EDEDED]"
-            >
-              <div className="flex flex-col">
-                <h5 className="text-xs">پاستا سبزیجات</h5>
-                <h6 className="text-[10px]">۱۴۰٬۰۰۰تومان</h6>
-              </div>
-              <div className="flex w-full max-w-14 items-center justify-between">
-                <div>
-                  <img src="/icons/+.svg" alt="" />
-                </div>
-                <span>1</span>
-                <div>
-                  <img src="/icons/greentrash.svg" alt="" />
-                </div>
-              </div>
-            </div>
+          {cart.map((cartItem) => (
+            <MobileCartListing key={cartItem.id} cartItem={cartItem} />
           ))}
         </div>
         <div className="mt-2 flex w-full items-center justify-between">
           <h5 className="text-sm text-[#353535]">تخفیف محصولات</h5>
-          <div className="text-sm text-[#717171]">۶۳٬۰۰۰تومان</div>
+          <div className="text-sm text-[#717171]">
+            {formatPrice(totalDiscount)}
+          </div>
         </div>
         <div className="flex w-full flex-col">
           <div className="mt-2 flex w-full items-center justify-between">
             <h5 className="text-sm text-[#353535]">هزینه ارسال</h5>
-            <div className="text-sm text-[#717171]">۶۳٬۰۰۰تومان</div>
+            <div className="text-sm text-[#717171]">-</div>
           </div>
           <div className="mt-2 flex w-full flex-row items-start justify-between gap-4">
             <img
@@ -51,7 +43,7 @@ function MobileCartItem() {
         <div className="mt-2 flex w-full items-center justify-between">
           <h5 className="text-sm text-[#353535]"> مبلغ قابل پرداخت</h5>
           <div className="text-sm font-semibold text-green-primary-500">
-            ۵۴۲٬۰۰۰تومان
+            {formatPrice(totalPrice)}
           </div>
         </div>
         <div className="mt-3 w-full">

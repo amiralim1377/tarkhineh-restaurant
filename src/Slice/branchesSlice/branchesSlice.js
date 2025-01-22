@@ -3,8 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   branches: [],
   selectedBranch: {
-    id: "865cfad1-cf88-4900-bb56-f767b4f39aaf",
-    name: "ekbatan",
+    id: "",
+    name: "",
   },
 };
 
