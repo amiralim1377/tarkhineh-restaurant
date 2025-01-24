@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isOpen: false,
   selectedItem: null,
+  modalType: null,
 };
 
 const modalSlice = createSlice({
@@ -11,11 +12,13 @@ const modalSlice = createSlice({
   reducers: {
     openModal(state, action) {
       state.isOpen = true;
-      state.selectedItem = action.payload; // Set the selected item when opening the modal
+      state.selectedItem = action.payload.item; // مقدار سریالایزبل
+      state.modalType = action.payload.type;
     },
     closeModal(state) {
       state.isOpen = false;
-      state.selectedItem = null; // Clear the selected item when closing the modal
+      state.selectedItem = null;
+      state.modalType = null; // بازنشانی نوع مدال
     },
   },
 });

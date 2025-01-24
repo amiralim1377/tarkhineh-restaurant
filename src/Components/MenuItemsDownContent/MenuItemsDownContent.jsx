@@ -41,7 +41,7 @@ function MenuItemsDownContent({ item }) {
       <div className="flex w-full flex-row items-center justify-end gap-2">
         <button
           className="w-full max-w-24 text-nowrap rounded-lg bg-green-primary-500 p-2 text-[10px] text-white hover:opacity-90 md:max-w-40 md:text-base"
-          onClick={() => openModalHandler(item)}
+          onClick={() => openModalHandler("productDetails", item)}
         >
           جزئیات محصول
         </button>

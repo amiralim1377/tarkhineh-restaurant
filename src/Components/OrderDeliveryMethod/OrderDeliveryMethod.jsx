@@ -4,7 +4,6 @@ import { setDeliveryMethod } from "../../Slice/cartSlice/cartSlice";
 function OrderDeliveryMethod() {
   const dispatch = useDispatch();
   const deliveryMethod = useSelector((state) => state.cart?.deliveryMethod);
-  console.log(deliveryMethod);
 
   const handleDeliveryMethod = () => {
     dispatch(setDeliveryMethod("delivery"));
@@ -21,7 +20,7 @@ function OrderDeliveryMethod() {
           <div>
             <img src="/icons/truck.svg" className="md:w-6" alt="" />
           </div>
-          <h4 className="text-sm text-[#353535] md:text-base md:font-bold">
+          <h4 className="text-sm font-semibold text-[#353535] md:text-base md:font-bold">
             روش تحویل سفارش
           </h4>
         </div>

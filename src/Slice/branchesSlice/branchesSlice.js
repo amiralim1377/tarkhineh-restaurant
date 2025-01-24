@@ -5,6 +5,7 @@ const initialState = {
   selectedBranch: {
     id: "",
     name: "",
+    location: { lat: "", lng: "" },
   },
 };
 

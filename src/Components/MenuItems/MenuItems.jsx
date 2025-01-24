@@ -20,7 +20,8 @@ const MenuItems = () => {
     isError,
     error,
   } = useMenuItemsLogic();
-  const { selectedItem, isOpen } = useModal(); // استفاده از کاستوم هوک برای مدیریت باز و بسته بودن مدال
+  const { selectedItem, isOpen } = useModal();
+
   const menuItemsRedux = useSelector((state) => state.menu.items);
   const searchQuery = useSelector((state) => state.search);
   const filteredItems = _.filter(menuItemsRedux, (item) =>

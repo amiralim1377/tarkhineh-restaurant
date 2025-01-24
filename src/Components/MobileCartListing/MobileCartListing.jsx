@@ -11,7 +11,7 @@ function MobileCartListing({ cartItem }) {
   return (
     <div className="mx-auto flex w-full flex-row items-center justify-between space-y-4 hover:bg-[#EDEDED]">
       <div
-        onClick={() => openModalHandler(cartItem)}
+        onClick={() => openModalHandler("productDetails", cartItem)}
         className="flex cursor-pointer flex-col"
       >
         <h5 className="text-xs">{name_fa}</h5>

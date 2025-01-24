@@ -12,9 +12,7 @@ function DesktopCartListing({ cartItem }) {
     discount_percentage,
     ingredients,
     id,
-    availability_status,
   } = cartItem;
-  console.log(cartItem);
 
   const { handleIncrease, handleDecrease, handleRemoveFromCart } = useCart();
   const { selectedItem, isOpen, openModalHandler } = useModal(); // closeModalHandler اضافه شده است
@@ -31,7 +29,7 @@ function DesktopCartListing({ cartItem }) {
       <div className="w-full p-2">
         <div className="flex h-full flex-col justify-between p-2">
           <div
-            onClick={() => openModalHandler(cartItem)}
+            onClick={() => openModalHandler("productDetails", cartItem)}
             className="flex cursor-pointer flex-row items-center justify-between hover:opacity-65"
           >
             <h5 className="text-xl font-semibold text-[#353535]">{name_fa}</h5>

@@ -5,15 +5,8 @@ import { useState } from "react";
 import { Dialog } from "@headlessui/react";
 
 function ContactusBranchesItem({ branches }) {
-  const {
-    address,
-    name_fa,
-    name,
-    phone_number,
-    working_hours,
-    latitude,
-    longitude,
-  } = branches;
+  const { address, name_fa, phone_number, working_hours, latitude, longitude } =
+    branches;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

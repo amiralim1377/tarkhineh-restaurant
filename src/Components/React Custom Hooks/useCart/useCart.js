@@ -12,7 +12,7 @@ import useModal from "../useModal/useModal.js";
 const useCart = () => {
   const dispatch = useDispatch();
   const cartSlice = useSelector((state) => state.cart?.cart);
-  const { closeModalHandler, isOpen } = useModal();
+  const { closeModalHandler } = useModal();
 
   const handleAddToCart = (item) => {
     const filteredItem = omit(item, ["economic_subcategory_id", "priority"]);

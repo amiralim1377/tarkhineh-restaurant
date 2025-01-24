@@ -1,14 +1,6 @@
 import { Dialog } from "@headlessui/react";
 import "../../../CustomScrollbar.css";
-import MenuDetailsFackeComment from "../MenuDetailsFakeComment/MenuDetailsFakeComment";
 import { formatPrice } from "../../helper_functions/formatPrice";
-import {
-  addToCart,
-  decreaseItemQuantity,
-  deleteItem,
-  increaseItemQuantity,
-} from "../../Slice/cartSlice/cartSlice";
-import { omit } from "lodash";
 import useCart from "../React Custom Hooks/useCart/useCart";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import MenuDetailsFakeComment from "../MenuDetailsFakeComment/MenuDetailsFakeComment";
@@ -29,7 +21,6 @@ function MenuDetailsItems({ item }) {
     quantity,
     id,
   } = item;
-  console.log(quantity);
 
   const {
     handleAddToCart,
@@ -39,10 +30,13 @@ function MenuDetailsItems({ item }) {
     handleDecrease,
     handleRemoveFromCart,
   } = useCart();
-  const { closeModalHandler, isOpen } = useModal();
+  const { closeModalHandler, isOpen, modalType } = useModal();
 
   return (
-    <Dialog open={isOpen} onClose={closeModalHandler}>
+    <Dialog
+      open={isOpen && modalType === "productDetails"}
+      onClose={closeModalHandler}
+    >
       <Dialog.Panel className="fixed inset-0 z-50 mx-auto flex items-center justify-center overflow-y-auto bg-black bg-opacity-70 px-8 py-2">
         <div className="custom-scrollbar sticky flex max-h-[90vh] w-full max-w-3xl flex-col items-center overflow-y-auto rounded-lg bg-white p-4">
           <button

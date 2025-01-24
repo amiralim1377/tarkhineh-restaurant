@@ -1,31 +1,21 @@
-import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import AddressBox from "../AddressBox/AddressBox"; // نمایش آدرس‌های کاربر
-import NoAddressRegistered from "../NoAddressRegistered/NoAddressRegistered"; // نمایش پیام در صورت عدم وجود آدرس
-import Modal from "react-modal";
-
-Modal.setAppElement("#root"); // برای دسترسی‌پذیری مدال
+import AddressBox from "../AddressBox/AddressBox";
+import NoAddressRegistered from "../NoAddressRegistered/NoAddressRegistered";
+import SetOrderDeliveryAddresses from "../SetOrderDeliveryAddresses/SetOrderDeliveryAddresses";
+import useModal from "../React Custom Hooks/useModal/useModal";
 
 function OrderDeliveryAddresses() {
-  // دریافت وضعیت آدرس‌ها از Redux
   const isAddedAddress = useSelector((state) => state.cart?.address);
+  console.log(isAddedAddress);
 
-  // مدیریت وضعیت باز و بسته بودن مدال
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isOpen, openModalHandler, closeModalHandler, modalType } = useModal();
 
-  // باز کردن مدال
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  // بستن مدال
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+  const branchLocation = useSelector(
+    (state) => state.branches?.selectedBranch?.location,
+  );
 
   return (
     <div className="w-full rounded-md border border-gray-300 bg-white p-4">
-      {/* بخش سرآیند */}
       <div className="divide-y">
         <div className="flex flex-row items-center justify-between py-2">
           <div className="flex items-center">
@@ -34,10 +24,9 @@ function OrderDeliveryAddresses() {
               آدرس‌ها
             </h4>
           </div>
-          {/* دکمه افزودن آدرس */}
           <div
             className="flex cursor-pointer items-center gap-2"
-            onClick={openModal}
+            onClick={() => openModalHandler("addressSelection")} // استفاده از handler مدال باز کردن
           >
             <img
               src="/icons/+.svg"
@@ -48,37 +37,25 @@ function OrderDeliveryAddresses() {
           </div>
         </div>
 
-        {/* بخش نمایش آدرس‌ها */}
         <div className="py-4">
-          {isAddedAddress ? <AddressBox /> : <NoAddressRegistered />}
+          {isAddedAddress.length ? (
+            isAddedAddress.map((Address, index) => (
+              <AddressBox key={index} Address={Address} />
+            ))
+          ) : (
+            <NoAddressRegistered />
+          )}
         </div>
       </div>
 
-      {/* مدال افزودن آدرس */}
-      {/* <Modal
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        style={{
-          content: {
-            width: "90%",
-            maxWidth: "400px",
-            height: "auto",
-            margin: "auto",
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "8px",
-            padding: "20px",
-          },
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.5)",
-            zIndex: 1000,
-          },
-        }}
-      >
-        <SetOrderDeliveryAddresses closeModal={closeModal} />
-      </Modal> */}
+      {modalType === "addressSelection" && (
+        <SetOrderDeliveryAddresses
+          isOpen={isOpen}
+          closeModal={closeModalHandler}
+          branchLocation={branchLocation}
+          modalType={modalType}
+        />
+      )}
     </div>
   );
 }

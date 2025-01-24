@@ -7,7 +7,8 @@ const initialState = {
   deliveryMethod: "delivery",
   additionalComments: "",
   paymentMethod: "online",
-  address: "",
+  address: [],
+  deliveryCost: 0,
 };
 
 const cartSlice = createSlice({
@@ -74,7 +75,11 @@ const cartSlice = createSlice({
       state.paymentMethod = action.payload; // Set payment method
     },
     setAddress(state, action) {
-      state.address = action.payload; // Set delivery address
+      // Add the new address object to the address array
+      state.address.push(action.payload);
+    },
+    setDeliveryCost(state, action) {
+      state.deliveryCost = action.payload;
     },
   },
 });
@@ -135,6 +140,7 @@ export const {
   setAdditionalComments,
   setPaymentMethod,
   setAddress,
+  setDeliveryCost,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

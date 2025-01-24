@@ -22,13 +22,20 @@ function HeaderNavbarMenu() {
     queryKey: ["branches"],
     queryFn: fetchBranches,
   });
+  // console.log(branches);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleBranchClick = (branch) => {
-    dispatch(setSelectedBranch({ id: branch.id, name: branch.name }));
+    dispatch(
+      setSelectedBranch({
+        id: branch.id,
+        name: branch.name,
+        location: { lat: `${branch.latitude}`, lng: `${branch.longitude}` },
+      }),
+    );
     dispatch(setCategory(branch.default_category));
     setIsOpen(false);
   };
