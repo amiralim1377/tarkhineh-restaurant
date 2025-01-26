@@ -1,18 +1,23 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AddressBox from "../AddressBox/AddressBox";
 import NoAddressRegistered from "../NoAddressRegistered/NoAddressRegistered";
 import SetOrderDeliveryAddresses from "../SetOrderDeliveryAddresses/SetOrderDeliveryAddresses";
 import useModal from "../React Custom Hooks/useModal/useModal";
+import { setAddress } from "../../Slice/cartSlice/cartSlice";
 
 function OrderDeliveryAddresses() {
-  const isAddedAddress = useSelector((state) => state.cart?.address);
-  console.log(isAddedAddress);
+  const isAddedAddress = useSelector((state) => state.user?.addresses);
+  const dispatch = useDispatch();
 
   const { isOpen, openModalHandler, closeModalHandler, modalType } = useModal();
 
   const branchLocation = useSelector(
     (state) => state.branches?.selectedBranch?.location,
   );
+
+  const handleSetDeliveryAddresses = (Address) => {
+    dispatch(setAddress(Address));
+  };
 
   return (
     <div className="w-full rounded-md border border-gray-300 bg-white p-4">
@@ -40,7 +45,11 @@ function OrderDeliveryAddresses() {
         <div className="py-4">
           {isAddedAddress.length ? (
             isAddedAddress.map((Address, index) => (
-              <AddressBox key={index} Address={Address} />
+              <AddressBox
+                onClick={() => handleSetDeliveryAddresses(Address)}
+                key={index}
+                Address={Address}
+              />
             ))
           ) : (
             <NoAddressRegistered />

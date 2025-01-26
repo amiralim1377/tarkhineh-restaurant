@@ -7,6 +7,7 @@ function DesktopCartItemFactor() {
   const navigate = useNavigate();
   const { handleClearCart } = useCart();
   const { totalItems, totalDiscount, totalPrice } = useCartCalculations();
+  console.log(totalDiscount);
 
   return (
     <div className="w-full max-w-lg rounded-lg border border-gray-300 px-4 py-6">
@@ -53,7 +54,7 @@ function DesktopCartItemFactor() {
         <div className="flex flex-row items-center justify-between py-2">
           <h5 className="text-sm text-[#353535]">مبلغ قابل پرداخت</h5>
           <span className="text-base text-green-primary-500">
-            {formatPrice(totalPrice - totalDiscount)}
+            {formatPrice(totalPrice)}
           </span>
         </div>
         <div className="mt-3 w-full py-2">

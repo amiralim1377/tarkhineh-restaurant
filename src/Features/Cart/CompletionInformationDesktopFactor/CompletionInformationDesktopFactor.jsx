@@ -1,18 +1,29 @@
 import { useNavigate } from "react-router-dom";
-import MobileCartListing from "../../../Components/MobileCartListing/MobileCartListing";
 import { useSelector } from "react-redux";
+
+import MobileCartListing from "../../../Components/MobileCartListing/MobileCartListing";
 import useCart from "../../../Components/React Custom Hooks/useCart/useCart";
+import { formatPrice } from "../../../helper_functions/formatPrice";
+import CompletionInformationFactorDeliveryCost from "../../../Components/CompletionInformationFactorDeliveryCost/CompletionInformationFactorDeliveryCost";
+import FoodPrepTime from "../../../Components/FoodPrepTime/FoodPrepTime";
+import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
 
 function CompletionInformationDesktopFactor() {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart?.cart);
+  const OrderDeliveryMethod = useSelector(
+    (state) => state.cart?.deliveryMethod,
+  );
+
   const { handleClearCart } = useCart();
+  const { totalItems, totalDiscount, totalCost } = useCartCalculations();
+
   return (
-    <div className="rounded-lg border border-gray-300 bg-white p-3">
-      <div className="flex flex-col items-start space-y-4 divide-y">
+    <div className="w-full min-w-[512px] rounded-lg border border-gray-300 bg-white p-3">
+      <div className="flex w-full flex-col items-start justify-between space-y-4 divide-y">
         <div className="flex w-full flex-row items-center justify-between py-2">
           <div>
-            <h4>سبد خرید(۴)</h4>
+            <h4>سبد خرید({totalItems})</h4>
           </div>
           <button onClick={() => handleClearCart()}>
             <img src="/icons/trash.svg" className="w-6" alt="" />
@@ -23,31 +34,22 @@ function CompletionInformationDesktopFactor() {
             <MobileCartListing key={cartItem.id} cartItem={cartItem} />
           ))}
         </div>
-        <div className="mt-2 flex w-full items-center justify-between py-2">
-          <h5 className="text-sm text-[#353535]">تخفیف محصولات</h5>
-          <div className="text-sm text-[#717171]">۶۳٬۰۰۰تومان</div>
-        </div>
-        <div className="flex w-full flex-col">
-          <div className="mt-2 flex w-full items-center justify-between">
-            <h5 className="text-sm text-[#353535]">هزینه ارسال</h5>
-            <div className="text-sm text-[#717171]">۶۳٬۰۰۰تومان</div>
-          </div>
-          <div className="mt-2 flex w-full flex-row items-start justify-between gap-4">
-            <img
-              src="/public/icons/warning-2.svg"
-              className="object-cover"
-              alt=""
-            />
-            <p className="text-xs text-[#A9791C]">
-              هزینه ارسال در ادامه بر اساس آدرس، زمان و نحوه ارسال انتخابی شما
-              محاسبه و به این مبلغ اضافه خواهد شد.
-            </p>
+        <div className="mt-2 flex w-full flex-col justify-between space-y-2 py-2">
+          <FoodPrepTime />
+          <div className="flex w-full flex-row items-center justify-between">
+            <h5 className="text-sm text-[#353535]">تخفیف محصولات</h5>
+            <span className="text-sm text-[#717171]">
+              {formatPrice(totalDiscount)}
+            </span>
           </div>
         </div>
-        <div className="mt-2 flex w-full items-center justify-between">
+        {OrderDeliveryMethod === "delivery" && (
+          <CompletionInformationFactorDeliveryCost />
+        )}
+        <div className="flex w-full items-center justify-between py-2">
           <h5 className="text-sm text-[#353535]"> مبلغ قابل پرداخت</h5>
           <div className="text-sm font-semibold text-green-primary-500">
-            ۵۴۲٬۰۰۰تومان
+            {formatPrice(totalCost)}
           </div>
         </div>
 

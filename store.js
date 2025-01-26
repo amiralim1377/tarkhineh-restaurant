@@ -5,6 +5,7 @@ import searchReducer from "./src/Slice/searchSlice/searchSlice";
 import menuReducer from "./src/Slice/menuSlice/menuSlice";
 import cartReducer from "./src/Slice/cartSlice/cartSlice";
 import modalReducer from "./src/Slice/modalSlice/modalSlice";
+import userReducer from "./src/Slice/userSlice/userSlice";
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     search: searchReducer,
     cart: cartReducer,
     modal: modalReducer,
+    user: userReducer,
   },
 });
 

@@ -1,0 +1,52 @@
+/* استایل‌های سفارشی برای اعلان‌ها */
+.custom-toast {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  z-index: 9999; /* اطمینان از اینکه اعلان‌ها در بالای همه عناصر نمایش داده شوند */
+}
+
+.custom-toast .toast-close-button {
+  color: white;
+}
+
+/* مدیا کوئری برای ابعاد کوچکتر */
+@media (max-width: 425px) {
+  .custom-toast {
+    font-size: 12px;
+    padding: 10px;
+    z-index: 9999; /* اطمینان از نمایش اعلان‌ها در بالای همه عناصر */
+  }
+
+  .custom-toast .toast-close-button {
+    font-size: 12px;
+  }
+
+  .custom-toast-error {
+    background-color: #f44336;
+    color: white;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    z-index: 9999; /* اطمینان از اینکه اعلان‌ها در بالای همه عناصر نمایش داده شوند */
+  }
+
+  .custom-toast-error .toast-close-button {
+    color: white;
+  }
+
+  /* مدیا کوئری برای ابعاد کوچکتر */
+  @media (max-width: 425px) {
+    .custom-toast-error {
+      font-size: 12px;
+      padding: 10px;
+      z-index: 9999; /* اطمینان از نمایش اعلان‌ها در بالای همه عناصر */
+    }
+
+    .custom-toast-error .toast-close-button {
+      font-size: 12px;
+    }
+  }
+}

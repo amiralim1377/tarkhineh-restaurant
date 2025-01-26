@@ -1,25 +1,32 @@
+import { useDispatch } from "react-redux";
+import useFormhandler from "../React Custom Hooks/useFormhandler/useFormhandler";
+import {
+  Circle,
+  MapContainer,
+  Marker,
+  Polyline,
+  Popup,
+  TileLayer,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import { useEffect } from "react";
 import { Dialog } from "@headlessui/react";
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  useMapEvents,
-  Popup,
-  useMap,
-  Polyline,
-  Circle,
-} from "react-leaflet";
-import "leaflet/dist/leaflet.css";
-import { useDispatch } from "react-redux";
+import { editAddress } from "../../Slice/userSlice/userSlice";
 import useMapLocation from "../React Custom Hooks/useMapLocation/useMapLocation";
-import useFormhandler from "../React Custom Hooks/useFormhandler/useFormhandler";
-import { v4 as uuidv4 } from "uuid";
-import { addAddress } from "../../Slice/userSlice/userSlice";
 
-const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
+function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
+  const {
+    recipientNumber,
+    mapAddress,
+    exactAddress,
+    recipientName,
+    number,
+    id,
+  } = Address;
   const { register, handleSubmit, reset, errors, setValue, isDeliveryForMe } =
     useFormhandler();
+
   const {
     initialLocation,
     location,
@@ -31,10 +38,25 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    setValue("mapAddress", mapAddress);
+    setValue("exactAddress", exactAddress);
+    setValue("number", number);
+    setValue("recipientName", recipientName);
+    setValue("recipientNumber", recipientNumber);
+  }, [
+    mapAddress,
+    exactAddress,
+    number,
+    recipientName,
+    recipientNumber,
+    setValue,
+  ]);
+
   const onSubmit = (data) => {
     const filteredData = isDeliveryForMe
       ? {
-          id: uuidv4(),
+          id: id,
           mapAddress: data.mapAddress,
           number: data.number,
           exactAddress: data.exactAddress,
@@ -42,7 +64,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
           lng: location[1],
         }
       : {
-          id: uuidv4(),
+          id: id,
           mapAddress: data.mapAddress,
           recipientName: data.recipientName,
           recipientNumber: data.recipientNumber,
@@ -50,7 +72,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
           lat: location[0],
           lng: location[1],
         };
-    dispatch(addAddress(filteredData));
+    dispatch(editAddress({ id: id, updatedAddress: filteredData }));
     reset();
     setAddressState("");
     setLocation(initialLocation);
@@ -91,6 +113,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
       </>
     ) : null;
   };
+
   const ResetCenterView = ({ center }) => {
     const map = useMap();
     useEffect(() => {
@@ -99,10 +122,9 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
     }, [map, center]);
     return null;
   };
-
   return (
     <Dialog
-      open={isOpen && modalType === "addressSelection"}
+      open={isOpen && modalType === "addressEdit"}
       onClose={closeModal}
       className="relative z-50"
     >
@@ -110,7 +132,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
       <div className="fixed inset-0 flex flex-col items-center justify-center p-4">
         <Dialog.Panel className="w-full max-w-lg rounded-lg bg-white p-6">
           <Dialog.Title className="text-center text-lg font-bold text-gray-900">
-            ثبت آدرس
+            ویرایش آدرس
           </Dialog.Title>
           <Dialog.Description className="mb-4 cursor-pointer text-sm text-gray-500">
             <img
@@ -149,7 +171,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
             >
               <input
                 type="text"
-                value={address}
+                value={address || mapAddress}
                 readOnly
                 {...register("mapAddress", {
                   required: "برای ثبت سفارش ثبت لوکشین داخل نقشه الزامی است",
@@ -168,7 +190,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
                   type="checkbox"
                   {...register("isDeliveryForMe")}
                   className="border"
-                  checked={isDeliveryForMe === true}
+                  defaultChecked={isDeliveryForMe}
                 />
                 <label htmlFor="isDeliveryForMe" className="text-xs">
                   تحویل گیرنده خودم هستم.
@@ -178,6 +200,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
                 <>
                   <input
                     type="text"
+                    defaultValue={number}
                     placeholder="شماره همراه"
                     {...register("number", {
                       required: "ثبت شماره همراه برای ثبت سفارش الزامی است",
@@ -196,6 +219,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
                   )}
                   <input
                     type="text"
+                    defaultValue={exactAddress}
                     placeholder="آدرس دقیق شما"
                     {...register("exactAddress", {
                       required: "ثبت  آدرس برای ثبت سفارش الزامی است",
@@ -220,6 +244,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
                 <>
                   <input
                     type="text"
+                    defaultValue={recipientName}
                     placeholder="نام و نام خانوادگی تحویل گیرنده"
                     {...register("recipientName", {
                       required:
@@ -234,6 +259,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
                   )}
                   <input
                     type="text"
+                    defaultValue={recipientNumber}
                     placeholder="شماره همراه"
                     {...register("recipientNumber", {
                       required: "ثبت شماره همراه برای ثبت سفارش الزامی است",
@@ -250,32 +276,11 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
                       {errors.recipientNumber?.message}
                     </p>
                   )}
-                  <input
-                    type="text"
-                    placeholder="آدرس دقیق شما"
-                    {...register("exactAddress", {
-                      required: "ثبت  آدرس برای ثبت سفارش الزامی است",
-                      minLength: {
-                        value: 10,
-                        message: "آدرس باید حداقل شامل 10 کاراکتر باشد",
-                      },
-                      pattern: {
-                        value: /^[\u0600-\u06FF0-9\s]+$/,
-                        message: "آدرس باید به زبان فارسی وارد شود",
-                      },
-                    })}
-                    className={`w-full rounded-md border p-2 ${errors.exactAddress ? "border border-red-300" : "border border-green-primary-500"}`}
-                  />
-                  {errors.exactAddress && (
-                    <p role="alert" className="text-xs text-red-600">
-                      {errors.exactAddress?.message}
-                    </p>
-                  )}
                 </>
               )}
               <input
                 type="submit"
-                value="ثبت آدرس"
+                value="ثبت ویرایش آدرس"
                 className="rounded-lg bg-green-primary-500 px-5 py-2 text-white"
               />
             </form>
@@ -284,6 +289,6 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
       </div>
     </Dialog>
   );
-};
+}
 
-export default SetOrderDeliveryAddresses;
+export default UpdateAddressBox;
