@@ -34,42 +34,49 @@ function CompletionInformationFactorDeliveryCost() {
   const distance = useSelector((state) => state.cart?.distance);
 
   return (
-    <div className="flex w-full flex-col">
-      <div className="mt-2 flex w-full items-center justify-between">
-        <h5 className="text-sm text-[#353535]">هزینه ارسال</h5>
-        <span className="text-sm text-[#717171]">
-          {deliveryCost === 0 || OrderDeliveryMethod !== "delivery"
-            ? "فاقد هزینه"
-            : formatPrice(deliveryCost)}
-        </span>
+    <div className="flex w-full flex-col divide-y">
+      <div>
+        <div className="flex w-full items-center justify-between py-2">
+          <h5 className="text-sm text-[#353535]">هزینه ارسال</h5>
+          <span className="text-sm text-[#717171]">
+            {deliveryCost === 0 || OrderDeliveryMethod !== "delivery"
+              ? "فاقد هزینه"
+              : formatPrice(deliveryCost)}
+          </span>
+        </div>
+        <div className="flex w-full flex-row items-start justify-between gap-4 py-2">
+          <img
+            src="/public/icons/warning-2.svg"
+            className="object-cover"
+            alt=""
+          />
+          <p className="text-xs text-[#A9791C]">
+            هزینه ارسال برای مناطق تحت پوشش رستوران رایگان است. اگر خارج از
+            محدوده باشید، هزینه ارسال پس از ثبت آدرس تعیین می‌شود.
+          </p>
+        </div>
       </div>
-      <div className="mt-2 flex w-full flex-row items-start justify-between gap-4">
-        <img
-          src="/public/icons/warning-2.svg"
-          className="object-cover"
-          alt=""
-        />
-        <p className="text-xs text-[#A9791C]">
-          هزینه ارسال برای مناطق تحت پوشش رستوران رایگان است. اگر خارج از محدوده
-          باشید، هزینه ارسال پس از ثبت آدرس تعیین می‌شود.
-        </p>
-      </div>
+
       {distance > 0 && (
         <>
-          <div className="mt-2 flex w-full flex-row items-start justify-between gap-4">
-            <h5 className="text-sm text-[#353535]">فاصله از شعبه</h5>
-            <span className="text-sm text-[#717171]">
-              {distance.toFixed(2)} کیلومتر
-            </span>
-          </div>
-          <div className="mt-2 flex w-full flex-row items-start justify-between gap-4">
-            <h5 className="text-sm text-[#353535]">مدت زمان تقریبی ارسال</h5>
-            <span className="text-sm text-[#717171]">{totalTime} دقیقه</span>
+          <div>
+            <div className="flex w-full flex-row items-start justify-between gap-4 py-2">
+              <h5 className="text-sm text-[#353535]">فاصله از شعبه</h5>
+              <span className="text-sm text-[#717171]">
+                {distance.toFixed(2)} کیلومتر
+              </span>
+            </div>
+            <div className="flex w-full flex-row items-start justify-between gap-4 py-2">
+              <h5 className="text-sm text-[#353535]">
+                حداق زمان تقریبی دریافت
+              </h5>
+              <span className="text-sm text-[#717171]">{totalTime} دقیقه</span>
+            </div>
           </div>
         </>
       )}
-      <div className="mt-2 flex w-full items-center justify-between">
-        <h5 className="text-sm text-[#353535]">هزینه کل غذا ها</h5>
+      <div className="flex w-full items-center justify-between py-2">
+        <h5 className="text-sm text-[#353535]">هزینه کل سبد خرید</h5>
         <span className="text-sm text-[#717171]">
           {formatPrice(totalPrice)}
         </span>

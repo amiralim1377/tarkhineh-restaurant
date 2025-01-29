@@ -1,10 +1,17 @@
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "../store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Loading from "./Components/Loading/Loading";
+import { Toaster } from "react-hot-toast";
+import DashboardSelection from "./Components/DashboardSelection/DashboardSelection";
+import DashboardProfile from "./pages/DashboardProfile/DashboardProfile";
+import DashboardOrderTracking from "./pages/DashboardOrderTracking/DashboardOrderTracking";
+import DashboardFavorites from "./pages/DashboardFavorites/DashboardFavorites";
+import DashboardMyaddresses from "./pages/DashboardMyaddresses/DashboardMyaddresses";
+import DashboardExit from "./pages/DashboardExit/DashboardExit";
 
 // Lazy loading components
 const AppLayout = lazy(() => import("./Components/AppLayout/AppLayout"));
@@ -141,6 +148,56 @@ const router = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "dashboard",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <DashboardSelection />
+          </Suspense>
+        ),
+        children: [
+          {
+            path: "profile",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashboardProfile />
+              </Suspense>
+            ),
+          },
+          {
+            path: "ordertracking",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashboardOrderTracking />
+              </Suspense>
+            ),
+          },
+          {
+            path: "favorites",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashboardFavorites />
+              </Suspense>
+            ),
+          },
+          {
+            path: "myaddresses",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashboardMyaddresses />
+              </Suspense>
+            ),
+          },
+          {
+            path: "exit",
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashboardExit />
+              </Suspense>
+            ),
+          },
+        ],
+      },
     ],
   },
 ]);
@@ -150,6 +207,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
         <RouterProvider router={router} />
+        <Toaster position="top-right" reverseOrder={true} gutter={8} />
       </Provider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>

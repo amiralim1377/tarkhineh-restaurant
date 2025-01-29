@@ -15,7 +15,7 @@ function DesktopCartListing({ cartItem }) {
   } = cartItem;
 
   const { handleIncrease, handleDecrease, handleRemoveFromCart } = useCart();
-  const { selectedItem, isOpen, openModalHandler } = useModal(); // closeModalHandler اضافه شده است
+  const { selectedItem, isOpen, openModalHandler, modalType } = useModal(); // closeModalHandler اضافه شده است
 
   return (
     <div className="flex flex-row rounded-lg border hover:bg-[#EDEDED]">

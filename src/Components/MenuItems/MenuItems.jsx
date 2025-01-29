@@ -7,8 +7,10 @@ import MenuItemsContentUpWrapper from "../MenuItemsContentUpWrapper/MenuItemsCon
 import MenuItemsMiddleDesktopContent from "../MenuItemsMiddleDesktopContent/MenuItemsMiddleDesktopContent";
 import MenuItemsDownContent from "../MenuItemsDownContent/MenuItemsDownContent";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const MenuItems = () => {
+  const navigate = useNavigate();
   const {
     branchId,
     categoryId,
@@ -20,13 +22,19 @@ const MenuItems = () => {
     isError,
     error,
   } = useMenuItemsLogic();
-  const { selectedItem, isOpen } = useModal();
 
   const menuItemsRedux = useSelector((state) => state.menu.items);
   const searchQuery = useSelector((state) => state.search);
   const filteredItems = _.filter(menuItemsRedux, (item) =>
     searchQuery ? item.name_fa.includes(searchQuery) : true,
   );
+  const {
+    selectedItem,
+    isOpen,
+    modalType,
+    openModalHandler,
+    closeModalHandler,
+  } = useModal();
 
   return (
     <div className="mx-auto mb-10 max-w-8xl">
@@ -35,7 +43,10 @@ const MenuItems = () => {
           <h3 className="text-base font-bold leading-6 text-[#353535] md:text-2xl">
             {subcategoryName_Fa}
           </h3>
-          <button className="flex flex-row items-center gap-x-2 rounded-lg border border-green-primary-500 p-2 text-xs font-normal text-green-primary-500 md:text-base">
+          <button
+            onClick={() => navigate("/cart")}
+            className="flex flex-row items-center gap-x-2 rounded-lg border border-green-primary-500 p-2 text-xs font-normal text-green-primary-500 hover:opacity-75 md:text-base"
+          >
             <img src="/icons/shopping-cart.svg" alt="" />
             تکمیل خرید
           </button>
@@ -44,10 +55,14 @@ const MenuItems = () => {
           {filteredItems?.map((item) => (
             <div
               key={item.id}
-              className="flex flex-row items-center justify-between overflow-hidden rounded-lg border border-gray-300 md:max-w-3xl md:gap-2"
+              className="flex cursor-pointer flex-row items-center justify-between overflow-hidden rounded-lg border border-gray-300 bg-[#FBFBFB] hover:shadow-md md:max-w-3xl md:gap-2"
+              onClick={(e) => {
+                e.stopPropagation();
+                openModalHandler("productDetails", item);
+              }}
             >
               <MenuItemsImageWrapper item={item} />
-              <div className="flex h-full w-full flex-col justify-between space-y-2 p-2 md:max-w-lg">
+              <div className="flex h-full w-full flex-col justify-between space-y-2 p-2 hover:bg-white md:max-w-lg">
                 <MenuItemsContentUpWrapper item={item} />
                 <MenuItemsMiddleDesktopContent item={item} />
                 <MenuItemsDownContent item={item} />
@@ -56,7 +71,9 @@ const MenuItems = () => {
           ))}
         </div>
       </div>
-      {isOpen && <MenuDetailsItems item={selectedItem} />}
+      {isOpen && modalType === "productDetails" && (
+        <MenuDetailsItems item={selectedItem} />
+      )}
     </div>
   );
 };

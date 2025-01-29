@@ -21,16 +21,24 @@ function MobileCartListing({ cartItem }) {
         <img
           src="/icons/+.svg"
           onClick={() => handleIncrease(id)}
-          className="h-3 w-3"
+          className="h-3 w-3 cursor-pointer"
           alt=""
         />
 
         <span className="text-green-primary-500">{quantity}</span>
         <div onClick={() => handleDecrease(id)}>
           {quantity == 1 ? (
-            <img src="/icons/greentrash.svg" className="h-3 w-3" alt="" />
+            <img
+              src="/icons/greentrash.svg"
+              className="h-3 w-3 cursor-pointer"
+              alt=""
+            />
           ) : (
-            <img src="/public/icons/-.svg" className="h-3 w-3" alt="" />
+            <img
+              src="/public/icons/-.svg"
+              className="h-3 w-3 cursor-pointer"
+              alt=""
+            />
           )}
         </div>
       </div>

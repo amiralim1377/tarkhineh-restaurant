@@ -4,11 +4,11 @@ const initialState = {
   cart: [],
   totalPrice: 0,
   discountCode: null,
-  discountAmount: 0,
   extraDiscountAmount: 0,
   deliveryMethod: "delivery",
   additionalComments: "",
   paymentMethod: "online",
+  paymentGateway: null, // افزودن فیلد برای درگاه پرداخت
   address: null,
   deliveryCost: 0,
   deliveryTime: 0,
@@ -71,18 +71,17 @@ const cartSlice = createSlice({
       state.discountCode = action.payload.code;
       state.extraDiscountAmount = action.payload.amount;
     },
-    setDeliveryMethod(state, action) {
-      state.deliveryMethod = action.payload;
-    },
-    setAdditionalComments(state, action) {
-      state.additionalComments = action.payload;
-    },
     setPaymentMethod(state, action) {
       state.paymentMethod = action.payload;
     },
-    setAddress(state, action) {
-      if (state.deliveryMethod !== "in-person") {
-        state.address = action.payload;
+    setPaymentGateway(state, action) {
+      // افزودن ریدوسر برای تنظیم درگاه پرداخت
+      state.paymentGateway = action.payload;
+    },
+    setDeliveryMethod(state, action) {
+      state.deliveryMethod = action.payload;
+      if (action.payload === "in-person") {
+        state.address = null;
       }
     },
     setDeliveryCost(state, action) {
@@ -90,19 +89,28 @@ const cartSlice = createSlice({
     },
     setDeliveryTime(state, action) {
       state.deliveryTime = action.payload;
-      state.totalTime = state.deliveryTime + state.preparationTime; // Update totalTime when deliveryTime is set
+      state.totalTime = state.deliveryTime + state.preparationTime;
     },
     resetDeliveryTime(state) {
       state.deliveryTime = 0;
-      state.totalTime = state.deliveryTime + state.preparationTime; // Update totalTime when deliveryTime is reset
+      state.totalTime = state.deliveryTime + state.preparationTime;
+    },
+    setAddress(state, action) {
+      state.address = action.payload;
+    },
+    resetAddress(state) {
+      state.address = null;
+    },
+    setAdditionalComments(state, action) {
+      state.additionalComments = action.payload;
     },
     setPreparationTime(state, action) {
       state.preparationTime = action.payload;
-      state.totalTime = state.deliveryTime + state.preparationTime; // Update totalTime when preparationTime is set
+      state.totalTime = state.deliveryTime + state.preparationTime;
     },
     resetPreparationTime(state) {
       state.preparationTime = 0;
-      state.totalTime = state.deliveryTime + state.preparationTime; // Update totalTime when preparationTime is reset
+      state.totalTime = state.deliveryTime + state.preparationTime;
     },
     setDistance(state, action) {
       state.distance = action.payload;
@@ -176,10 +184,19 @@ const selectDistance = createSelector(
   (cartSlice) => cartSlice?.distance ?? 0,
 );
 
+const selectPaymentGateway = createSelector(
+  [selectCartSlice],
+  (cartSlice) => cartSlice?.paymentGateway ?? null,
+);
+
 export const addCommentThunk = (comment) => (dispatch) => {
   return new Promise((resolve, reject) => {
-    dispatch(setAdditionalComments(comment));
-    resolve("Success");
+    try {
+      dispatch(setAdditionalComments(comment));
+      resolve("Success");
+    } catch (error) {
+      reject("Error adding comment");
+    }
   });
 };
 
@@ -194,6 +211,7 @@ export {
   selectPreparationTime,
   selectTotalTime,
   selectDistance,
+  selectPaymentGateway,
 };
 
 export const {
@@ -205,8 +223,10 @@ export const {
   applyDiscount,
   setExtraDiscountAmount,
   setDeliveryMethod,
+  resetAddress,
   setAdditionalComments,
   setPaymentMethod,
+  setPaymentGateway,
   setAddress,
   setDeliveryCost,
   setDeliveryTime,

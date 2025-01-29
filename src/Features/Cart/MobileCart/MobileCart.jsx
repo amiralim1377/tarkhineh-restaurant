@@ -1,28 +1,30 @@
 import { useNavigate } from "react-router-dom";
-import MobileCartItem from "../../../Components/MobileCartItem/MobileCartItem";
-import useCart from "../../../Components/React Custom Hooks/useCart/useCart";
+import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
+import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
+import MobileCartFactor from "../MobileCartFactor/MobileCartFactor";
 
 function MobileCart() {
-  const { handleClearCart } = useCart();
+  const { isOpen, modalType, openModalHandler } = useModal();
   const navigate = useNavigate();
+
   return (
     <div className="p-2 md:hidden">
       <div className="p-2">
         <div className="flex flex-row items-baseline justify-between">
-          <img
-            src="/icons/Slider Arrow.svg"
-            onClick={() => navigate(-1)}
-            alt=""
-          />
-
+          <div onClick={() => navigate(-1)}>
+            <img
+              src="/icons/Slider Arrow.svg"
+              className="cursor-pointer"
+              alt=""
+            />
+          </div>
           <h3 className="text-base font-bold text-[#353535]">سبد خرید</h3>
-          <img
-            src="/icons/trash.svg"
-            onClick={() => handleClearCart()}
-            alt=""
-          />
+          <div onClick={() => openModalHandler("deleteAll")}>
+            <img src="/icons/trash.svg" className="cursor-pointer" alt="" />
+          </div>
+          {isOpen && modalType === "deleteAll" && <DeleteAllItem />}
         </div>
-        <MobileCartItem />
+        <MobileCartFactor />
       </div>
     </div>
   );

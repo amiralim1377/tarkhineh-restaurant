@@ -10,7 +10,7 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { editAddress } from "../../Slice/userSlice/userSlice";
 import useMapLocation from "../React Custom Hooks/useMapLocation/useMapLocation";
@@ -23,10 +23,11 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
     recipientName,
     number,
     id,
+    lat,
+    lng,
   } = Address;
   const { register, handleSubmit, reset, errors, setValue, isDeliveryForMe } =
     useFormhandler();
-
   const {
     initialLocation,
     location,
@@ -35,8 +36,8 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
     setAddressState,
     resetLocation,
   } = useMapLocation();
-
   const dispatch = useDispatch();
+  const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
     setValue("mapAddress", mapAddress);
@@ -44,6 +45,14 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
     setValue("number", number);
     setValue("recipientName", recipientName);
     setValue("recipientNumber", recipientNumber);
+    if (initialLoad) {
+      if (lat && lng) {
+        setLocation([lat, lng]);
+      } else {
+        setLocation(initialLocation);
+      }
+      setInitialLoad(false);
+    }
   }, [
     mapAddress,
     exactAddress,
@@ -51,6 +60,11 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
     recipientName,
     recipientNumber,
     setValue,
+    lat,
+    lng,
+    initialLocation,
+    setLocation,
+    initialLoad,
   ]);
 
   const onSubmit = (data) => {
@@ -101,6 +115,7 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
           .catch((error) => console.log(error));
       },
     });
+
     return location ? (
       <>
         <Marker position={location}>
@@ -117,11 +132,14 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
   const ResetCenterView = ({ center }) => {
     const map = useMap();
     useEffect(() => {
-      map.setView(center);
-      map.invalidateSize();
-    }, [map, center]);
+      if (center && center.length) {
+        map.setView(center);
+        map.invalidateSize();
+      }
+    }, [center]); // Only run when center changes
     return null;
   };
+
   return (
     <Dialog
       open={isOpen && modalType === "addressEdit"}
@@ -160,7 +178,6 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
                   fillColor="blue"
                   fillOpacity={0.1}
                 />
-
                 <LocationMarker />
                 <ResetCenterView center={location} />
               </MapContainer>

@@ -1,5 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import HeaderNavbarMenu from "../HeaderNavbarMenu/HeaderNavbarMenu";
+import useCartCalculations from "../React Custom Hooks/useCartCalculations/useCartCalculations";
+import HeaderNavLinkLeft from "../HeaderNavLinkLeft/HeaderNavLinkLeft";
 
 function Header() {
   return (
@@ -84,27 +86,8 @@ function Header() {
             </li>
           </ul>
         </nav>
-        <div className="flex flex-row items-center justify-between gap-2">
-          <div className="hidden rounded-md bg-[#E5F2E9] p-2 md:block">
-            <img
-              src="/icons/search-normal.svg"
-              alt="Search"
-              className="h-5 w-5"
-            />
-          </div>
-          <Link to="cart">
-            <div className="rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300">
-              <img
-                src="/icons/shopping-cart.svg"
-                alt="Shopping Cart"
-                className="h-5 w-5"
-              />
-            </div>
-          </Link>
-          <div className="rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300">
-            <img src="/icons/user2.svg" alt="User" className="h-5 w-5" />
-          </div>
-        </div>
+
+        <HeaderNavLinkLeft />
       </div>
     </header>
   );

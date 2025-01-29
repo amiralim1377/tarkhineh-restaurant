@@ -23,9 +23,9 @@ function OrderDeliveryAddresses() {
     <div className="w-full rounded-md border border-gray-300 bg-white p-4">
       <div className="divide-y">
         <div className="flex flex-row items-center justify-between py-2">
-          <div className="flex items-center">
+          <div className="flex items-center gap-1">
             <img src="/icons/location.svg" alt="Location Icon" />
-            <h4 className="ml-2 text-sm text-[#353535] md:text-base md:font-bold">
+            <h4 className="text-sm font-semibold text-[#353535] md:text-base md:font-bold">
               آدرس‌ها
             </h4>
           </div>

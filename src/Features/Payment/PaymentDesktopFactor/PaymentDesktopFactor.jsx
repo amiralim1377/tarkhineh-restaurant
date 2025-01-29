@@ -1,67 +1,121 @@
 import { useNavigate } from "react-router-dom";
+import MobileCartListing from "../../../Components/MobileCartListing/MobileCartListing";
+import { useSelector } from "react-redux";
+import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
+import { formatPrice } from "../../../helper_functions/formatPrice";
+import toast from "react-hot-toast";
+import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
+import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
 
 function PaymentDesktopFactor() {
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart?.cart);
+  const DeliveryMethod = useSelector((state) => state.cart?.deliveryMethod);
+  const paymentMethod = useSelector((state) => state.cart?.paymentMethod);
+  const selectedBank = useSelector((state) => state.cart?.paymentGateway);
+
+  const {
+    totalItems,
+    totalDiscount,
+    extraDiscount,
+    totalPrice,
+    deliveryCost,
+    totalCost,
+    totalTime,
+  } = useCartCalculations();
+
+  const notifyError = () =>
+    toast.error("لطفاً بر روی یک درگاه پرداخت کلیک کنید !", {
+      position: "top-left",
+      style: {
+        background: "#f44336",
+        color: "white",
+      },
+    });
+
+  const handleGoToPaymentGateway = () => {
+    if (!selectedBank) {
+      notifyError();
+    } else {
+      navigate("/successful-payment");
+    }
+  };
+
+  const {
+    selectedItem,
+    isOpen,
+    modalType,
+    openModalHandler,
+    closeModalHandler,
+  } = useModal();
+
   return (
     <div className="rounded-lg border border-gray-300 bg-white p-3">
       <div className="flex flex-col items-start space-y-4 divide-y">
         <div className="flex w-full flex-row items-center justify-between py-2">
           <div>
-            <h4>سبد خرید(۴)</h4>
+            <h4>سبد خرید({totalItems})</h4>
           </div>
-          <button>
-            <img src="/icons/trash.svg" className="w-6" alt="" />
+          <button onClick={() => openModalHandler("deleteAll")}>
+            <img src="/icons/trash.svg" className="w-6 cursor-pointer" alt="" />
           </button>
         </div>
         <div className="max-h-44 w-full overflow-y-scroll rounded-md bg-[#F9F9F9] p-2">
-          {Array.from({ length: 10 }).map((_, index) => (
-            <div
-              key={index}
-              className="mx-auto flex w-full flex-row items-center justify-between space-y-4 hover:bg-[#EDEDED]"
-            >
-              <div className="flex flex-col">
-                <h5 className="text-xs">پاستا سبزیجات</h5>
-                <h6 className="text-[10px]">۱۴۰٬۰۰۰تومان</h6>
-              </div>
-              <div className="flex w-full max-w-14 items-center justify-between">
-                <div>
-                  <img src="/icons/+.svg" alt="" />
-                </div>
-                <span>1</span>
-                <div>
-                  <img src="/icons/greentrash.svg" alt="" />
-                </div>
-              </div>
-            </div>
+          {cart?.map((cartItem) => (
+            <MobileCartListing key={cartItem.id} cartItem={cartItem} />
           ))}
         </div>
-        <div className="mt-2 flex w-full items-center justify-between">
+        <div className="flex w-full items-center justify-between py-2">
           <h5 className="text-sm text-[#353535]">تخفیف محصولات</h5>
-          <div className="text-sm text-[#717171]">۶۳٬۰۰۰تومان</div>
+          <span className="text-sm text-[#717171]">
+            {formatPrice(totalDiscount)}
+          </span>
         </div>
-        <div className="flex w-full flex-col">
-          <div className="mt-2 flex w-full items-center justify-between">
-            <h5 className="text-sm text-[#353535]">هزینه ارسال</h5>
-            <div className="text-sm text-[#717171]">۶۳٬۰۰۰تومان</div>
+        {extraDiscount != 0 && (
+          <div className="flex w-full items-center justify-between py-2">
+            <h5 className="text-sm text-[#353535]">تخفیف کد ارائه شده</h5>
+            <span className="text-sm text-[#717171]">
+              {formatPrice(extraDiscount)}
+            </span>
           </div>
-        </div>
-        <div className="mt-2 flex w-full items-center justify-between">
+        )}
+        {DeliveryMethod === "delivery" && (
+          <div className="flex w-full items-center justify-between py-2">
+            <h5 className="text-sm text-[#353535]">هزینه ارسال</h5>
+            <span className="text-sm text-[#717171]">
+              {formatPrice(deliveryCost)}
+            </span>
+          </div>
+        )}
+
+        <div className="flex w-full items-center justify-between py-2">
           <h5 className="text-sm text-[#353535]"> مبلغ قابل پرداخت</h5>
           <div className="text-sm font-semibold text-green-primary-500">
-            ۵۴۲٬۰۰۰تومان
+            {formatPrice(totalCost)}
           </div>
         </div>
 
         <div className="mt-3 w-full">
-          <button
-            onClick={() => navigate("/successful-payment")}
-            className="flex w-full flex-row items-center justify-center rounded-md bg-green-primary-500 p-2 text-xs text-white"
-          >
-            <img src="/icons/tick-circle.svg" alt="" />
-            تایید و پرداخت
-          </button>
+          {paymentMethod === "online" ? (
+            <button
+              onClick={handleGoToPaymentGateway}
+              className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
+            >
+              <img src="/icons/tick-circle.svg" alt="" />
+              تایید و پرداخت
+            </button>
+          ) : (
+            <button
+              onClick={() => navigate("/successful-payment")}
+              className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
+            >
+              <img src="/icons/tick-circle.svg" alt="" />
+              ثبت نهایی سفارش
+            </button>
+          )}
         </div>
       </div>
+      {isOpen && modalType === "deleteAll" && <DeleteAllItem />}
     </div>
   );
 }

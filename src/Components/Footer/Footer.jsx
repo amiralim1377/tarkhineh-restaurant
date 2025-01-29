@@ -1,8 +1,36 @@
 import { Link, useNavigate } from "react-router-dom";
 import FooterForm from "../FooterForm/FooterForm";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBranches } from "../../Services/fetchBranches";
+import { useDispatch } from "react-redux";
+import { setSelectedBranch } from "../../Slice/branchesSlice/branchesSlice";
+import { setCategory } from "../../Slice/categorySlice/categorySlice";
 
 function Footer() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const {
+    data: branches,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["branches"],
+    queryFn: fetchBranches,
+  });
+
+  const handleGoToBranchesPage = (branch) => {
+    dispatch(setSelectedBranch({ id: branch.id, name: branch.name }));
+    setSelectedBranch({
+      id: branch.id,
+      name: branch.name,
+      location: { lat: `${branch.latitude}`, lng: `${branch.longitude}` },
+    }),
+      dispatch(setCategory(branch.default_category));
+    navigate(`/branches/${branch.name}`);
+  };
+
   return (
     <footer className="bg-backgroundfooter flex w-full flex-row items-center justify-between md:py-16">
       <div className="mx-auto flex w-full max-w-8xl justify-between">
@@ -13,13 +41,13 @@ function Footer() {
             </h2>
             <div className="flex flex-col space-y-3 text-nowrap px-4">
               <ul className="flex flex-col space-y-3 text-xs font-medium text-white md:text-sm">
-                <li>
+                <li className="cursor-pointer hover:text-gray-400">
                   <Link to="FAQ">پرسش‌های متداول</Link>
                 </li>
-                <li>
+                <li className="cursor-pointer hover:text-gray-400">
                   <Link to="Rules">قوانین ترخینه</Link>
                 </li>
-                <li>
+                <li className="cursor-pointer hover:text-gray-400">
                   <Link to="Privacy">حریم خصوصی</Link>
                 </li>
               </ul>
@@ -34,18 +62,20 @@ function Footer() {
             </h2>
             <div className="flex flex-col space-y-3 px-4">
               <ul className="flex flex-col space-y-3 text-nowrap text-xs text-white md:text-sm">
-                <li>
-                  <Link to="/branches/ekbatan">شعبه اکباتان</Link>
-                </li>
-                <li>
-                  <Link to="/branches/chalous">شعبه چالوس</Link>
-                </li>
-                <li>
-                  <Link to="/branches/aghadsie">شعبه اقدسیه</Link>
-                </li>
-                <li>
-                  <Link to="/branches/vanak">شعبه ونک</Link>
-                </li>
+                {branches && branches.length > 0 ? (
+                  branches.map((branch) => (
+                    <li
+                      key={branch.id}
+                      className="cursor-pointer hover:text-gray-400"
+                    >
+                      <a onClick={() => handleGoToBranchesPage(branch)}>
+                        شعبه {branch.name_fa}
+                      </a>
+                    </li>
+                  ))
+                ) : (
+                  <div>No branches available</div>
+                )}
               </ul>
             </div>
           </div>

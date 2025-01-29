@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
-import MobileCartListing from "../../../Components/MobileCartListing/MobileCartListing";
-import useCart from "../../../Components/React Custom Hooks/useCart/useCart";
 import { formatPrice } from "../../../helper_functions/formatPrice";
+import MobileCartListing from "../../../Components/MobileCartListing/MobileCartListing";
 import CompletionInformationFactorDeliveryCost from "../../../Components/CompletionInformationFactorDeliveryCost/CompletionInformationFactorDeliveryCost";
 import FoodPrepTime from "../../../Components/FoodPrepTime/FoodPrepTime";
 import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
+import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
+import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
+import toast from "react-hot-toast";
 
 function CompletionInformationDesktopFactor() {
   const navigate = useNavigate();
@@ -14,18 +15,43 @@ function CompletionInformationDesktopFactor() {
   const OrderDeliveryMethod = useSelector(
     (state) => state.cart?.deliveryMethod,
   );
-
-  const { handleClearCart } = useCart();
+  const address = useSelector((state) => state.cart?.address);
+  const isSelectedAddress = Boolean(address);
+  const { isOpen, modalType, openModalHandler } = useModal();
   const { totalItems, totalDiscount, totalCost } = useCartCalculations();
 
+  const notifyErrorAddress = () =>
+    toast.error(" برای ارسال سفارش بر روی یک ادرس کلیک کرده", {
+      position: "top-left",
+      style: {
+        background: "#f44336",
+        color: "white",
+        minWidth: "500px",
+      },
+
+      className: "custom-toast-error",
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
+
+  const handleGoToPayment = () => {
+    if (OrderDeliveryMethod === "delivery" && !isSelectedAddress) {
+      notifyErrorAddress(); // Show error message if address is not selected
+    } else {
+      navigate("/payment"); // Navigate to payment page if conditions are met
+    }
+  };
+
   return (
-    <div className="w-full min-w-[512px] rounded-lg border border-gray-300 bg-white p-3">
-      <div className="flex w-full flex-col items-start justify-between space-y-4 divide-y">
-        <div className="flex w-full flex-row items-center justify-between py-2">
+    <div className="w-full min-w-[512px] rounded-lg border border-gray-300 bg-white px-4 py-4">
+      <div className="flex w-full flex-col items-start justify-between space-y-7 divide-y">
+        <div className="flex w-full flex-row items-center justify-between">
           <div>
             <h4>سبد خرید({totalItems})</h4>
           </div>
-          <button onClick={() => handleClearCart()}>
+          <button onClick={() => openModalHandler("deleteAll")}>
             <img src="/icons/trash.svg" className="w-6" alt="" />
           </button>
         </div>
@@ -34,7 +60,7 @@ function CompletionInformationDesktopFactor() {
             <MobileCartListing key={cartItem.id} cartItem={cartItem} />
           ))}
         </div>
-        <div className="mt-2 flex w-full flex-col justify-between space-y-2 py-2">
+        <div className="flex w-full flex-col justify-between space-y-2 py-2">
           <FoodPrepTime />
           <div className="flex w-full flex-row items-center justify-between">
             <h5 className="text-sm text-[#353535]">تخفیف محصولات</h5>
@@ -53,9 +79,9 @@ function CompletionInformationDesktopFactor() {
           </div>
         </div>
 
-        <div className="mt-3 w-full">
+        <div className="w-full py-2">
           <button
-            onClick={() => navigate("/payment")}
+            onClick={handleGoToPayment}
             className="flex w-full flex-row items-center justify-center rounded-md bg-green-primary-500 p-2 text-xs text-white"
           >
             <img src="/icons/tick-circle.svg" alt="" />
@@ -63,6 +89,7 @@ function CompletionInformationDesktopFactor() {
           </button>
         </div>
       </div>
+      {isOpen && modalType == "deleteAll" && <DeleteAllItem />}
     </div>
   );
 }

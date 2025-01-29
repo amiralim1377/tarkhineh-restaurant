@@ -2,26 +2,26 @@ import { useNavigate } from "react-router-dom";
 import useCart from "../../../Components/React Custom Hooks/useCart/useCart";
 import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
 import { formatPrice } from "../../../helper_functions/formatPrice";
+import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
+import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
 
 function DesktopCartItemFactor() {
   const navigate = useNavigate();
-  const { handleClearCart } = useCart();
   const { totalItems, totalDiscount, totalPrice } = useCartCalculations();
-  console.log(totalDiscount);
+  const { isOpen, modalType, openModalHandler } = useModal();
 
   return (
-    <div className="w-full max-w-lg rounded-lg border border-gray-300 px-4 py-6">
-      <div className="flex w-full flex-col space-y-5 divide-y-2 divide-gray-300">
+    <div className="w-full max-w-lg rounded-lg border border-gray-300 px-4 py-4">
+      <div className="flex w-full flex-col space-y-7 divide-y divide-gray-300">
         <div className="flex flex-row items-center justify-between">
           <div className="flex items-center">
             <h4 className="text-base text-[#353535]">سبد خرید</h4>
             <span className="text-[#353535]">({totalItems})</span>
           </div>
-          <div>
+          <div onClick={() => openModalHandler("deleteAll")}>
             <img
               src="/icons/trash.svg"
-              onClick={() => handleClearCart()}
-              className="w-6"
+              className="h-5 w-5 cursor-pointer"
               alt=""
             />
           </div>
@@ -72,6 +72,7 @@ function DesktopCartItemFactor() {
           </button>
         </div>
       </div>
+      {isOpen && modalType === "deleteAll" && <DeleteAllItem />}
     </div>
   );
 }

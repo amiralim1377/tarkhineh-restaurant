@@ -7,11 +7,11 @@ function MenuItemsContentUpWrapper({ item }) {
         {item.name_fa}
       </h3>
       {item.discount_percentage !== 0 && (
-        <div className="flex w-full max-w-20 items-center justify-between text-[10px] md:hidden">
-          <div className="w-full text-[#ADADAD] line-through">
+        <div className="flex w-full max-w-20 items-center justify-between gap-1 text-[10px] md:hidden">
+          <span className="w-full text-nowrap text-[#ADADAD] line-through">
             {formatPrice(item.price)}
-          </div>
-          <div className="flex w-6 items-center justify-center rounded-full bg-red-200 p-1 text-[9px] text-red-800">
+          </span>
+          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-red-200 p-1 text-center text-[9px] text-red-800">
             %{item.discount_percentage}
           </div>
         </div>
