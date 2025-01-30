@@ -1,9 +1,13 @@
-import { Outlet } from "react-router-dom";
+import DashboardDesktop from "../../Components/DashboardDesktop/DashboardDesktop";
+import DashboardMobile from "../../Components/DashboardMobile/DashboardMobile";
 
 function Dashboard() {
   return (
     <div>
-      <Outlet />
+      <>
+        <DashboardMobile />
+        <DashboardDesktop />
+      </>
     </div>
   );
 }

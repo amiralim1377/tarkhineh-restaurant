@@ -6,12 +6,13 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Loading from "./Components/Loading/Loading";
 import { Toaster } from "react-hot-toast";
-import DashboardSelection from "./Components/DashboardSelection/DashboardSelection";
+import Dahboard from "./pages/Dashboard/Dashboard";
 import DashboardProfile from "./pages/DashboardProfile/DashboardProfile";
 import DashboardOrderTracking from "./pages/DashboardOrderTracking/DashboardOrderTracking";
 import DashboardFavorites from "./pages/DashboardFavorites/DashboardFavorites";
 import DashboardMyaddresses from "./pages/DashboardMyaddresses/DashboardMyaddresses";
-import DashboardExit from "./pages/DashboardExit/DashboardExit";
+import Wrapper from "./pages/Wrapper/Wrapper";
+import LoginLogoutModal from "./Components/LoginLogoutModal/LoginLogoutModal";
 
 // Lazy loading components
 const AppLayout = lazy(() => import("./Components/AppLayout/AppLayout"));
@@ -152,10 +153,20 @@ const router = createBrowserRouter([
         path: "dashboard",
         element: (
           <Suspense fallback={<Loading />}>
-            <DashboardSelection />
+            <Wrapper>
+              <Dahboard />
+            </Wrapper>
           </Suspense>
         ),
         children: [
+          {
+            index: true, // مسیر پیش‌فرض
+            element: (
+              <Suspense fallback={<Loading />}>
+                <DashboardProfile />
+              </Suspense>
+            ),
+          },
           {
             path: "profile",
             element: (
@@ -185,14 +196,6 @@ const router = createBrowserRouter([
             element: (
               <Suspense fallback={<Loading />}>
                 <DashboardMyaddresses />
-              </Suspense>
-            ),
-          },
-          {
-            path: "exit",
-            element: (
-              <Suspense fallback={<Loading />}>
-                <DashboardExit />
               </Suspense>
             ),
           },

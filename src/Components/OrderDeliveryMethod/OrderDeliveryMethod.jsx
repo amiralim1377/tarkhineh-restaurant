@@ -38,11 +38,14 @@ function OrderDeliveryMethod() {
               id="delivery"
               value="delivery"
               name="deliveryMethod"
-              className="h-4 w-4 text-lime-600 accent-lime-600"
+              className="h-4 w-4 cursor-pointer text-lime-600 accent-lime-600"
               onChange={handleDeliveryMethodChange}
               checked={deliveryMethod === "delivery"}
             />
-            <label htmlFor="delivery" className="flex items-center">
+            <label
+              htmlFor="delivery"
+              className="flex cursor-pointer items-center"
+            >
               <h4
                 className={`text-[#717171] ${deliveryMethod === "delivery" ? "text-base font-semibold text-gray-600" : ""}`}
               >
@@ -61,11 +64,14 @@ function OrderDeliveryMethod() {
               id="inperson"
               value="in-person"
               name="deliveryMethod"
-              className="h-4 w-4 text-lime-600 accent-lime-600"
+              className="h-4 w-4 cursor-pointer text-lime-600 accent-lime-600"
               onChange={handleDeliveryMethodChange}
               checked={deliveryMethod === "in-person"}
             />
-            <label htmlFor="inperson" className="flex items-center">
+            <label
+              htmlFor="inperson"
+              className="flex cursor-pointer items-center"
+            >
               <h4
                 className={`text-[#717171] ${deliveryMethod === "in-person" ? "text-base font-semibold text-gray-600" : ""}`}
               >

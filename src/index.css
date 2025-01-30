@@ -199,6 +199,35 @@ body {
   box-shadow: 0 0 10px 2px #0074d9;
 }
 
+/* DASHBOARD ANIMATION */
+
+/* styles.css */
+
+/* styles.css */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.7s ease-in-out;
+}
+
+.transition-text {
+  transition: color 0.3s ease-in-out;
+}
+
+/* password input login=logout style */
+.large-dots-input {
+  @apply text-2xl; /* کلاس‌های تیلویند برای اندازه متن */
+  -webkit-text-security: disc; /* برای مرورگرهای وب‌کیت */
+  text-security: disc; /* فقط برای مرورگرهای وب‌کیت */
+}
+
 /* HAMBURGER MENU */
 
 .hamburger {

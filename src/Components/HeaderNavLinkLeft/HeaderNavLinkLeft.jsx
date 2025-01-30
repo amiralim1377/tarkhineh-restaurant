@@ -1,13 +1,15 @@
 import { NavLink, useLocation } from "react-router-dom";
 import useCartCalculations from "../React Custom Hooks/useCartCalculations/useCartCalculations";
 import { useEffect, useState } from "react";
+import useModal from "../React Custom Hooks/useModal/useModal";
+import LoginLogoutModal from "../LoginLogoutModal/LoginLogoutModal";
 
 function HeaderNavLinkLeft() {
   const { totalItems } = useCartCalculations();
-
   const location = useLocation();
   const [background, setBackground] = useState("bg-[#E5F2E9]");
   const [icon, setIcon] = useState("/icons/shopping-cart.svg");
+  const { isOpen, modalType, openModalHandler } = useModal();
 
   useEffect(() => {
     const activePaths = ["/cart", "/completion-of-information", "/payment"];
@@ -50,10 +52,14 @@ function HeaderNavLinkLeft() {
         )}
       </NavLink>
       <div className="rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300">
-        <NavLink to="dashboard">
-          <img src="/icons/user2.svg" alt="User" className="h-5 w-5" />
-        </NavLink>
+        <img
+          onClick={() => openModalHandler("LoginLogout")}
+          src="/icons/user2.svg"
+          alt="User"
+          className="h-5 w-5 cursor-pointer"
+        />
       </div>
+      {isOpen && modalType == "LoginLogout" && <LoginLogoutModal />}
     </div>
   );
 }
