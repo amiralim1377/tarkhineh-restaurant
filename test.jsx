@@ -7,8 +7,6 @@ import {
   useMapEvents,
   Popup,
   useMap,
-  Polyline,
-  Circle,
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { useDispatch } from "react-redux";
@@ -19,8 +17,10 @@ import { addAddress } from "../../Slice/userSlice/userSlice";
 import useModal from "../React Custom Hooks/useModal/useModal";
 
 const SetDashboardAddresses = () => {
-  const { register, handleSubmit, reset, errors, setValue, isDeliveryForMe } =
+  const { register, handleSubmit, reset, errors, setValue, watch } =
     useFormhandler();
+  const isDeliveryForMe = watch("isDeliveryForMe", true); // دریافت وضعیت چک‌باکس
+
   const {
     initialLocation,
     location,
@@ -57,7 +57,7 @@ const SetDashboardAddresses = () => {
     reset();
     setAddressState("");
     setLocation(initialLocation);
-    closeModal();
+    closeModalHandler();
   };
 
   const handleCloseModal = () => {
@@ -83,17 +83,12 @@ const SetDashboardAddresses = () => {
       },
     });
     return location ? (
-      <>
-        <Marker position={location}>
-          <Popup>{address}</Popup>
-        </Marker>
-        <Marker position={initialLocation}>
-          <Popup>موقعیت رستوران</Popup>
-        </Marker>
-        <Polyline positions={[initialLocation, location]} color="green" />
-      </>
+      <Marker position={location}>
+        <Popup>{address}</Popup>
+      </Marker>
     ) : null;
   };
+
   const ResetCenterView = ({ center }) => {
     const map = useMap();
     useEffect(() => {
@@ -106,7 +101,7 @@ const SetDashboardAddresses = () => {
   return (
     <Dialog
       open={isOpen && modalType === "addMap"}
-      onClose={closeModalHandler}
+      onClose={handleCloseModal}
       className="relative z-50"
     >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -115,14 +110,16 @@ const SetDashboardAddresses = () => {
           <Dialog.Title className="text-center text-lg font-bold text-gray-900">
             ثبت آدرس
           </Dialog.Title>
-          <Dialog.Description className="mb-4 cursor-pointer text-sm text-gray-500">
+          <div
+            className="mb-4 cursor-pointer text-sm text-gray-500"
+            onClick={handleCloseModal}
+          >
             <img
               src="/icons/arrow-left-blakc.svg"
               className="h-4 w-4 rotate-180"
-              onClick={handleCloseModal}
               alt=""
             />
-          </Dialog.Description>
+          </div>
           <div className="flex flex-col space-y-3">
             <div className="relative">
               <MapContainer
@@ -134,14 +131,6 @@ const SetDashboardAddresses = () => {
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'
                 />
-                <Circle
-                  center={initialLocation}
-                  radius={2000}
-                  color="blue"
-                  fillColor="blue"
-                  fillOpacity={0.1}
-                />
-
                 <LocationMarker />
                 <ResetCenterView center={location} />
               </MapContainer>
@@ -155,11 +144,14 @@ const SetDashboardAddresses = () => {
                 value={address}
                 readOnly
                 {...register("mapAddress", {
-                  required: "برای ثبت سفارش ثبت لوکشین داخل نقشه الزامی است",
+                  required: "برای ثبت سفارش ثبت لوکیشن داخل نقشه الزامی است",
                 })}
-                onChange={(e) => setAddressState(e.target.value)}
                 placeholder="با کلیک روی نقشه آدرس را مشخص کنید"
-                className={`w-full rounded-md border p-2 ${errors.mapAddress ? "border border-red-300" : "border border-green-primary-500"}`}
+                className={`w-full rounded-md border p-2 ${
+                  errors.mapAddress
+                    ? "border-red-300"
+                    : "border-green-primary-500"
+                }`}
               />
               {errors.mapAddress && (
                 <p role="alert" className="text-[10px] text-red-600">
@@ -171,7 +163,7 @@ const SetDashboardAddresses = () => {
                   type="checkbox"
                   {...register("isDeliveryForMe")}
                   className="border"
-                  checked={isDeliveryForMe === true}
+                  defaultChecked={true}
                 />
                 <label htmlFor="isDeliveryForMe" className="text-xs">
                   تحویل گیرنده خودم هستم.
@@ -190,7 +182,11 @@ const SetDashboardAddresses = () => {
                           "شماره موبایل باید 11 رقم باشد و با 09 شروع شود",
                       },
                     })}
-                    className={`w-full rounded-md border p-2 ${errors.number ? "border border-red-300" : "border border-green-primary-500"}`}
+                    className={`w-full rounded-md border p-2 ${
+                      errors.number
+                        ? "border-red-300"
+                        : "border-green-primary-500"
+                    }`}
                   />
                   {errors.number && (
                     <p role="alert" className="text-[10px] text-red-600">
@@ -201,7 +197,7 @@ const SetDashboardAddresses = () => {
                     type="text"
                     placeholder="آدرس دقیق شما"
                     {...register("exactAddress", {
-                      required: "ثبت  آدرس برای ثبت سفارش الزامی است",
+                      required: "ثبت آدرس برای ثبت سفارش الزامی است",
                       pattern: {
                         value: /^[\u0600-\u06FF0-9\s]+$/,
                         message: "آدرس باید به زبان فارسی وارد شود",
@@ -211,7 +207,11 @@ const SetDashboardAddresses = () => {
                         message: "آدرس باید حداقل شامل 10 کاراکتر باشد",
                       },
                     })}
-                    className={`w-full rounded-md border p-2 ${errors.exactAddress ? "border border-red-300" : "border border-green-primary-500"}`}
+                    className={`w-full rounded-md border p-2 ${
+                      errors.exactAddress
+                        ? "border-red-300"
+                        : "border-green-primary-500"
+                    }`}
                   />
                   {errors.exactAddress && (
                     <p role="alert" className="text-xs text-red-600">
@@ -226,9 +226,13 @@ const SetDashboardAddresses = () => {
                     placeholder="نام و نام خانوادگی تحویل گیرنده"
                     {...register("recipientName", {
                       required:
-                        "ثبت نام و نام خانوداگی تحویل گیرنده الزامی است",
+                        "ثبت نام و نام خانوادگی تحویل گیرنده الزامی است",
                     })}
-                    className={`w-full rounded-md border p-2 ${errors.recipientName ? "border border-red-300" : "border border-green-primary-500"}`}
+                    className={`w-full rounded-md border p-2 ${
+                      errors.recipientName
+                        ? "border-red-300"
+                        : "border-green-primary-500"
+                    }`}
                   />
                   {errors.recipientName && (
                     <p role="alert" className="text-[10px] text-red-600">
@@ -246,7 +250,11 @@ const SetDashboardAddresses = () => {
                           "شماره موبایل باید 11 رقم باشد و با 09 شروع شود",
                       },
                     })}
-                    className={`w-full rounded-md border p-2 ${errors.number ? "border border-red-300" : "border border-green-primary-500"}`}
+                    className={`w-full rounded-md border p-2 ${
+                      errors.recipientNumber
+                        ? "border-red-300"
+                        : "border-green-primary-500"
+                    }`}
                   />
                   {errors.recipientNumber && (
                     <p role="alert" className="text-[10px] text-red-600">
@@ -255,9 +263,9 @@ const SetDashboardAddresses = () => {
                   )}
                   <input
                     type="text"
-                    placeholder="آدرس دقیق شما"
+                    placeholder="آدرس دقیق تحویل گیرنده"
                     {...register("exactAddress", {
-                      required: "ثبت  آدرس برای ثبت سفارش الزامی است",
+                      required: "ثبت آدرس برای ثبت سفارش الزامی است",
                       minLength: {
                         value: 10,
                         message: "آدرس باید حداقل شامل 10 کاراکتر باشد",
@@ -267,7 +275,11 @@ const SetDashboardAddresses = () => {
                         message: "آدرس باید به زبان فارسی وارد شود",
                       },
                     })}
-                    className={`w-full rounded-md border p-2 ${errors.exactAddress ? "border border-red-300" : "border border-green-primary-500"}`}
+                    className={`w-full rounded-md border p-2 ${
+                      errors.exactAddress
+                        ? "border-red-300"
+                        : "border-green-primary-500"
+                    }`}
                   />
                   {errors.exactAddress && (
                     <p role="alert" className="text-xs text-red-600">

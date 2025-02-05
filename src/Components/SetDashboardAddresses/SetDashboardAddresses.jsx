@@ -15,11 +15,15 @@ import useFormhandler from "../React Custom Hooks/useFormhandler/useFormhandler"
 import { v4 as uuidv4 } from "uuid";
 import { addAddress } from "../../Slice/userSlice/userSlice";
 import useModal from "../React Custom Hooks/useModal/useModal";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import supabase from "../../Services/supabase";
 
 const SetDashboardAddresses = () => {
+  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
   const { register, handleSubmit, reset, errors, setValue, watch } =
     useFormhandler();
-  const isDeliveryForMe = watch("isDeliveryForMe", true); // دریافت وضعیت چک‌باکس
+  const isDeliveryForMe = watch("isDeliveryForMe", true);
 
   const {
     initialLocation,
@@ -32,27 +36,55 @@ const SetDashboardAddresses = () => {
 
   const { isOpen, modalType, closeModalHandler } = useModal();
 
-  const dispatch = useDispatch();
+  const mutation = useMutation({
+    mutationFn: async (newAddress) => {
+      const { data, error } = await supabase
+        .from("addresses")
+        .insert([newAddress]);
 
-  const onSubmit = (data) => {
+      if (error) {
+        throw error;
+      }
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log("Address added successfully:", data);
+      queryClient.invalidateQueries("addresses");
+    },
+    onError: (error) => {
+      console.error("Error adding address:", error.message);
+    },
+  });
+
+  const onSubmit = async (data) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     const filteredData = isDeliveryForMe
       ? {
           id: uuidv4(),
-          mapAddress: data.mapAddress,
-          number: data.number,
-          exactAddress: data.exactAddress,
-          lat: location[0],
-          lng: location[1],
+          customer_id: user.id,
+          mapaddress: data.mapAddress,
+          user_phone_number: data.number,
+          exactaddress: data.exactAddress,
+          latitude: location[0],
+          longitude: location[1],
+          is_recipient_self: true,
         }
       : {
           id: uuidv4(),
-          mapAddress: data.mapAddress,
-          recipientName: data.recipientName,
-          recipientNumber: data.recipientNumber,
-          exactAddress: data.exactAddress,
-          lat: location[0],
-          lng: location[1],
+          customer_id: user.id,
+          mapaddress: data.mapAddress,
+          recipient_firstname: data.recipientName,
+          recipient_lastname: data.recipientLastname,
+          recipient_phone_number: data.recipientNumber,
+          exactaddress: data.exactAddress,
+          latitude: location[0],
+          longitude: location[1],
+          is_recipient_self: false,
         };
+    mutation.mutate(filteredData);
     dispatch(addAddress(filteredData));
     reset();
     setAddressState("");

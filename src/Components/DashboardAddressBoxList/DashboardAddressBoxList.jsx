@@ -7,7 +7,7 @@ function DashboardAddressBoxList({ address }) {
   const dispatch = useDispatch();
   const { openModalHandler, isOpen, modalType, closeModalHandler } = useModal();
 
-  const { recipientNumber, exactAddress, recipientName, number, id } = address;
+  const { recipientNumber, exactaddress, recipientName, number, id } = address;
 
   const handleDeleteAddress = (id) => {
     dispatch(deleteAddress(id));
@@ -17,7 +17,7 @@ function DashboardAddressBoxList({ address }) {
     <div className="w-full cursor-pointer rounded-md border border-gray-300 bg-[#F9F9F9] p-2 hover:bg-gray-200/50">
       <div className="flex flex-row items-center justify-between">
         <div className="max-w-52 md:w-full md:max-w-2xl">
-          <p className="text-xs text-[#353535] md:text-sm">{exactAddress} </p>
+          <p className="text-xs text-[#353535] md:text-sm">{exactaddress} </p>
         </div>
         <div className="flex items-center gap-2">
           <div onClick={() => handleDeleteAddress(id)}>
@@ -40,7 +40,7 @@ function DashboardAddressBoxList({ address }) {
       </div>
       {modalType == "addressEdit" && (
         <UpdateAddressBox
-          Address={Address}
+          Address={address}
           isOpen={isOpen}
           modalType={modalType}
           closeModal={closeModalHandler}

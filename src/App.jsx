@@ -13,6 +13,7 @@ import DashboardFavorites from "./pages/DashboardFavorites/DashboardFavorites";
 import DashboardMyaddresses from "./pages/DashboardMyaddresses/DashboardMyaddresses";
 import Wrapper from "./pages/Wrapper/Wrapper";
 import LoginLogoutModal from "./Components/LoginLogoutModal/LoginLogoutModal";
+import DashboardUpdatePassword from "./Components/DashboardUpdatePassword/DashboardUpdatePassword";
 
 // Lazy loading components
 const AppLayout = lazy(() => import("./Components/AppLayout/AppLayout"));
@@ -146,6 +147,14 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <Privacy />
+          </Suspense>
+        ),
+      },
+      {
+        path: "profileupdate",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <DashboardUpdatePassword />
           </Suspense>
         ),
       },

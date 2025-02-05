@@ -2,8 +2,13 @@ import { useNavigate } from "react-router-dom";
 import DashboardAddressBoxList from "../DashboardAddressBoxList/DashboardAddressBoxList";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import SetDashboardAddresses from "../SetDashboardAddresses/SetDashboardAddresses";
+import { fetchAddresses } from "../../Services/fetchAddresses";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAddresses } from "../../Slice/userSlice/userSlice";
 
-function DashboardMyaddressesList({ addresses }) {
+function DashboardMyaddressesList({ addressState }) {
   const { isOpen, modalType, openModalHandler } = useModal();
   const navigate = useNavigate();
 
@@ -23,9 +28,10 @@ function DashboardMyaddressesList({ addresses }) {
         </div>
       </div>
       <div className="relative flex flex-col items-center justify-center space-y-8 rounded-lg border border-gray-300 px-2 py-5">
-        {addresses.map((address, index) => (
-          <DashboardAddressBoxList key={index} address={address} />
-        ))}
+        {addressState.length > 0 &&
+          addressState.map((address) => (
+            <DashboardAddressBoxList key={address.id} address={address} />
+          ))}
         <button
           onClick={() => openModalHandler("addMap")}
           className="relative cursor-pointer rounded-lg border border-green-primary-500 px-4 py-2 text-green-primary-500"

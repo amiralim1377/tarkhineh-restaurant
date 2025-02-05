@@ -17,18 +17,18 @@ function DashboardSignupForm({ setLoginFalse }) {
   const password = watch("password");
 
   const onSubmit = async (formData) => {
-    const { error } = await supabase.auth.signUp({
+    const { error, data } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
       options: {
         data: {
-          phonenumber: formData.phonenumber,
-          fullname: formData.fullname,
-          avatar: formData.avatar,
-          bio: formData.bio,
+          phone: formData.phonenumber,
+          displayname: formData.fullname,
         },
       },
     });
+    console.log(error);
+
     if (error) {
       setErrorMessage(error.message);
       setSuccessMessage(null);
@@ -68,6 +68,7 @@ function DashboardSignupForm({ setLoginFalse }) {
           <input
             type="text"
             placeholder="شماره تماس برای ثبت سفارش"
+            autoComplete="phonenumber"
             className="w-full rounded-lg border-2 border-gray-300 p-2"
             {...register("phonenumber", {
               required: "ثبت شماره همراه برای ثبت سفارش الزامی است", // Phone number is required for order registration
@@ -86,6 +87,7 @@ function DashboardSignupForm({ setLoginFalse }) {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="رمز عبور"
+              autoComplete="new-password"
               className="relative w-full rounded-lg border-2 border-gray-300 p-2 font-bold placeholder:font-medium"
               {...register("password", {
                 required: "رمز عبور الزامی است", // Password is required
@@ -121,6 +123,7 @@ function DashboardSignupForm({ setLoginFalse }) {
           <input
             type="password"
             placeholder="تکرار رمز عبور"
+            autoComplete="new-password"
             className="w-full rounded-lg border-2 border-gray-300 p-2 font-bold placeholder:font-medium"
             {...register("confirmPassword", {
               validate: (value) =>
@@ -143,7 +146,7 @@ function DashboardSignupForm({ setLoginFalse }) {
               type="submit"
               className="rounded-md bg-green-primary-500 px-6 py-3 text-white"
             >
-              ثبت نام
+              ثبت نام در ترخینه
             </button>
           </div>
         </form>

@@ -28,8 +28,11 @@ const userSlice = createSlice({
     addFavorite: (state, action) => {
       state.favorites.push(action.payload);
     },
+    setAddresses: (state, action) => {
+      state.addresses = action.payload; // کل لیست آدرس‌ها را جایگزین می‌کند
+    },
     addAddress: (state, action) => {
-      state.addresses.push(action.payload);
+      state.addresses.push(action.payload); // یک آدرس جدید اضافه می‌کند
     },
     deleteAddress: (state, action) => {
       state.addresses = state.addresses.filter(
@@ -55,6 +58,7 @@ export const {
   setPhoneNumber,
   addOrder,
   addFavorite,
+  setAddresses,
   addAddress,
   deleteAddress,
   editAddress,
