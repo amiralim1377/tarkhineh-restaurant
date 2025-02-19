@@ -28,7 +28,7 @@ function HeaderNavbarMenu() {
   };
 
   const handleBranchClick = (branch) => {
-    dispatch(setSelectedBranch({ id: branch.id, name: branch.name }));
+    dispatch(setSelectedBranch({ id: branch.branch_id, name: branch.name }));
     dispatch(setCategory(branch.default_category));
     setIsOpen(false);
   };
@@ -65,13 +65,13 @@ function HeaderNavbarMenu() {
         <ul className="absolute right-0 z-50 mt-2 w-48 rounded-lg border border-gray-300 bg-white shadow-lg">
           {branches &&
             branches
-              .filter((branch) => branch.id !== selectedBranch.id)
+              .filter((branch) => branch.branch_id !== selectedBranch.id)
               .map((branch) => (
-                <li className="border-b border-gray-300" key={branch.id}>
+                <li className="border-b border-gray-300" key={branch.branch_id}>
                   <NavLink
                     onClick={() => handleBranchClick(branch)}
                     className={({ isActive }) =>
-                      selectedBranch.id === branch.id
+                      selectedBranch.id === branch.branch_id
                         ? "block w-full py-2 font-bold text-green-primary-500 transition-all duration-300 md:px-4"
                         : "block w-full px-4 py-2 transition-all duration-300 hover:bg-gray-100"
                     }

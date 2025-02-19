@@ -1,16 +1,13 @@
-import supabase from "../Services/supabase";
+import supabase from "./supabase";
 
 const getUserId = async () => {
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
+  const { data, error } = await supabase.auth.getUser();
 
-  if (error) {
-    throw new Error(error.message);
+  if (error || !data.user) {
+    return null;
   }
 
-  return user.id;
+  return data.user.id;
 };
 
 export default getUserId;

@@ -1,6 +1,45 @@
+import { useEffect, useState } from "react";
 import { formatPrice } from "../../helper_functions/formatPrice";
+import useUserData from "../React Custom Hooks/useUserData/useUserData";
+import useFavorites from "../React Custom Hooks/useFavorites/useFavorites";
 
 function MenuItemsContentUpWrapper({ item }) {
+  const { branch_id, category_id, id, subcategory_id } = item;
+  const { userId, isLoggedIn } = useUserData();
+
+  const { favorites, addToFavorites, removeFromFavorites, isLoading } =
+    useFavorites(userId);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (userId && isLoggedIn && !isLoading) {
+      const isFav = favorites?.some((fav) => fav.food_id === id);
+      setIsFavorite(isFav);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [favorites, userId, id, isLoading, isLoggedIn]);
+
+  const handleFavoriteToggle = async () => {
+    if (isFavorite) {
+      await removeFromFavorites({ userId, foodId: id });
+      setIsFavorite(false);
+    } else {
+      const success = await addToFavorites({
+        userId,
+        foodId: id,
+        branchId: branch_id,
+        categoryId: category_id,
+        subcategoryId: subcategory_id,
+      });
+
+      if (success) {
+        setIsFavorite(true);
+      }
+    }
+  };
+
   return (
     <div className="flex flex-row items-center justify-between">
       <h3 className="text-xs text-[#353535] md:text-base md:font-semibold lg:text-xl">
@@ -16,8 +55,26 @@ function MenuItemsContentUpWrapper({ item }) {
           </div>
         </div>
       )}
-      <div className="hidden md:block">
-        <img src="/icons/heart.svg" className="h-6 w-6" alt="Heart" />
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          handleFavoriteToggle();
+        }}
+        className=""
+      >
+        {isFavorite ? (
+          <img
+            src="/icons/heart-bold.svg"
+            className="h-4 w-4 md:h-6 md:w-6"
+            alt="Heart"
+          />
+        ) : (
+          <img
+            src="/icons/heart.svg"
+            className="h-4 w-4 md:h-6 md:w-6"
+            alt="Heart"
+          />
+        )}
       </div>
     </div>
   );

@@ -1,18 +1,42 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import UpdateAddressBox from "../UpdateAddressBox/UpdateAddressBox";
 import useModal from "../React Custom Hooks/useModal/useModal";
-import { deleteAddress } from "../../Slice/userSlice/userSlice";
+import useUserData from "../React Custom Hooks/useUserData/useUserData";
+import DeleteAddress from "../DeleteAddress/DeleteAddress";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 function AddressBox({ Address, onClick }) {
-  const dispatch = useDispatch();
-  const { recipientNumber, exactAddress, recipientName, number, id } = Address;
+  const [seletedDeleteAdressId, setSeletedDeleteAdressId] = useState();
+  const [seletedEditAdressId, setSeletedEditAdressId] = useState();
+
+  const {
+    recipient_phone_number: recipientNumber,
+    exactaddress: exactAddress,
+    recipient_name: recipientName,
+    user_phone_number: number,
+    id,
+  } = Address;
+  const {
+    userData: { firstname, lastname },
+  } = useUserData();
+
   const AddressSliceId = useSelector((state) => state.cart?.address?.id);
 
-  const handleDeleteAddress = (id) => {
-    dispatch(deleteAddress(id));
+  const { openModalHandler, isOpen, modalType, selectedItem, modalId } =
+    useModal();
+
+  const handleDeleteAddress = () => {
+    const newModalId = uuidv4();
+    setSeletedDeleteAdressId(newModalId);
+    openModalHandler("DeleteAddress", Address, newModalId);
   };
 
-  const { openModalHandler, isOpen, modalType, closeModalHandler } = useModal();
+  const handleEditAddress = () => {
+    const newModalId = uuidv4();
+    setSeletedEditAdressId(newModalId);
+    openModalHandler("addressEdit", Address, newModalId);
+  };
 
   return (
     <div
@@ -24,17 +48,27 @@ function AddressBox({ Address, onClick }) {
           <p className="text-xs text-[#353535] md:text-sm">{exactAddress} </p>
         </div>
         <div className="flex items-center gap-2">
-          <div onClick={() => handleDeleteAddress(id)}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteAddress();
+            }}
+          >
             <img src="/icons/trash.svg" className="w-6 cursor-pointer" alt="" />
           </div>
-          <div onClick={() => openModalHandler("addressEdit")}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              handleEditAddress();
+            }}
+          >
             <img src="/icons/edit-2.svg" alt="" />
           </div>
         </div>
       </div>
       <div className="flex flex-row items-center justify-between">
         <div className="text-xs text-[#717171] md:text-sm">
-          {recipientName || "اسم وارد شده از یوزر"}
+          {recipientName || `${firstname} ${lastname}`}
         </div>
         <div>
           <span className="text-xs text-[#717171] md:text-sm">
@@ -42,14 +76,23 @@ function AddressBox({ Address, onClick }) {
           </span>
         </div>
       </div>
-      {modalType == "addressEdit" && (
-        <UpdateAddressBox
-          Address={Address}
-          isOpen={isOpen}
-          modalType={modalType}
-          closeModal={closeModalHandler}
-        />
-      )}{" "}
+      {isOpen &&
+        modalType == "addressEdit" &&
+        modalId === seletedEditAdressId && (
+          <UpdateAddressBox
+            seletedEditAdressId={seletedEditAdressId}
+            Address={selectedItem}
+          />
+        )}
+
+      {isOpen &&
+        modalType === "DeleteAddress" &&
+        modalId === seletedDeleteAdressId && (
+          <DeleteAddress
+            seletedDeleteAdressId={seletedDeleteAdressId}
+            Address={selectedItem}
+          />
+        )}
     </div>
   );
 }

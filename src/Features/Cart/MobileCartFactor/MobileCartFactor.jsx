@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 function MobileCartFactor() {
   const cart = useSelector((state) => state.cart?.cart);
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
+
   const navigate = useNavigate();
   const {
     totalItems,
@@ -57,19 +59,20 @@ function MobileCartFactor() {
           </div>
         </div>
         <div className="mt-3 w-full">
-          <button
-            onClick={() => navigate("/completion-of-information")}
-            className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
-          >
-            تکمیل اطلاعات
-            <img src="/icons/arrow-left.svg" className="h-3 w-3" alt="" />
-          </button>
-        </div>
-        <div className="mt-3 w-full">
-          <button className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white">
-            <img src="/public/icons/user.svg" className="h-4 w-4" alt="" />
-            ورود/ثبت‌نام
-          </button>
+          {isAuthenticated ? (
+            <button
+              onClick={() => navigate("/completion-of-information")}
+              className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
+            >
+              تکمیل اطلاعات
+              <img src="/icons/arrow-left.svg" className="h-3 w-3" alt="" />
+            </button>
+          ) : (
+            <button className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white">
+              <img src="/public/icons/user.svg" className="h-4 w-4" alt="" />
+              ورود/ثبت‌نام
+            </button>
+          )}
         </div>
       </div>
     </div>

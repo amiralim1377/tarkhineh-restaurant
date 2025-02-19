@@ -18,7 +18,7 @@ function DesktopCartListing({ cartItem }) {
   const { selectedItem, isOpen, openModalHandler, modalType } = useModal(); // closeModalHandler اضافه شده است
 
   return (
-    <div className="flex flex-row rounded-lg border hover:bg-[#EDEDED]">
+    <div className="flex flex-row rounded-lg border">
       <div className="w-full max-w-44">
         <img
           src="/menu/IranianFood/c18324ae6672db4300937e223eb47955.jpg"
@@ -26,12 +26,12 @@ function DesktopCartListing({ cartItem }) {
           alt=""
         />
       </div>
-      <div className="w-full p-2">
+      <div
+        onClick={() => openModalHandler("productDetails", cartItem)}
+        className="w-full cursor-pointer p-2"
+      >
         <div className="flex h-full flex-col justify-between p-2">
-          <div
-            onClick={() => openModalHandler("productDetails", cartItem)}
-            className="flex cursor-pointer flex-row items-center justify-between hover:opacity-65"
-          >
+          <div className="flex flex-row items-center justify-between hover:opacity-65">
             <h5 className="text-xl font-semibold text-[#353535]">{name_fa}</h5>
             <div>
               <img
@@ -71,7 +71,14 @@ function DesktopCartListing({ cartItem }) {
                 className="h-3 w-3 cursor-pointer object-contain"
                 alt="افزایش تعداد"
               />
-              <span className="text-sm text-green-primary-500">{quantity}</span>
+              <span
+                className="text-sm text-green-primary-500"
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
+              >
+                {quantity}
+              </span>
               {quantity == 1 ? (
                 <img
                   src="/icons/greentrash.svg"

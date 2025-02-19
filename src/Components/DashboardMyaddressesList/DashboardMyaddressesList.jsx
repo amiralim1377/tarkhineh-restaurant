@@ -2,11 +2,6 @@ import { useNavigate } from "react-router-dom";
 import DashboardAddressBoxList from "../DashboardAddressBoxList/DashboardAddressBoxList";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import SetDashboardAddresses from "../SetDashboardAddresses/SetDashboardAddresses";
-import { fetchAddresses } from "../../Services/fetchAddresses";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setAddresses } from "../../Slice/userSlice/userSlice";
 
 function DashboardMyaddressesList({ addressState }) {
   const { isOpen, modalType, openModalHandler } = useModal();

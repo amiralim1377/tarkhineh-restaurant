@@ -1,11 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import HeaderNavbarMenu from "../HeaderNavbarMenu/HeaderNavbarMenu";
-import useCartCalculations from "../React Custom Hooks/useCartCalculations/useCartCalculations";
 import HeaderNavLinkLeft from "../HeaderNavLinkLeft/HeaderNavLinkLeft";
 
 function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white px-2 py-9 shadow-xl transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full bg-white px-2 py-9 shadow-md transition-all duration-300">
       <div className="mx-auto flex w-full max-w-8xl items-center justify-between">
         <button
           id="menu-btn"
@@ -35,7 +34,6 @@ function Header() {
               </NavLink>
             </li>
             <HeaderNavbarMenu />
-
             <li>
               <NavLink
                 to="/menu"
@@ -86,7 +84,6 @@ function Header() {
             </li>
           </ul>
         </nav>
-
         <HeaderNavLinkLeft />
       </div>
     </header>

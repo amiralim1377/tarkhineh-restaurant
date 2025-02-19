@@ -6,6 +6,8 @@ import menuReducer from "./src/Slice/menuSlice/menuSlice";
 import cartReducer from "./src/Slice/cartSlice/cartSlice";
 import modalReducer from "./src/Slice/modalSlice/modalSlice";
 import userReducer from "./src/Slice/userSlice/userSlice";
+import authReducer from "./src/Slice/authSlice/authSlice";
+import orderCategoryReducer from "./src/Slice/orderCategorySlice/orderCategorySlice";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +18,8 @@ const store = configureStore({
     cart: cartReducer,
     modal: modalReducer,
     user: userReducer,
+    auth: authReducer,
+    orderCategory: orderCategoryReducer,
   },
 });
 

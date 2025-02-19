@@ -79,9 +79,9 @@ function DashboardSignupForm({ setLoginFalse }) {
             })}
           />
           {errors.phonenumber && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errors?.phonenumber.message}
-            </p>
+            </span>
           )}
           <div className="relative flex w-full flex-row items-center">
             <input
@@ -115,9 +115,9 @@ function DashboardSignupForm({ setLoginFalse }) {
             )}
           </div>
           {errors.password && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errors?.password.message}
-            </p>
+            </span>
           )}
 
           <input
@@ -131,9 +131,9 @@ function DashboardSignupForm({ setLoginFalse }) {
             })}
           />
           {errors.confirmPassword && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errors?.confirmPassword.message}
-            </p>
+            </span>
           )}
           <div className="flex w-full flex-row items-center justify-between">
             <span

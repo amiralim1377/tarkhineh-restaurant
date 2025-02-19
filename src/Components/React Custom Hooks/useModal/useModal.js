@@ -6,9 +6,10 @@ const useModal = () => {
   const selectedItem = useSelector((state) => state.modal.selectedItem);
   const isOpen = useSelector((state) => state.modal.isOpen);
   const modalType = useSelector((state) => state.modal.modalType);
+  const modalId = useSelector((state) => state.modal.modalId);
 
-  const openModalHandler = (type, item = null) => {
-    dispatch(openModal({ type, item }));
+  const openModalHandler = (type, item = null, id = null) => {
+    dispatch(openModal({ type, item, id }));
   };
 
   const closeModalHandler = () => {
@@ -19,6 +20,7 @@ const useModal = () => {
     selectedItem,
     isOpen,
     modalType,
+    modalId,
     openModalHandler,
     closeModalHandler,
   };

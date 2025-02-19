@@ -13,9 +13,12 @@ function MobileCartItem() {
   const OrderDeliveryMethod = useSelector(
     (state) => state.cart?.deliveryMethod,
   );
-  const address = useSelector((state) => state.cart?.address);
-  const isSelectedAddress = Boolean(address);
+  const address = useSelector((state) => state.user?.addresses || []);
+  const isAddressEmpty = address.length === 0;
+  const SelectedAddress = useSelector((state) => state.cart?.address);
+  const isSelectedAddress = Boolean(SelectedAddress);
   const { totalCost, totalPrice, totalDiscount } = useCartCalculations();
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
 
   const notifyErrorAddress = () =>
     toast.error(" برای ارسال سفارش بر روی یک ادرس کلیک کرده", {
@@ -34,12 +37,35 @@ function MobileCartItem() {
       },
     });
 
-  const handleGoToCompletion = () => {
+  const notifyErrorNoAddress = () =>
+    toast.error("شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!", {
+      position: "top-left",
+      style: {
+        background: "#f44336",
+        color: "white",
+        minWidth: "100px",
+        fontSize: "12px",
+      },
+
+      className: "custom-toast-error",
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
+
+  const handleGoToPayment = () => {
+    if (isAddressEmpty) {
+      notifyErrorNoAddress(); // Show error message if no address
+      return; // Stop further execution
+    }
+
     if (OrderDeliveryMethod === "delivery" && !isSelectedAddress) {
       notifyErrorAddress(); // Show error message if address is not selected
-    } else {
-      navigate("/payment"); // Navigate to completion of information page if conditions are met
+      return; // Stop further execution
     }
+
+    navigate("/payment"); // Navigate to payment page if conditions are met
   };
 
   return (
@@ -69,19 +95,20 @@ function MobileCartItem() {
           </div>
         </div>
         <div className="mt-3 w-full">
-          <button
-            onClick={handleGoToCompletion}
-            className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
-          >
-            <img src="/icons/tick-circle.svg" className="h-4 w-4" alt="" />
-            ثبت سفارش
-          </button>
-        </div>
-        <div className="mt-3 w-full">
-          <button className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white">
-            <img src="/public/icons/user.svg" className="h-4 w-4" alt="" />
-            ورود/ثبت‌نام
-          </button>
+          {isAuthenticated ? (
+            <button
+              onClick={handleGoToPayment}
+              className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
+            >
+              <img src="/icons/tick-circle.svg" className="h-4 w-4" alt="" />
+              ثبت سفارش
+            </button>
+          ) : (
+            <button className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white">
+              <img src="/public/icons/user.svg" className="h-4 w-4" alt="" />
+              ورود/ثبت‌نام
+            </button>
+          )}
         </div>
       </div>
     </div>

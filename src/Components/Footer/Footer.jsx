@@ -21,12 +21,13 @@ function Footer() {
   });
 
   const handleGoToBranchesPage = (branch) => {
-    dispatch(setSelectedBranch({ id: branch.id, name: branch.name }));
-    setSelectedBranch({
-      id: branch.id,
-      name: branch.name,
-      location: { lat: `${branch.latitude}`, lng: `${branch.longitude}` },
-    }),
+    dispatch(
+      setSelectedBranch({
+        id: branch.branch_id,
+        name: branch.name,
+        location: { lat: `${branch.latitude}`, lng: `${branch.longitude}` },
+      }),
+    ),
       dispatch(setCategory(branch.default_category));
     navigate(`/branches/${branch.name}`);
   };
@@ -65,7 +66,7 @@ function Footer() {
                 {branches && branches.length > 0 ? (
                   branches.map((branch) => (
                     <li
-                      key={branch.id}
+                      key={branch.branch_id}
                       className="cursor-pointer hover:text-gray-400"
                     >
                       <a onClick={() => handleGoToBranchesPage(branch)}>

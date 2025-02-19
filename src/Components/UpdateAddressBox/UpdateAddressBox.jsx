@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import useFormhandler from "../React Custom Hooks/useFormhandler/useFormhandler";
 import {
   Circle,
@@ -10,24 +9,32 @@ import {
   useMap,
   useMapEvents,
 } from "react-leaflet";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
-import { editAddress } from "../../Slice/userSlice/userSlice";
 import useMapLocation from "../React Custom Hooks/useMapLocation/useMapLocation";
+import useModal from "../React Custom Hooks/useModal/useModal";
+import supabase from "../../Services/supabase";
+import { fetchAddresses } from "../../Slice/userSlice/userSlice";
+import { useDispatch } from "react-redux";
+import { setAddress } from "../../Slice/cartSlice/cartSlice";
 
-function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
+const UpdateAddressBox = memo(({ Address, seletedEditAdressId }) => {
+  const dispatch = useDispatch();
+  const memoizedAddress = useMemo(() => Address, [Address]);
   const {
-    recipientNumber,
-    mapAddress,
-    exactAddress,
-    recipientName,
-    number,
+    mapaddress: mapaddress,
+    exactaddress: exactAddress,
+    recipient_name: recipientName,
+    user_phone_number: number,
+    recipient_phone_number: recipientNumber,
     id,
-    lat,
-    lng,
-  } = Address;
-  const { register, handleSubmit, reset, errors, setValue, isDeliveryForMe } =
-    useFormhandler();
+    latitude: lat,
+    longitude: lng,
+    is_recipient_self,
+  } = memoizedAddress;
+
+  const { register, handleSubmit, reset, errors, setValue } = useFormhandler();
+  const { isOpen, modalType, closeModalHandler, modalId } = useModal();
   const {
     initialLocation,
     location,
@@ -36,68 +43,101 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
     setAddressState,
     resetLocation,
   } = useMapLocation();
-  const dispatch = useDispatch();
-  const [initialLoad, setInitialLoad] = useState(true);
 
+  const initialLoad = useRef(true);
+  const [isDeliveryForMe, setIsDeliveryForMe] = useState(is_recipient_self);
+
+  // This useEffect initializes the location on the first render using useRef
   useEffect(() => {
-    setValue("mapAddress", mapAddress);
-    setValue("exactAddress", exactAddress);
-    setValue("number", number);
-    setValue("recipientName", recipientName);
-    setValue("recipientNumber", recipientNumber);
-    if (initialLoad) {
+    if (initialLoad.current) {
       if (lat && lng) {
         setLocation([lat, lng]);
       } else {
         setLocation(initialLocation);
       }
-      setInitialLoad(false);
+      initialLoad.current = false;
     }
-  }, [
-    mapAddress,
-    exactAddress,
-    number,
-    recipientName,
-    recipientNumber,
-    setValue,
-    lat,
-    lng,
-    initialLocation,
-    setLocation,
-    initialLoad,
-  ]);
+  }, [lat, lng, initialLocation, setLocation]);
 
-  const onSubmit = (data) => {
+  // This useEffect sets the map address whenever it changes
+  useEffect(() => {
+    setValue("mapaddress", mapaddress);
+  }, [mapaddress, setValue]);
+
+  // This useEffect sets the exact address whenever it changes
+  useEffect(() => {
+    setValue("exactAddress", exactAddress);
+  }, [exactAddress, setValue]);
+
+  // This useEffect sets the user phone number whenever it changes
+  useEffect(() => {
+    setValue("number", number);
+  }, [number, setValue]);
+
+  // This useEffect sets the recipient name whenever it changes
+  useEffect(() => {
+    setValue("recipientName", recipientName);
+  }, [recipientName, setValue]);
+
+  // This useEffect sets the recipient phone number whenever it changes
+  useEffect(() => {
+    setValue("recipientNumber", recipientNumber);
+  }, [recipientNumber, setValue]);
+
+  const onSubmit = async (data) => {
     const filteredData = isDeliveryForMe
       ? {
           id: id,
-          mapAddress: data.mapAddress,
-          number: data.number,
-          exactAddress: data.exactAddress,
-          lat: location[0],
-          lng: location[1],
+          mapaddress: data.mapaddress,
+          user_phone_number: data.number,
+          exactaddress: data.exactAddress,
+          latitude: location[0],
+          longitude: location[1],
+          is_recipient_self: true,
+          recipient_name: null,
+          recipient_phone_number: null,
         }
       : {
           id: id,
-          mapAddress: data.mapAddress,
-          recipientName: data.recipientName,
-          recipientNumber: data.recipientNumber,
-          exactAddress: data.exactAddress,
-          lat: location[0],
-          lng: location[1],
+          mapaddress: data.mapaddress,
+          recipient_name: data.recipientName,
+          recipient_phone_number: data.recipientNumber,
+          exactaddress: data.exactAddress,
+          latitude: location[0],
+          longitude: location[1],
+          is_recipient_self: false,
+          user_phone_number: null,
         };
-    dispatch(editAddress({ id: id, updatedAddress: filteredData }));
+
+    const { error } = await supabase
+      .from("addresses")
+      .update(filteredData)
+      .eq("id", id);
+
+    if (error) {
+      console.error("خطا در به‌روزرسانی آدرس:", error.message);
+      return;
+    }
+
+    dispatch(fetchAddresses());
+    dispatch(setAddress(filteredData));
+
     reset();
     setAddressState("");
     setLocation(initialLocation);
-    closeModal();
+    closeModalHandler();
   };
 
   const handleCloseModal = () => {
-    closeModal();
+    closeModalHandler();
     reset();
     setLocation(initialLocation);
     setAddressState("");
+  };
+
+  const handleCheckboxChange = (event) => {
+    setIsDeliveryForMe(event.target.checked);
+    console.log(event.target.checked);
   };
 
   const LocationMarker = () => {
@@ -110,7 +150,7 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
           .then((response) => response.json())
           .then((data) => {
             setAddressState(data.display_name);
-            setValue("mapAddress", data.display_name);
+            setValue("mapaddress", data.display_name);
           })
           .catch((error) => console.log(error));
       },
@@ -119,7 +159,7 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
     return location ? (
       <>
         <Marker position={location}>
-          <Popup>{address}</Popup>
+          <Popup>{mapaddress}</Popup>
         </Marker>
         <Marker position={initialLocation}>
           <Popup>موقعیت رستوران</Popup>
@@ -136,14 +176,16 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
         map.setView(center);
         map.invalidateSize();
       }
-    }, [center]); // Only run when center changes
+    }, [center, map]);
     return null;
   };
 
   return (
     <Dialog
-      open={isOpen && modalType === "addressEdit"}
-      onClose={closeModal}
+      open={
+        isOpen && modalType === "addressEdit" && modalId == seletedEditAdressId
+      }
+      onClose={closeModalHandler}
       className="relative z-50"
     >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
@@ -184,30 +226,31 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
             </div>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="flex flex-col space-y-3"
+              className={`flex flex-col space-y-3`}
             >
               <input
                 type="text"
-                value={address || mapAddress}
+                value={address || mapaddress}
                 readOnly
-                {...register("mapAddress", {
+                {...register("mapaddress", {
                   required: "برای ثبت سفارش ثبت لوکشین داخل نقشه الزامی است",
                 })}
                 onChange={(e) => setAddressState(e.target.value)}
                 placeholder="با کلیک روی نقشه آدرس را مشخص کنید"
-                className={`w-full rounded-md border p-2 ${errors.mapAddress ? "border border-red-300" : "border border-green-primary-500"}`}
+                className={`w-full rounded-md border p-2 ${errors.mapaddress ? "border border-red-300" : "border border-green-primary-500"}`}
               />
-              {errors.mapAddress && (
-                <p role="alert" className="text-[10px] text-red-600">
-                  {errors.mapAddress?.message}
-                </p>
+              {errors.mapaddress && (
+                <span role="alert" className="text-[10px] text-red-600">
+                  {errors.mapaddress?.message}
+                </span>
               )}
               <div className="flex items-center gap-3">
                 <input
                   type="checkbox"
                   {...register("isDeliveryForMe")}
                   className="border"
-                  defaultChecked={isDeliveryForMe}
+                  checked={isDeliveryForMe}
+                  onChange={handleCheckboxChange}
                 />
                 <label htmlFor="isDeliveryForMe" className="text-xs">
                   تحویل گیرنده خودم هستم.
@@ -230,31 +273,9 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
                     className={`w-full rounded-md border p-2 ${errors.number ? "border border-red-300" : "border border-green-primary-500"}`}
                   />
                   {errors.number && (
-                    <p role="alert" className="text-[10px] text-red-600">
+                    <span role="alert" className="text-[10px] text-red-600">
                       {errors.number.message}
-                    </p>
-                  )}
-                  <input
-                    type="text"
-                    defaultValue={exactAddress}
-                    placeholder="آدرس دقیق شما"
-                    {...register("exactAddress", {
-                      required: "ثبت  آدرس برای ثبت سفارش الزامی است",
-                      pattern: {
-                        value: /^[\u0600-\u06FF0-9\s]+$/,
-                        message: "آدرس باید به زبان فارسی وارد شود",
-                      },
-                      minLength: {
-                        value: 10,
-                        message: "آدرس باید حداقل شامل 10 کاراکتر باشد",
-                      },
-                    })}
-                    className={`w-full rounded-md border p-2 ${errors.exactAddress ? "border border-red-300" : "border border-green-primary-500"}`}
-                  />
-                  {errors.exactAddress && (
-                    <p role="alert" className="text-xs text-red-600">
-                      {errors.exactAddress?.message}
-                    </p>
+                    </span>
                   )}
                 </>
               ) : (
@@ -266,13 +287,17 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
                     {...register("recipientName", {
                       required:
                         "ثبت نام و نام خانوداگی تحویل گیرنده الزامی است",
+                      pattern: {
+                        value: /^[\u0600-\u06FF\s]+$/,
+                        message: "اسم باید به زبان فارسی وارد شود",
+                      },
                     })}
                     className={`w-full rounded-md border p-2 ${errors.recipientName ? "border border-red-300" : "border border-green-primary-500"}`}
                   />
                   {errors.recipientName && (
-                    <p role="alert" className="text-[10px] text-red-600">
+                    <span role="alert" className="text-[10px] text-red-600">
                       {errors.recipientName?.message}
-                    </p>
+                    </span>
                   )}
                   <input
                     type="text"
@@ -286,19 +311,41 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
                           "شماره موبایل باید 11 رقم باشد و با 09 شروع شود",
                       },
                     })}
-                    className={`w-full rounded-md border p-2 ${errors.number ? "border border-red-300" : "border border-green-primary-500"}`}
+                    className={`w-full rounded-md border p-2 ${errors.recipientNumber ? "border border-red-300" : "border border-green-primary-500"}`}
                   />
                   {errors.recipientNumber && (
-                    <p role="alert" className="text-[10px] text-red-600">
+                    <span role="alert" className="text-[10px] text-red-600">
                       {errors.recipientNumber?.message}
-                    </p>
+                    </span>
                   )}
                 </>
               )}
               <input
+                type="text"
+                defaultValue={exactAddress}
+                placeholder="آدرس دقیق شما"
+                {...register("exactAddress", {
+                  required: "ثبت  آدرس برای ثبت سفارش الزامی است",
+                  pattern: {
+                    value: /^[\u0600-\u06FF0-9\s]+$/,
+                    message: "آدرس باید به زبان فارسی وارد شود",
+                  },
+                  minLength: {
+                    value: 10,
+                    message: "آدرس باید حداقل شامل 10 کاراکتر باشد",
+                  },
+                })}
+                className={`w-full rounded-md border p-2 ${errors.exactAddress ? "border border-red-300" : "border border-green-primary-500"}`}
+              />
+              {errors.exactAddress && (
+                <span role="alert" className="text-xs text-red-600">
+                  {errors.exactAddress?.message}
+                </span>
+              )}
+              <input
                 type="submit"
                 value="ثبت ویرایش آدرس"
-                className="rounded-lg bg-green-primary-500 px-5 py-2 text-white"
+                className="cursor-pointer rounded-lg bg-green-primary-500 px-5 py-2 text-white"
               />
             </form>
           </div>
@@ -306,6 +353,8 @@ function UpdateAddressBox({ isOpen, closeModal, modalType, Address }) {
       </div>
     </Dialog>
   );
-}
+});
 
-export default UpdateAddressBox;
+UpdateAddressBox.displayName = "UpdateAddressBox";
+
+export default memo(UpdateAddressBox);

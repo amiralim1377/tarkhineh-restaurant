@@ -6,13 +6,13 @@ import { formatPrice } from "../../../helper_functions/formatPrice";
 import toast from "react-hot-toast";
 import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
 import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
+import useSendOrder from "../../../Components/React Custom Hooks/useSendOrder/useSendOrder";
+import PaymentButtons from "../../../Components/PaymentButtons/PaymentButtons";
 
 function PaymentDesktopFactor() {
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart?.cart);
   const DeliveryMethod = useSelector((state) => state.cart?.deliveryMethod);
-  const paymentMethod = useSelector((state) => state.cart?.paymentMethod);
-  const selectedBank = useSelector((state) => state.cart?.paymentGateway);
 
   const {
     totalItems,
@@ -23,23 +23,6 @@ function PaymentDesktopFactor() {
     totalCost,
     totalTime,
   } = useCartCalculations();
-
-  const notifyError = () =>
-    toast.error("لطفاً بر روی یک درگاه پرداخت کلیک کنید !", {
-      position: "top-left",
-      style: {
-        background: "#f44336",
-        color: "white",
-      },
-    });
-
-  const handleGoToPaymentGateway = () => {
-    if (!selectedBank) {
-      notifyError();
-    } else {
-      navigate("/successful-payment");
-    }
-  };
 
   const {
     selectedItem,
@@ -94,26 +77,7 @@ function PaymentDesktopFactor() {
             {formatPrice(totalCost)}
           </div>
         </div>
-
-        <div className="mt-3 w-full">
-          {paymentMethod === "online" ? (
-            <button
-              onClick={handleGoToPaymentGateway}
-              className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
-            >
-              <img src="/icons/tick-circle.svg" alt="" />
-              تایید و پرداخت
-            </button>
-          ) : (
-            <button
-              onClick={() => navigate("/successful-payment")}
-              className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
-            >
-              <img src="/icons/tick-circle.svg" alt="" />
-              ثبت نهایی سفارش
-            </button>
-          )}
-        </div>
+        <PaymentButtons />
       </div>
       {isOpen && modalType === "deleteAll" && <DeleteAllItem />}
     </div>

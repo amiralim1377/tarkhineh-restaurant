@@ -11,7 +11,6 @@ export const fetchAddresses = async () => {
     throw new Error(userError.message);
   }
 
-  // دریافت آدرس‌های مربوط به کاربر
   const { data, error } = await supabase
     .from("addresses")
     .select("*")

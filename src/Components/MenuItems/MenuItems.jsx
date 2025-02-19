@@ -1,7 +1,7 @@
 import _, { omit } from "lodash";
 import useMenuItemsLogic from "../React Custom Hooks/useMenuItemsLogic/useMenuItemsLogic";
 import MenuDetailsItems from "../MenuDetailsitems/MenuDetailsitems";
-import useModal from "../React Custom Hooks/useModal/useModal"; // اضافه شده
+import useModal from "../React Custom Hooks/useModal/useModal";
 import MenuItemsImageWrapper from "../MenuItemsImageWrapper/MenuItemsImageWrapper";
 import MenuItemsContentUpWrapper from "../MenuItemsContentUpWrapper/MenuItemsContentUpWrapper";
 import MenuItemsMiddleDesktopContent from "../MenuItemsMiddleDesktopContent/MenuItemsMiddleDesktopContent";
@@ -28,6 +28,7 @@ const MenuItems = () => {
   const filteredItems = _.filter(menuItemsRedux, (item) =>
     searchQuery ? item.name_fa.includes(searchQuery) : true,
   );
+
   const {
     selectedItem,
     isOpen,

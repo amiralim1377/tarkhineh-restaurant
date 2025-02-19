@@ -4,6 +4,7 @@ const initialState = {
   isOpen: false,
   selectedItem: null,
   modalType: null,
+  modalId: null, // اضافه کردن modalId به حالت اولیه
 };
 
 const modalSlice = createSlice({
@@ -12,13 +13,15 @@ const modalSlice = createSlice({
   reducers: {
     openModal(state, action) {
       state.isOpen = true;
-      state.selectedItem = action.payload.item; // مقدار سریالایزبل
+      state.selectedItem = action.payload.item;
       state.modalType = action.payload.type;
+      state.modalId = action.payload.id; // اضافه کردن modalId به عملکرد openModal
     },
     closeModal(state) {
       state.isOpen = false;
       state.selectedItem = null;
-      state.modalType = null; // بازنشانی نوع مدال
+      state.modalType = null;
+      state.modalId = null; // تنظیم modalId به null در عملکرد closeModal
     },
   },
 });

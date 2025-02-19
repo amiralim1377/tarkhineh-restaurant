@@ -14,20 +14,18 @@ function ContactusBranchesItem({ branches }) {
     name,
     latitude,
     longitude,
-    id,
+    branch_id,
   } = branches;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isOpen, modalType, openModalHandler } = useModal();
+  const { isOpen, modalType, openModalHandler, selectedItem } = useModal();
 
   const handleGoToBranchesPage = () => {
-    console.log(branches);
-
     dispatch(
       setSelectedBranch({
-        id,
+        id: branch_id,
         name,
         location: { lat: `${branches.latitude}`, lng: `${branches.longitude}` },
       }),
@@ -63,7 +61,7 @@ function ContactusBranchesItem({ branches }) {
             صفحه شعبه
           </button>
           <button
-            onClick={() => openModalHandler("BranchesItemMap")}
+            onClick={() => openModalHandler("BranchesItemMap", branches)}
             className="w-full max-w-32 text-nowrap rounded-md bg-green-primary-500 py-1 text-white"
           >
             دیدن در نقشه
@@ -71,7 +69,7 @@ function ContactusBranchesItem({ branches }) {
         </div>
       </div>
       {isOpen && modalType === "BranchesItemMap" && (
-        <ContactusBranchesItemMap branches={branches} />
+        <ContactusBranchesItemMap branches={selectedItem} />
       )}
     </div>
   );

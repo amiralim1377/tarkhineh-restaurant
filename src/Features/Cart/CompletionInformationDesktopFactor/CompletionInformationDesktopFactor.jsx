@@ -15,8 +15,10 @@ function CompletionInformationDesktopFactor() {
   const OrderDeliveryMethod = useSelector(
     (state) => state.cart?.deliveryMethod,
   );
-  const address = useSelector((state) => state.cart?.address);
-  const isSelectedAddress = Boolean(address);
+  const address = useSelector((state) => state.user?.addresses || []);
+  const isAddressEmpty = address.length === 0;
+  const SelectedAddress = useSelector((state) => state.cart?.address);
+  const isSelectedAddress = Boolean(SelectedAddress);
   const { isOpen, modalType, openModalHandler } = useModal();
   const { totalItems, totalDiscount, totalCost } = useCartCalculations();
 
@@ -26,7 +28,22 @@ function CompletionInformationDesktopFactor() {
       style: {
         background: "#f44336",
         color: "white",
-        minWidth: "500px",
+        minWidth: "400px",
+      },
+      className: "custom-toast-error",
+      ariaProps: {
+        role: "status",
+        "aria-live": "polite",
+      },
+    });
+
+  const notifyErrorNoAddress = () =>
+    toast.error("شما در حال حاضر هیچ آدرسی ثبت نکرده‌اید!", {
+      position: "top-left",
+      style: {
+        background: "#f44336",
+        color: "white",
+        minWidth: "400px",
       },
 
       className: "custom-toast-error",
@@ -37,11 +54,17 @@ function CompletionInformationDesktopFactor() {
     });
 
   const handleGoToPayment = () => {
+    if (isAddressEmpty) {
+      notifyErrorNoAddress(); // Show error message if no address
+      return; // Stop further execution
+    }
+
     if (OrderDeliveryMethod === "delivery" && !isSelectedAddress) {
       notifyErrorAddress(); // Show error message if address is not selected
-    } else {
-      navigate("/payment"); // Navigate to payment page if conditions are met
+      return; // Stop further execution
     }
+
+    navigate("/payment"); // Navigate to payment page if conditions are met
   };
 
   return (

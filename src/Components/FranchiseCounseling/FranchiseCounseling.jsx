@@ -81,9 +81,9 @@ function FranchiseCounseling() {
                     placeholder="تاریخ ایده‌آل"
                   />
                   {error && (
-                    <p role="alert" className="p-2 text-xs text-red-700">
+                    <span role="alert" className="p-2 text-xs text-red-700">
                       {error.message}
-                    </p>
+                    </span>
                   )}
                 </>
               )}

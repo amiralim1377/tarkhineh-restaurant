@@ -26,7 +26,7 @@ function ContactusBranches() {
     <div className="mb-8 flex flex-col space-y-3">
       {branches && branches.length > 0 ? (
         branches.map((branch) => (
-          <ContactusBranchesItem branches={branch} key={branch.id} />
+          <ContactusBranchesItem branches={branch} key={branch.branch_id} />
         ))
       ) : (
         <div>No branches available</div>

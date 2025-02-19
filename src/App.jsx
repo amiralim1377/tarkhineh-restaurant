@@ -14,7 +14,7 @@ import DashboardMyaddresses from "./pages/DashboardMyaddresses/DashboardMyaddres
 import Wrapper from "./pages/Wrapper/Wrapper";
 import LoginLogoutModal from "./Components/LoginLogoutModal/LoginLogoutModal";
 import DashboardUpdatePassword from "./Components/DashboardUpdatePassword/DashboardUpdatePassword";
-
+import AuthWrapper from "./Components/AuthWrapper/AuthWrapper";
 // Lazy loading components
 const AppLayout = lazy(() => import("./Components/AppLayout/AppLayout"));
 const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
@@ -169,7 +169,7 @@ const router = createBrowserRouter([
         ),
         children: [
           {
-            index: true, // مسیر پیش‌فرض
+            index: true,
             element: (
               <Suspense fallback={<Loading />}>
                 <DashboardProfile />

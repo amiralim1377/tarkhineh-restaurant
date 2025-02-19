@@ -8,7 +8,7 @@ const initialState = {
   deliveryMethod: "delivery",
   additionalComments: "",
   paymentMethod: "online",
-  paymentGateway: null, // افزودن فیلد برای درگاه پرداخت
+  paymentGateway: null,
   address: null,
   deliveryCost: 0,
   deliveryTime: 0,
@@ -75,7 +75,6 @@ const cartSlice = createSlice({
       state.paymentMethod = action.payload;
     },
     setPaymentGateway(state, action) {
-      // افزودن ریدوسر برای تنظیم درگاه پرداخت
       state.paymentGateway = action.payload;
     },
     setDeliveryMethod(state, action) {
@@ -96,7 +95,7 @@ const cartSlice = createSlice({
       state.totalTime = state.deliveryTime + state.preparationTime;
     },
     setAddress(state, action) {
-      state.address = action.payload;
+      state.address = { ...state.address, ...action.payload };
     },
     resetAddress(state) {
       state.address = null;

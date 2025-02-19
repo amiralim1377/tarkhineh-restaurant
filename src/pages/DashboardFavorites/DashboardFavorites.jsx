@@ -16,7 +16,6 @@ function DashboardFavorites() {
           </h3>
         </div>
       </div>
-
       <DashboardFavoritesSearchChips />
       <DashboardFavoritesItems />
     </div>

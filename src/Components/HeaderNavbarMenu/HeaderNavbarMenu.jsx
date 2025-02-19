@@ -31,7 +31,7 @@ function HeaderNavbarMenu() {
   const handleBranchClick = (branch) => {
     dispatch(
       setSelectedBranch({
-        id: branch.id,
+        id: branch.branch_id,
         name: branch.name,
         location: { lat: `${branch.latitude}`, lng: `${branch.longitude}` },
       }),
@@ -72,14 +72,14 @@ function HeaderNavbarMenu() {
         <ul className="absolute right-0 z-50 mt-2 w-48 rounded-lg border border-gray-300 bg-white shadow-lg">
           {branches &&
             branches
-              .filter((branch) => branch.id !== selectedBranch.id)
+              .filter((branch) => branch.branch_id !== selectedBranch.id) // تغییر به branch_id
               .map((branch) => (
-                <li className="border-b border-gray-300" key={branch.id}>
+                <li key={branch.branch_id} className="border-b border-gray-300">
                   <NavLink
                     to={`/branches/${branch.name}`}
                     onClick={() => handleBranchClick(branch)}
                     className={({ isActive }) =>
-                      selectedBranch.id === branch.id
+                      selectedBranch.id === branch.branch_id // تغییر به branch_id
                         ? "block w-full px-4 py-2 font-bold text-green-primary-500 transition-all duration-300"
                         : "block w-full px-4 py-2 transition-all duration-300 hover:bg-gray-100"
                     }

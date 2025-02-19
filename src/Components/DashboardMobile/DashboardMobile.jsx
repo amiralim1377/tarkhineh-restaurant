@@ -1,11 +1,32 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import DashboardSidebar from "../DashboardSidebar/DashboardSidebar";
+import { useQuery } from "@tanstack/react-query";
+import fetchProfileImage from "../../Services/fetchProfileImage";
+import useUserData from "../React Custom Hooks/useUserData/useUserData";
 
 function DashboardMobile() {
   const location = useLocation();
   const [showMenu, setShowMenu] = useState(true);
   const [fade, setFade] = useState(false);
+
+  const {
+    userId,
+    isUserLoading,
+    userError,
+    userData,
+    isUserDataLoading,
+    userDataError,
+  } = useUserData();
+
+  const {
+    data: profileImageUrl,
+    error,
+    isLoading,
+  } = useQuery({
+    queryKey: ["profileImage", userId],
+    queryFn: () => fetchProfileImage(userId),
+  });
 
   useEffect(() => {
     if (window.innerWidth < 768 && location.pathname !== "/dashboard") {
@@ -23,13 +44,29 @@ function DashboardMobile() {
     }
   };
 
+  if (isUserLoading || isUserDataLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (userError || userDataError) {
+    return <div>Error loading user data</div>;
+  }
+
+  if (!userData) {
+    return null;
+  }
+
   return (
     <div className="block md:hidden">
       {showMenu ? (
         <div className="divide-y divide-gray-500 px-2 py-4">
           <div className="flex flex-row items-center gap-3 py-1">
             <div>
-              <img src="/icons/Ellipse.svg" alt="" />
+              <img
+                src={profileImageUrl ? profileImageUrl : `/icons/Ellipse.svg`}
+                className="h-10 w-10 rounded-full object-cover"
+                alt=""
+              />
             </div>
             <div className="flex flex-col items-center text-xs">
               <span className="text-base text-[#353535]">کاربر ترخینه</span>

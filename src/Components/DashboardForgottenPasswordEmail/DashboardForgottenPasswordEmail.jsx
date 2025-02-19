@@ -1,15 +1,13 @@
 import { useForm } from "react-hook-form";
 import supabase from "../../Services/supabase";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
 import useModal from "../React Custom Hooks/useModal/useModal";
 
 function DashboardForgottenPasswordEmail({ setIsShowForgottenPassword }) {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const { closeModalHandler } = useModal();
   const {
     register,
@@ -79,14 +77,14 @@ function DashboardForgottenPasswordEmail({ setIsShowForgottenPassword }) {
       ) : (
         <>
           {errorMessage && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errorMessage}
-            </p>
+            </span>
           )}
           {successMessage && (
-            <p role="alert" className="text-xs text-green-700">
+            <span role="alert" className="text-xs text-green-700">
               {successMessage}
-            </p>
+            </span>
           )}
           <div className="flex justify-end">
             <button

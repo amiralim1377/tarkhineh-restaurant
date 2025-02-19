@@ -10,10 +10,11 @@ import MenupageNavbarChangeBranch from "../MenupageNavbarChangeBranch/MenupageNa
 
 function MenupageNavbar() {
   const dispatch = useDispatch();
-  const selectedBranch = useSelector((state) => state.branches.selectedBranch);
+  const selectedBranch = useSelector((state) => state.branches?.selectedBranch);
   const selectedCategory = useSelector(
-    (state) => state.category.selectedCategory,
+    (state) => state.category?.selectedCategory,
   );
+  console.log(selectedCategory);
 
   const {
     data: categories,

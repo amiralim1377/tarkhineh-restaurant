@@ -3,6 +3,7 @@ import useModal from "../React Custom Hooks/useModal/useModal";
 
 function ContactusBranchesItemMap({ branches }) {
   const { name_fa, latitude, longitude } = branches;
+
   const { isOpen, modalType, closeModalHandler } = useModal();
   return (
     <Dialog

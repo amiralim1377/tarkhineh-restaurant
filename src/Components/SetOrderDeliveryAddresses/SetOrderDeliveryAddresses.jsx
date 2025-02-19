@@ -16,8 +16,14 @@ import useMapLocation from "../React Custom Hooks/useMapLocation/useMapLocation"
 import useFormhandler from "../React Custom Hooks/useFormhandler/useFormhandler";
 import { v4 as uuidv4 } from "uuid";
 import { addAddress } from "../../Slice/userSlice/userSlice";
+import useModal from "../React Custom Hooks/useModal/useModal";
+import supabase from "../../Services/supabase";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
+const SetOrderDeliveryAddresses = ({}) => {
+  const queryClient = useQueryClient();
+  const dispatch = useDispatch();
+  const { isOpen, closeModalHandler, modalType } = useModal();
   const { register, handleSubmit, reset, errors, setValue, isDeliveryForMe } =
     useFormhandler();
   const {
@@ -29,36 +35,63 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
     resetLocation,
   } = useMapLocation();
 
-  const dispatch = useDispatch();
+  const mutation = useMutation({
+    mutationFn: async (newAddress) => {
+      const { data, error } = await supabase
+        .from("addresses")
+        .insert([newAddress]);
 
-  const onSubmit = (data) => {
+      if (error) {
+        throw error;
+      }
+      return data;
+    },
+    onSuccess: (data) => {
+      console.log("Address added successfully:", data);
+      queryClient.invalidateQueries("addresses");
+    },
+    onError: (error) => {
+      console.error("Error adding address:", error.message);
+    },
+  });
+
+  const onSubmit = async (data) => {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
     const filteredData = isDeliveryForMe
       ? {
           id: uuidv4(),
-          mapAddress: data.mapAddress,
-          number: data.number,
-          exactAddress: data.exactAddress,
-          lat: location[0],
-          lng: location[1],
+          customer_id: user.id,
+          mapaddress: data.mapAddress,
+          user_phone_number: data.number,
+          exactaddress: data.exactAddress,
+          latitude: location[0],
+          longitude: location[1],
+          is_recipient_self: true,
         }
       : {
           id: uuidv4(),
-          mapAddress: data.mapAddress,
-          recipientName: data.recipientName,
-          recipientNumber: data.recipientNumber,
-          exactAddress: data.exactAddress,
-          lat: location[0],
-          lng: location[1],
+          customer_id: user.id,
+          mapaddress: data.mapAddress,
+          recipient_name: data.recipientName,
+          recipient_phone_number: data.recipientNumber,
+          exactaddress: data.exactAddress,
+          latitude: location[0],
+          longitude: location[1],
+          is_recipient_self: false,
         };
+    mutation.mutate(filteredData);
     dispatch(addAddress(filteredData));
     reset();
     setAddressState("");
     setLocation(initialLocation);
-    closeModal();
+    closeModalHandler();
   };
 
   const handleCloseModal = () => {
-    closeModal();
+    closeModalHandler();
     reset();
     setLocation(initialLocation);
     setAddressState("");
@@ -103,7 +136,7 @@ const SetOrderDeliveryAddresses = ({ isOpen, closeModal, modalType }) => {
   return (
     <Dialog
       open={isOpen && modalType === "addressSelection"}
-      onClose={closeModal}
+      onClose={closeModalHandler}
       className="relative z-50"
     >
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />

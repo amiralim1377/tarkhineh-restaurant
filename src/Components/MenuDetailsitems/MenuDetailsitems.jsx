@@ -5,7 +5,7 @@ import useCart from "../React Custom Hooks/useCart/useCart";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import MenuDetailsFakeComment from "../MenuDetailsFakeComment/MenuDetailsFakeComment";
 
-function MenuDetailsItems({ item }) {
+function MenuDetailsItems({ item, FavoritesItemId }) {
   const {
     discount_percentage,
     discounted_price,
@@ -15,10 +15,9 @@ function MenuDetailsItems({ item }) {
     preparation_time,
     price,
     rating,
-
     id,
+    images,
   } = item;
-  console.log(item);
 
   const {
     handleAddToCart,
@@ -28,11 +27,13 @@ function MenuDetailsItems({ item }) {
     handleDecrease,
     handleRemoveFromCart,
   } = useCart();
-  const { closeModalHandler, isOpen, modalType } = useModal();
+  const { closeModalHandler, isOpen, modalType, modalId } = useModal();
 
   return (
     <Dialog
-      open={isOpen && modalType === "productDetails"}
+      open={
+        isOpen && modalType === "productDetails" && modalId == FavoritesItemId
+      }
       onClose={closeModalHandler}
       className="relative z-50"
     >
@@ -127,7 +128,7 @@ function MenuDetailsItems({ item }) {
                             e.stopPropagation();
                             handleRemoveFromCart(id);
                           }}
-                          className="h-4 w-4"
+                          className="h-4 w-4 cursor-pointer"
                           alt=""
                         />
                       ) : (

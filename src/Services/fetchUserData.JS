@@ -1,5 +1,3 @@
-// مسیر فایل: src/functions/fetchUserData.js
-
 import supabase from "../Services/supabase";
 
 const fetchUserData = async (userId) => {
@@ -11,8 +9,10 @@ const fetchUserData = async (userId) => {
   try {
     const { data, error } = await supabase
       .from("customers")
-      .select("firstname, lastname, email, phonenumber, birthdate, username")
-      .eq("id", userId)
+      .select(
+        "firstname, lastname, email, phonenumber, birthdate, username, image",
+      )
+      .eq("customer_id", userId)
       .single();
 
     if (error) {

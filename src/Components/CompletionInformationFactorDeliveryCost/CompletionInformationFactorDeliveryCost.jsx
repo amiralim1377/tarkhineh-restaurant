@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { formatPrice } from "../../helper_functions/formatPrice";
 import useDeliveryCost from "../../Components/React Custom Hooks/useDeliveryCost/useDeliveryCost"; // Import custom hook
@@ -17,7 +17,7 @@ function CompletionInformationFactorDeliveryCost() {
   useEffect(() => {
     // Set user location based on selected address
     if (selectedAddress) {
-      const { lat, lng } = selectedAddress;
+      const { latitude: lat, longitude: lng } = selectedAddress;
       setUserLocation([lat, lng]);
     }
   }, [selectedAddress]);
@@ -38,11 +38,16 @@ function CompletionInformationFactorDeliveryCost() {
       <div>
         <div className="flex w-full items-center justify-between py-2">
           <h5 className="text-sm text-[#353535]">هزینه ارسال</h5>
-          <span className="text-sm text-[#717171]">
-            {deliveryCost === 0 || OrderDeliveryMethod !== "delivery"
-              ? "فاقد هزینه"
-              : formatPrice(deliveryCost)}
-          </span>
+
+          {!selectedAddress ? (
+            <span className="text-sm text-[#717171]">-</span>
+          ) : (
+            <span className="text-sm text-[#717171]">
+              {deliveryCost === 0 || OrderDeliveryMethod !== "delivery"
+                ? "داخل محدوده-رایگان"
+                : formatPrice(deliveryCost)}
+            </span>
+          )}
         </div>
         <div className="flex w-full flex-row items-start justify-between gap-4 py-2">
           <img
@@ -57,7 +62,7 @@ function CompletionInformationFactorDeliveryCost() {
         </div>
       </div>
 
-      {distance > 0 && (
+      {distance > 0 && selectedAddress && (
         <>
           <div>
             <div className="flex w-full flex-row items-start justify-between gap-4 py-2">

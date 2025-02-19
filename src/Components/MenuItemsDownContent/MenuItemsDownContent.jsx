@@ -15,9 +15,6 @@ function MenuItemsDownContent({ item }) {
 
   return (
     <div className="flex w-full flex-row items-center justify-between gap-3 md:justify-end">
-      <div className="md:hidden">
-        <img src="/icons/heart.svg" alt="Heart" />
-      </div>
       {isAddedInCart(item.id) && (
         <div
           onClick={(e) => e.stopPropagation()}

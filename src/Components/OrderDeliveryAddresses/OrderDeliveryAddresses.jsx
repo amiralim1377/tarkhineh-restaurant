@@ -4,12 +4,29 @@ import NoAddressRegistered from "../NoAddressRegistered/NoAddressRegistered";
 import SetOrderDeliveryAddresses from "../SetOrderDeliveryAddresses/SetOrderDeliveryAddresses";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import { setAddress } from "../../Slice/cartSlice/cartSlice";
+import { fetchAddresses } from "../../Services/fetchAddresses";
+import { setAddresses } from "../../Slice/userSlice/userSlice";
+import { useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 function OrderDeliveryAddresses() {
-  const isAddedAddress = useSelector((state) => state.user?.addresses);
   const dispatch = useDispatch();
+  const { isOpen, openModalHandler, modalType } = useModal();
+  const {
+    data: addresses,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["addresses"],
+    queryFn: fetchAddresses,
+  });
+  useEffect(() => {
+    if (addresses) {
+      dispatch(setAddresses(addresses));
+    }
+  }, [addresses, dispatch]);
 
-  const { isOpen, openModalHandler, closeModalHandler, modalType } = useModal();
+  const addressState = useSelector((state) => state.user?.addresses);
 
   const branchLocation = useSelector(
     (state) => state.branches?.selectedBranch?.location,
@@ -31,23 +48,23 @@ function OrderDeliveryAddresses() {
           </div>
           <div
             className="flex cursor-pointer items-center gap-2"
-            onClick={() => openModalHandler("addressSelection")} // استفاده از handler مدال باز کردن
+            onClick={() => openModalHandler("addressSelection")}
           >
             <img
               src="/icons/+.svg"
               className="w-3 rounded-full border border-green-primary-500"
               alt="Add Icon"
             />
-            <h4 className="text-xs text-green-primary-500">افزودن آدرس</h4>
+            <span className="text-xs text-green-primary-500">افزودن آدرس</span>
           </div>
         </div>
 
         <div className="py-4">
-          {isAddedAddress.length ? (
-            isAddedAddress.map((Address, index) => (
+          {addressState.length ? (
+            addressState?.map((Address) => (
               <AddressBox
                 onClick={() => handleSetDeliveryAddresses(Address)}
-                key={index}
+                key={Address.id}
                 Address={Address}
               />
             ))
@@ -59,8 +76,6 @@ function OrderDeliveryAddresses() {
 
       {modalType === "addressSelection" && (
         <SetOrderDeliveryAddresses
-          isOpen={isOpen}
-          closeModal={closeModalHandler}
           branchLocation={branchLocation}
           modalType={modalType}
         />

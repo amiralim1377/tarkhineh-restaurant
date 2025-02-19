@@ -4,8 +4,8 @@ import supabase from "../../Services/supabase";
 import { useNavigate } from "react-router-dom";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import { useDispatch } from "react-redux";
-import { setEmail } from "../../Slice/userSlice/userSlice";
 import DashboardForgottenPasswordEmail from "../DashboardForgottenPasswordEmail/DashboardForgottenPasswordEmail";
+import { setAuthenticated } from "../../Slice/authSlice/authSlice";
 
 function DashboardLoginForm({ setLoginFalse }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -37,9 +37,10 @@ function DashboardLoginForm({ setLoginFalse }) {
 
     if (data) {
       setSuccessMessage("Login successful"); // Store success message in state
-      dispatch(setEmail(data.user));
       setErrorMessage(null); // Clear error message on successful login
-      navigate("/dashboard");
+      localStorage.setItem("authToken", data.session.access_token);
+      dispatch(setAuthenticated(true));
+      navigate("/dashboard/profile");
       closeModalHandler();
       return null;
     }
@@ -70,9 +71,9 @@ function DashboardLoginForm({ setLoginFalse }) {
             })}
           />
           {errors.email && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errors?.email.message}
-            </p>
+            </span>
           )}
           <div className="relative flex w-full flex-row items-center">
             <input
@@ -101,19 +102,19 @@ function DashboardLoginForm({ setLoginFalse }) {
             )}
           </div>
           {errors.password && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errors?.password.message}
-            </p>
+            </span>
           )}
           {successMessage && ( // Display success message
-            <p role="alert" className="text-xs text-green-700">
+            <span role="alert" className="text-xs text-green-700">
               {successMessage}
-            </p>
+            </span>
           )}
           {errorMessage && ( // Display error message
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errorMessage}
-            </p>
+            </span>
           )}
           <div className="flex w-full flex-row items-center justify-between">
             <a

@@ -4,15 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { setCategory } from "../../Slice/categorySlice/categorySlice";
 
 function TharkhineBranches({ branches }) {
-  const { address, name_fa, id, latitude, longitude, default_category, name } =
-    branches;
+  const {
+    address,
+    name_fa,
+    branch_id,
+    latitude,
+    longitude,
+    default_category,
+    name,
+  } = branches;
+  console.log(branches);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleGoToBranchesPage = () => {
     dispatch(
       setSelectedBranch({
-        id,
+        id: branch_id,
         name,
         location: { lat: `${branches.latitude}`, lng: `${branches.longitude}` },
       }),

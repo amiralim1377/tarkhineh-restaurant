@@ -17,7 +17,6 @@ function MenuChipsSearchInput() {
   } = useForm();
   const dispatch = useDispatch();
 
-  // تابعی که روی فرم ارسال اعمال می‌شود
   const onSubmit = (data) => {
     dispatch(setSearchQuery(data.query));
   };

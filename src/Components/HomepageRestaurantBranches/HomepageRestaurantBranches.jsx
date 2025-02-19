@@ -21,7 +21,7 @@ function HomepageRestaurantBranches() {
       <div className="mx-auto my-4 grid max-w-8xl grid-cols-1 justify-items-center gap-y-4 px-2 md:grid-cols-2 md:gap-24 md:px-0 lg:grid-cols-4">
         {branches && branches.length > 0 ? (
           branches.map((branch) => (
-            <TharkhineBranches branches={branch} key={branch.id} />
+            <TharkhineBranches branches={branch} key={branch.branch_id} />
           ))
         ) : (
           <div>No branches available</div>

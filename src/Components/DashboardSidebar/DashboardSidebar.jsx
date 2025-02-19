@@ -6,7 +6,7 @@ import useModal from "../React Custom Hooks/useModal/useModal";
 function DashboardSidebar({ handleMenuClick }) {
   const [activeItem, setActiveItem] = useState(null);
   const [delay, setDelay] = useState(false);
-  const { selectedItem, isOpen, modalType, openModalHandler } = useModal();
+  const { isOpen, modalType, openModalHandler } = useModal();
 
   const handleNavLinkClick = (item) => {
     setDelay(true);
@@ -22,13 +22,19 @@ function DashboardSidebar({ handleMenuClick }) {
         to="/dashboard/profile"
         className={({ isActive }) =>
           isActive
-            ? "transition-text block w-full py-2 text-base font-normal text-green-primary-500"
-            : "transition-text block w-full py-2 text-sm font-normal text-[#353535]"
+            ? "block w-full py-2 text-base font-normal text-green-primary-500 transition-all duration-300 ease-in-out"
+            : "block w-full py-2 text-sm font-normal text-[#353535] transition-all duration-300 ease-in-out"
         }
         onClick={() => handleNavLinkClick("profile")}
       >
         {({ isActive }) => (
-          <li className="flex flex-row items-center justify-start gap-1">
+          <li
+            className={`flex transform flex-row items-center justify-start gap-1 transition-transform duration-300 ease-in-out ${
+              isActive
+                ? "scale-100 rounded-b-sm rounded-t-sm border-r-2 border-green-primary-500 px-2"
+                : "scale-95"
+            }`}
+          >
             <img
               src={
                 isActive || activeItem === "profile"
@@ -38,28 +44,35 @@ function DashboardSidebar({ handleMenuClick }) {
               alt=""
             />
             <span
-              className={
+              className={`transition-all duration-300 ease-in-out ${
                 delay && activeItem === "profile"
-                  ? "text-green-primary-500"
-                  : ""
-              }
+                  ? "pl-2 text-green-primary-500"
+                  : "pl-2"
+              }`}
             >
               پروفایل
             </span>
           </li>
         )}
       </NavLink>
+
       <NavLink
         to="/dashboard/ordertracking"
         className={({ isActive }) =>
           isActive
-            ? "transition-text block w-full py-2 text-base font-normal text-green-primary-500"
-            : "transition-text block w-full py-2 text-sm font-normal text-[#353535]"
+            ? "block w-full py-2 text-base font-normal text-green-primary-500 transition-all duration-300 ease-in-out"
+            : "block w-full py-2 text-sm font-normal text-[#353535] transition-all duration-300 ease-in-out"
         }
         onClick={() => handleNavLinkClick("ordertracking")}
       >
         {({ isActive }) => (
-          <li className="flex flex-row items-center justify-start gap-1">
+          <li
+            className={`flex transform flex-row items-center justify-start gap-1 transition-transform duration-300 ease-in-out ${
+              isActive
+                ? "scale-100 rounded-b-sm rounded-t-sm border-r-2 border-green-primary-500 px-2"
+                : "scale-95"
+            }`}
+          >
             <img
               src={
                 isActive || activeItem === "ordertracking"
@@ -69,28 +82,35 @@ function DashboardSidebar({ handleMenuClick }) {
               alt=""
             />
             <span
-              className={
+              className={`transition-all duration-300 ease-in-out ${
                 delay && activeItem === "ordertracking"
-                  ? "text-green-primary-500"
-                  : ""
-              }
+                  ? "pl-2 text-green-primary-500"
+                  : "pl-2"
+              }`}
             >
               پیگیری سفارشات
             </span>
           </li>
         )}
       </NavLink>
+
       <NavLink
         to="/dashboard/favorites"
         className={({ isActive }) =>
           isActive
-            ? "transition-text block w-full py-2 text-base font-normal text-green-primary-500"
-            : "transition-text block w-full py-2 text-sm font-normal text-[#353535]"
+            ? "block w-full py-2 text-base font-normal text-green-primary-500 transition-all duration-300 ease-in-out"
+            : "block w-full py-2 text-sm font-normal text-[#353535] transition-all duration-300 ease-in-out"
         }
         onClick={() => handleNavLinkClick("favorites")}
       >
         {({ isActive }) => (
-          <li className="flex flex-row items-center justify-start gap-1">
+          <li
+            className={`flex flex-row items-center justify-start gap-1 transition-all duration-300 ease-in-out ${
+              isActive
+                ? "scale-100 rounded-b-sm rounded-t-sm border-r-2 border-green-primary-500 px-2"
+                : "scale-95"
+            }`}
+          >
             <img
               src={
                 isActive || activeItem === "favorites"
@@ -100,28 +120,35 @@ function DashboardSidebar({ handleMenuClick }) {
               alt=""
             />
             <span
-              className={
+              className={`transition-all duration-300 ease-in-out ${
                 delay && activeItem === "favorites"
-                  ? "text-green-primary-500"
-                  : ""
-              }
+                  ? "pl-2 text-green-primary-500"
+                  : "pl-2"
+              }`}
             >
               علاقمندی‌ها
             </span>
           </li>
         )}
       </NavLink>
+
       <NavLink
         to="/dashboard/myaddresses"
         className={({ isActive }) =>
           isActive
-            ? "transition-text block w-full py-2 text-base font-normal text-green-primary-500"
-            : "transition-text block w-full py-2 text-sm font-normal text-[#353535]"
+            ? "block w-full py-2 text-base font-normal text-green-primary-500 transition-all duration-300 ease-in-out"
+            : "block w-full py-2 text-sm font-normal text-[#353535] transition-all duration-300 ease-in-out"
         }
         onClick={() => handleNavLinkClick("myaddresses")}
       >
         {({ isActive }) => (
-          <li className="flex flex-row items-center justify-start gap-1">
+          <li
+            className={`flex flex-row items-center justify-start gap-1 transition-all duration-300 ease-in-out ${
+              isActive
+                ? "scale-100 rounded-b-sm rounded-t-sm border-r-2 border-green-primary-500 px-2"
+                : "scale-95"
+            }`}
+          >
             <img
               src={
                 isActive || activeItem === "myaddresses"
@@ -131,19 +158,19 @@ function DashboardSidebar({ handleMenuClick }) {
               alt=""
             />
             <span
-              className={
+              className={`transition-all duration-300 ease-in-out ${
                 delay && activeItem === "myaddresses"
-                  ? "text-green-primary-500"
-                  : ""
-              }
+                  ? "pl-2 text-green-primary-500"
+                  : "pl-2"
+              }`}
             >
               آدرس‌های من
             </span>
           </li>
         )}
       </NavLink>
-      <NavLink
-        to="/dashboard/profile"
+
+      <button
         className="transition-text block w-full py-2 font-bold text-red-700"
         onClick={() => openModalHandler("exitDashboard")}
       >
@@ -157,7 +184,7 @@ function DashboardSidebar({ handleMenuClick }) {
             خروج
           </span>
         </li>
-      </NavLink>
+      </button>
       {isOpen && modalType === "exitDashboard" && <DashboardModalExit />}
     </div>
   );

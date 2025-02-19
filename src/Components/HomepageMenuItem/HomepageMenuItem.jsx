@@ -1,7 +1,7 @@
 function HomepageMenuItem() {
   return (
     <div className="relative mx-auto mt-28 grid max-w-8xl grid-cols-2 justify-items-center gap-6 px-2 md:grid-cols-4">
-      <div className="relative h-[5rem] w-full max-w-36 rounded-md border bg-green-primary-500 shadow-2xl hover:scale-105 md:h-[10rem] md:max-w-72">
+      <div className="relative h-[5rem] w-full max-w-36 rounded-md border bg-green-primary-500 shadow-2xl transition-transform duration-300 hover:scale-105 md:h-[10rem] md:max-w-72">
         <img
           src="/menuitem/4.png"
           className="absolute bottom-5 left-1/2 z-10 h-32 w-32 -translate-x-1/2 transform md:h-60 md:w-60"
@@ -11,7 +11,7 @@ function HomepageMenuItem() {
           غذای اصلی
         </div>
       </div>
-      <div className="relative h-[5rem] w-full max-w-36 rounded-md bg-green-primary-500 shadow-2xl hover:scale-105 md:h-[10rem] md:max-w-72">
+      <div className="relative h-[5rem] w-full max-w-36 rounded-md bg-green-primary-500 shadow-2xl transition-transform duration-300 hover:scale-105 md:h-[10rem] md:max-w-72">
         <img
           src="/menuitem/3.png"
           className="absolute bottom-5 left-1/2 z-10 h-32 w-32 -translate-x-1/2 transform md:h-60 md:w-60"
@@ -21,7 +21,7 @@ function HomepageMenuItem() {
           پیش غذا
         </div>
       </div>
-      <div className="relative mt-20 h-[5rem] w-full max-w-36 rounded-md bg-green-primary-500 shadow-2xl hover:scale-105 md:mt-0 md:h-[10rem] md:max-w-72">
+      <div className="relative mt-20 h-[5rem] w-full max-w-36 rounded-md bg-green-primary-500 shadow-2xl transition-transform duration-300 hover:scale-105 md:mt-0 md:h-[10rem] md:max-w-72">
         <img
           src="/menuitem/2.png"
           className="absolute bottom-5 left-1/2 z-10 h-32 w-32 -translate-x-1/2 transform md:h-60 md:w-60"
@@ -31,7 +31,7 @@ function HomepageMenuItem() {
           دسر
         </div>
       </div>
-      <div className="relative mt-20 h-[5rem] w-full max-w-36 rounded-md bg-green-primary-500 shadow-2xl hover:scale-105 md:mt-0 md:h-[10rem] md:max-w-72">
+      <div className="relative mt-20 h-[5rem] w-full max-w-36 rounded-md bg-green-primary-500 shadow-2xl transition-transform duration-300 hover:scale-105 md:mt-0 md:h-[10rem] md:max-w-72">
         <img
           src="/menuitem/1.png"
           className="absolute bottom-5 left-1/2 z-10 h-32 w-32 -translate-x-1/2 transform md:h-60 md:w-60"
