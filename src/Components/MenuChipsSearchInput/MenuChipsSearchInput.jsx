@@ -39,7 +39,7 @@ function MenuChipsSearchInput() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="relative w-full max-w-md px-2"
+      className="relative w-full px-2 md:max-w-sm"
     >
       <div className="relative">
         <input

@@ -10,6 +10,8 @@ function DashboardFavoritesSearchChips() {
     error: categoriesError,
   } = useFavoriteCategories(userId);
 
+  console.log(categories);
+
   if (categoriesLoading) {
     return <div>در حال بارگذاری...</div>;
   }
@@ -18,11 +20,18 @@ function DashboardFavoritesSearchChips() {
     return <div>خطا در بازیابی اطلاعات: {categoriesError.message}</div>;
   }
 
+  const staticCategories = [
+    { id: "all", name_fa: "همه" },
+    { id: "main_course", name_fa: "غذای اصلی" },
+    { id: "drink", name_fa: "نوشیدنی" },
+    { id: "dessert", name_fa: "دسر" },
+  ];
+
   return (
     <div className="flex flex-row items-center justify-between py-2">
       <div className="mx-auto hidden w-full max-w-md flex-col items-center justify-between gap-3 md:flex md:max-w-8xl md:flex-row">
         <ul className="flex w-full gap-3 overflow-y-scroll p-2 text-center text-sm md:max-w-3xl md:overflow-visible xl:text-base">
-          {categories?.map((category) => (
+          {staticCategories.map((category) => (
             <li
               key={category.id}
               className="flex cursor-pointer items-center justify-center text-nowrap rounded-lg bg-gray-100 px-4 py-3 text-xs transition-all duration-300"

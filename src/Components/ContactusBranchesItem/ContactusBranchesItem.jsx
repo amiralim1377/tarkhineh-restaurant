@@ -4,8 +4,11 @@ import { setSelectedBranch } from "../../Slice/branchesSlice/branchesSlice";
 import { setCategory } from "../../Slice/categorySlice/categorySlice";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import ContactusBranchesItemMap from "../ContactusBranchesItemMap/ContactusBranchesItemMap";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function ContactusBranchesItem({ branches }) {
+  const [modalMapId, setModalMapId] = useState();
   const {
     address,
     name_fa,
@@ -20,7 +23,8 @@ function ContactusBranchesItem({ branches }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { isOpen, modalType, openModalHandler, selectedItem } = useModal();
+  const { isOpen, modalType, openModalHandler, selectedItem, modalId } =
+    useModal();
 
   const handleGoToBranchesPage = () => {
     dispatch(
@@ -34,8 +38,14 @@ function ContactusBranchesItem({ branches }) {
     navigate(`/branches/${branches.name}`);
   };
 
+  const handleBranchesModalMap = () => {
+    const newModalId = uuidv4();
+    setModalMapId(newModalId);
+    openModalHandler("BranchesItemMap", branches, newModalId);
+  };
+
   return (
-    <div className="mx-auto flex w-full max-w-md flex-col items-center overflow-hidden rounded-md border border-gray-300 md:h-72 md:max-w-8xl md:flex-row">
+    <div className="mx-auto flex w-full flex-col items-center overflow-hidden rounded-md border border-gray-300 md:h-72 md:max-w-8xl md:flex-row">
       <div className="h-28 w-full flex-none bg-gray-600 md:h-full md:w-1/2 lg:h-full lg:max-w-3xl">
         <img
           src="/contact-us/2.jpg"
@@ -61,15 +71,18 @@ function ContactusBranchesItem({ branches }) {
             صفحه شعبه
           </button>
           <button
-            onClick={() => openModalHandler("BranchesItemMap", branches)}
+            onClick={() => handleBranchesModalMap()}
             className="w-full max-w-32 text-nowrap rounded-md bg-green-primary-500 py-1 text-white"
           >
             دیدن در نقشه
           </button>
         </div>
       </div>
-      {isOpen && modalType === "BranchesItemMap" && (
-        <ContactusBranchesItemMap branches={selectedItem} />
+      {isOpen && modalType === "BranchesItemMap" && modalId === modalMapId && (
+        <ContactusBranchesItemMap
+          branches={selectedItem}
+          modalMapId={modalMapId}
+        />
       )}
     </div>
   );

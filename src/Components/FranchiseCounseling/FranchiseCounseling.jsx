@@ -3,6 +3,7 @@ import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
 import DatePicker from "react-multi-date-picker";
 import "react-multi-date-picker/styles/colors/green.css";
+import toast from "react-hot-toast";
 
 function FranchiseCounseling() {
   const {
@@ -13,11 +14,21 @@ function FranchiseCounseling() {
     reset,
   } = useForm();
 
+  const notifySuccess = () =>
+    toast.success("درخواست مشاوره شما با موفقیت ثبت گردید", {
+      position: "top-left",
+      style: {
+        background: "#417F56",
+        color: "white",
+      },
+    });
+
   const onSubmit = (data) => {
     if (data.date && data.date.format) {
       data.date = data.date.format("YYYY/MM/DD");
     }
-    console.log(data);
+    notifySuccess();
+
     reset();
   };
 

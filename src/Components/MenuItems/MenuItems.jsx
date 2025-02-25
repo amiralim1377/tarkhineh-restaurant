@@ -8,6 +8,8 @@ import MenuItemsMiddleDesktopContent from "../MenuItemsMiddleDesktopContent/Menu
 import MenuItemsDownContent from "../MenuItemsDownContent/MenuItemsDownContent";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Riple } from "react-loading-indicators";
+import ErrorNotification from "../ErrorNotification/ErrorNotification";
 
 const MenuItems = () => {
   const navigate = useNavigate();
@@ -37,6 +39,18 @@ const MenuItems = () => {
     closeModalHandler,
   } = useModal();
 
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Riple color="#417F56" size="medium" text="" textColor="" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <ErrorNotification error={error.message} />;
+  }
+
   return (
     <div className="mx-auto mb-10 max-w-8xl">
       <div className="mx-auto w-full p-2">
@@ -52,7 +66,7 @@ const MenuItems = () => {
             تکمیل خرید
           </button>
         </div>
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
           {filteredItems?.map((item) => (
             <div
               key={item.id}

@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import useCart from "../../../Components/React Custom Hooks/useCart/useCart";
 import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
 import { formatPrice } from "../../../helper_functions/formatPrice";
 import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
@@ -24,7 +23,7 @@ function DesktopCartItemFactor() {
           <div onClick={() => openModalHandler("deleteAll")}>
             <img
               src="/icons/trash.svg"
-              className="h-5 w-5 cursor-pointer"
+              className="h-6 w-6 cursor-pointer"
               alt=""
             />
           </div>

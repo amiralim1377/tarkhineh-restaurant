@@ -1,17 +1,18 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigation } from "react-router-dom";
 import { setSelectedBranch } from "../../Slice/branchesSlice/branchesSlice";
-import { ExpandMore, ExpandLess } from "@mui/icons-material";
+import { Popover, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBranches } from "../../Services/fetchBranches";
 import { setCategory } from "../../Slice/categorySlice/categorySlice";
+import ErrorNotification from "../ErrorNotification/ErrorNotification";
 
 function HeaderNavbarMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef(null);
   const dispatch = useDispatch();
-  const selectedBranch = useSelector((state) => state.branches.selectedBranch);
+
+  const selectedBranch = useSelector((state) => state.branches?.selectedBranch);
 
   const {
     data: branches,
@@ -22,11 +23,12 @@ function HeaderNavbarMenu() {
     queryKey: ["branches"],
     queryFn: fetchBranches,
   });
-  // console.log(branches);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+  useEffect(() => {
+    if (selectedBranch) {
+      console.log("Selected branch has changed:", selectedBranch);
+    }
+  }, [selectedBranch]);
 
   const handleBranchClick = (branch) => {
     dispatch(
@@ -40,57 +42,55 @@ function HeaderNavbarMenu() {
     setIsOpen(false);
   };
 
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  if (isError) {
+    return <ErrorNotification error={error.message} />;
+  }
 
   return (
-    <li ref={dropdownRef} className="relative">
-      <button
-        onClick={toggleDropdown}
-        className={`flex items-center transition-all duration-300 ${
-          selectedBranch.name ? "text-green-primary-500" : ""
-        }`}
-      >
-        <span>{`شعبه ${branches?.find((branch) => branch.name === selectedBranch.name)?.name_fa || ""}`}</span>
-        {isOpen ? (
-          <ExpandLess className="ml-2 rounded-full hover:bg-gray-200" />
-        ) : (
-          <ExpandMore className="ml-2 rounded-full hover:bg-gray-200" />
-        )}
-      </button>
-      {isOpen && (
-        <ul className="absolute right-0 z-50 mt-2 w-48 rounded-lg border border-gray-300 bg-white shadow-lg">
-          {branches &&
-            branches
-              .filter((branch) => branch.branch_id !== selectedBranch.id) // تغییر به branch_id
-              .map((branch) => (
-                <li key={branch.branch_id} className="border-b border-gray-300">
-                  <NavLink
-                    to={`/branches/${branch.name}`}
-                    onClick={() => handleBranchClick(branch)}
-                    className={({ isActive }) =>
-                      selectedBranch.id === branch.branch_id // تغییر به branch_id
-                        ? "block w-full px-4 py-2 font-bold text-green-primary-500 transition-all duration-300"
-                        : "block w-full px-4 py-2 transition-all duration-300 hover:bg-gray-100"
-                    }
-                  >
-                    {branch.name_fa}
-                  </NavLink>
-                </li>
-              ))}
-        </ul>
+    <Popover className="relative">
+      {({ open }) => (
+        <>
+          <Popover.Button
+            className={`flex items-center transition-all duration-300 ${
+              selectedBranch?.name ? "text-green-primary-500" : ""
+            }`}
+          >
+            <span>{`شعبه ${branches?.find((branch) => branch.name === selectedBranch.name)?.name_fa || ""}`}</span>
+            <img
+              src={`${open ? "/icons/Direct=Up, Color=Black.svg" : "/icons/Direct=down, Color=Black.svg"}`}
+              className="w-4 rounded-full hover:bg-gray-200"
+              alt=""
+            />
+          </Popover.Button>
+
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-200"
+            enterFrom="opacity-0 translate-y-1"
+            enterTo="opacity-100 translate-y-0"
+            leave="transition ease-in duration-150"
+            leaveFrom="opacity-100 translate-y-0"
+            leaveTo="opacity-0 translate-y-1"
+          >
+            <Popover.Panel className="absolute left-0 z-10 mt-5 w-32 rounded-lg bg-white shadow-lg md:w-40">
+              <div className="grid w-full grid-cols-1 rounded-lg bg-[#E5F2E9] px-4 py-6 text-xs text-green-primary-500">
+                {branches &&
+                  branches.map((branch) => (
+                    <NavLink
+                      key={branch.branch_id}
+                      to={`/branches/${branch.name}`}
+                      onClick={() => handleBranchClick(branch)}
+                      className="py-2 text-base hover:text-green-primary-500 hover:underline"
+                    >
+                      {branch.name_fa}
+                    </NavLink>
+                  ))}
+              </div>
+            </Popover.Panel>
+          </Transition>
+        </>
       )}
-    </li>
+    </Popover>
   );
 }
 

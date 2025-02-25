@@ -6,10 +6,12 @@ import NoOrdersYet from "../../Components/NoOrdersYet/NoOrdersYet";
 import "./custom-scrollbar.css";
 import { useSelector } from "react-redux";
 import NoDeliveredOrders from "../../Components/NoDeliveredOrders/NoDeliveredOrders";
+
 function DashboardOrderTracking() {
   const { userId: customerId } = useUserData();
-  const { isLoading, error, orders, addresses, branches, menuItems } =
+  const { isLoading, error, orders, branches, menuItems } =
     useDashboardOrderTracking();
+
   const category = useSelector((state) => state.orderCategory);
 
   const filteredOrders = orders?.filter((order) => {
@@ -48,17 +50,16 @@ function DashboardOrderTracking() {
       </div>
       <div className="border-gray-300 p-2">
         <DashboardOrderTrackingChips />
-        {orders.length > 0 ? (
+        {orders?.length > 0 ? (
           <ul className="custom-scrollbar flex max-h-dvh flex-col items-center space-y-4 overflow-y-scroll p-2">
             {filteredOrders?.map((order) => {
-              const address = addresses.find(
-                (a) => a.id === order?.delivery_address_id,
+              const branch = branches?.find(
+                (b) => b.branch_id === order.branch_id,
               );
-              const branch = branches.find((b) => b.id === order.branch_id);
               const deliveryAddress =
-                order.delivery_method === "in-person" && branch
+                order?.delivery_method === "in-person" && branch
                   ? branch.address
-                  : address;
+                  : order.delivery_address;
 
               return (
                 <DashboardOrderTrackingItems

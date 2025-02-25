@@ -12,9 +12,12 @@ const useFavoriteCategories = (userId) => {
     queryFn: () => getFavoriteCategoryIds(userId),
   });
 
+  console.log("Favorite Category IDs:", favoriteCategoriesIds);
+  console.log("Loading Favorite Category IDs:", isLoadingFavoriteCategoryIds);
+  console.log("Error Favorite Category IDs:", errorFavoriteCategoryIds);
+
   const categoryIds =
     favoriteCategoriesIds?.map((favorite) => favorite.category_id) || [];
-  // console.log(favoriteCategoriesIds);
 
   const {
     data: categories,
@@ -25,6 +28,10 @@ const useFavoriteCategories = (userId) => {
     queryFn: () => getFavoriteCategories(categoryIds),
     enabled: !!categoryIds.length, // فعال‌سازی کوئری تنها زمانی که categoryIds موجود باشند
   });
+
+  console.log("Categories:", categories);
+  console.log("Loading Categories:", isLoadingCategories);
+  console.log("Error Categories:", errorCategories);
 
   return {
     categories,

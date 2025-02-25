@@ -51,11 +51,11 @@ function MenuDetailsItems({ item, FavoritesItemId }) {
               ✖
             </button>
             <div className="mt-5 flex w-full flex-col items-start justify-between gap-2 md:flex-row">
-              <div className="w-full rounded-lg bg-green-500">
+              <div className="h-full w-full rounded-lg">
                 <img
-                  src="menu/IranianFood/c18324ae6672db4300937e223eb47955.jpg"
+                  src={item.images}
                   alt=""
-                  className="max-h-60 w-full rounded-lg object-cover"
+                  className="h-full max-h-60 w-full rounded-lg object-cover object-center"
                 />
               </div>
               <div className="flex w-full flex-col items-start space-y-2 rounded-lg bg-gray-200 p-2">

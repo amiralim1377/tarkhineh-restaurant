@@ -18,7 +18,7 @@ function HomepageRestaurantBranches() {
         ترخینه گردی
       </h2>
 
-      <div className="mx-auto my-4 grid max-w-8xl grid-cols-1 justify-items-center gap-y-4 px-2 md:grid-cols-2 md:gap-24 md:px-0 lg:grid-cols-4">
+      <div className="mx-auto my-4 grid max-w-8xl grid-cols-1 justify-items-center gap-4 gap-y-4 px-2 md:grid-cols-2 lg:grid-cols-4">
         {branches && branches.length > 0 ? (
           branches.map((branch) => (
             <TharkhineBranches branches={branch} key={branch.branch_id} />

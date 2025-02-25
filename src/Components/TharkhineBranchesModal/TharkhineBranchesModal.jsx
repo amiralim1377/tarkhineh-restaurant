@@ -13,7 +13,6 @@ function TharkhineBranchesModal({ branches }) {
     default_category,
     name,
   } = branches;
-  console.log(branches);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,6 +1,5 @@
 import useModal from "../React Custom Hooks/useModal/useModal";
-import { deleteAddress } from "../../Slice/userSlice/userSlice";
-import supabase from "../../Services/supabase";
+
 import UpdateDashboardAddressBox from "../UpdateDashboardAddressBox/UpdateDashboardAddressBox";
 import useUserData from "../React Custom Hooks/useUserData/useUserData";
 import DeleteAddress from "../DeleteAddress/DeleteAddress";

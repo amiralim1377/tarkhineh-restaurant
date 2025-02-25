@@ -45,15 +45,9 @@ function MenuItemsDownContent({ item }) {
         </div>
       )}
       <div className="flex w-full flex-row items-center justify-end gap-2">
-        {/* <button
-          className="hidden w-full max-w-24 text-nowrap rounded-lg bg-green-primary-500 p-2 text-[8px] text-white hover:opacity-90 md:block md:max-w-40 md:text-sm lg:text-base"
-          onClick={() => openModalHandler("productDetails", item)}
-        >
-          جزئیات محصول
-        </button> */}
         {isAddedInCart(item.id) ? (
           <button
-            className="flex w-full max-w-24 items-center text-nowrap rounded-lg border border-green-primary-500 bg-white p-2 text-[8px] text-green-primary-500 hover:opacity-90 md:max-w-40 md:text-base"
+            className="text-overflow-ellipsis flex h-10 w-full max-w-24 items-center overflow-hidden whitespace-nowrap text-nowrap rounded-lg border border-green-primary-500 bg-white p-2 text-[8px] text-green-primary-500 hover:opacity-90 md:max-w-40 md:text-base"
             onClick={(e) => {
               e.stopPropagation();
               handleRemoveFromCart(item.id);
@@ -68,7 +62,7 @@ function MenuItemsDownContent({ item }) {
           </button>
         ) : (
           <button
-            className="w-full max-w-24 text-nowrap rounded-lg bg-green-primary-500 p-2 text-[8px] text-white hover:opacity-90 md:max-w-40 md:text-sm lg:text-base"
+            className="text-overflow-ellipsis h-10 w-full max-w-24 overflow-hidden whitespace-nowrap text-nowrap rounded-lg bg-green-primary-500 p-2 text-[8px] text-white hover:opacity-90 md:max-w-40 md:text-sm lg:text-base"
             onClick={(e) => {
               e.stopPropagation();
               handleAddToCart(item);

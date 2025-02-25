@@ -20,16 +20,16 @@ function DashboardProfileItems() {
     isUserDataLoading,
     userDataError,
   } = useUserData();
-
   const {
     isLoading,
     selectedFileName,
     handleUploadProfileImage,
     handleDeleteProfileImage,
     setSelectedFileName,
+    setEditMode,
+    editMode,
   } = useProfileImage(userId);
   const queryClient = useQueryClient();
-  const [editMode, setEditMode] = useState(false);
 
   const {
     control,
@@ -353,7 +353,7 @@ function DashboardProfileItems() {
                       <img
                         src="/icons/add_a_photo_24dp_417F56_FILL0_wght400_GRAD0_opsz24.svg"
                         alt="Upload Icon"
-                        className=""
+                        className={`${editMode ? "" : "grayscale"}`}
                       />
                     </div>
                   </>
@@ -394,13 +394,16 @@ function DashboardProfileItems() {
                     <button
                       onClick={(e) => {
                         e.preventDefault();
-                        handleDeleteProfileImage(userData.image, e);
+                        if (editMode) {
+                          handleDeleteProfileImage(userData.image, e);
+                        }
                       }}
                       className="delete-icon"
                     >
                       <img
                         src="/icons/delete_24dp_BB271A_FILL0_wght400_GRAD0_opsz24.svg"
                         alt="Delete Icon"
+                        className={`${editMode ? "" : "grayscale"}`}
                       />
                     </button>
                   </>

@@ -2,7 +2,7 @@ import BranchUsersCommentsSlider from "../BranchUsersCommentsSlider/BranchUsersC
 
 function BranchUsersComments({ branchData }) {
   return (
-    <div className="my-20 w-full">
+    <div className="w-full py-8 md:py-12">
       <h3 className="text-center text-base font-bold text-[#353535] md:text-xl">
         نظرات کاربران
       </h3>

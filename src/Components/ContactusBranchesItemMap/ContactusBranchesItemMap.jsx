@@ -1,13 +1,13 @@
 import { Dialog } from "@headlessui/react";
 import useModal from "../React Custom Hooks/useModal/useModal";
 
-function ContactusBranchesItemMap({ branches }) {
+function ContactusBranchesItemMap({ branches, modalMapId }) {
   const { name_fa, latitude, longitude } = branches;
 
-  const { isOpen, modalType, closeModalHandler } = useModal();
+  const { isOpen, modalType, closeModalHandler, modalId } = useModal();
   return (
     <Dialog
-      open={isOpen && modalType === "BranchesItemMap"}
+      open={isOpen && modalType === "BranchesItemMap" && modalId == modalMapId}
       onClose={closeModalHandler}
       className="relative z-50"
     >

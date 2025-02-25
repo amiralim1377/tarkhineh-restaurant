@@ -7,6 +7,7 @@ import {
   setSubCategory,
 } from "../../Slice/categorySlice/categorySlice";
 import MenupageNavbarChangeBranch from "../MenupageNavbarChangeBranch/MenupageNavbarChangeBranch";
+import { Riple } from "react-loading-indicators";
 
 function MenupageNavbar() {
   const dispatch = useDispatch();
@@ -14,7 +15,6 @@ function MenupageNavbar() {
   const selectedCategory = useSelector(
     (state) => state.category?.selectedCategory,
   );
-  console.log(selectedCategory);
 
   const {
     data: categories,
@@ -52,10 +52,14 @@ function MenupageNavbar() {
   const getCategoryClass = (categoryId) =>
     selectedCategory === categoryId
       ? "block font-bold text-xs md:text-base text-green-primary-500 underline-offset-2 transition-all duration-300"
-      : "transition-all duration-300";
+      : "transition-all duration-300 md:text-sm text-[10px]";
 
   if (isCategoriesLoading) {
-    return <div>در حال بارگذاری دسته‌بندی‌ها...</div>;
+    return (
+      <div className="flex items-center justify-center">
+        <Riple color="#417F56" size="medium" text="" textColor="" />
+      </div>
+    );
   }
 
   if (isCategoriesError) {
@@ -63,8 +67,8 @@ function MenupageNavbar() {
   }
 
   return (
-    <div className="mx-auto bg-[#EDEDED]">
-      <div className="mx-auto flex max-w-md list-none flex-row items-center justify-between md:max-w-8xl">
+    <div className="mx-auto w-full bg-[#EDEDED]">
+      <div className="mx-auto flex list-none flex-row items-center justify-between md:max-w-8xl">
         <nav>
           <ul className="flex items-center gap-6 px-2 py-5 text-sm leading-9 text-[#717171] md:text-xl">
             {categories?.map((category) => (

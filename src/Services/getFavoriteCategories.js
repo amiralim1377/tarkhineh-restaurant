@@ -7,8 +7,10 @@ export const getFavoriteCategories = async (categoryIds) => {
     .in("id", categoryIds);
 
   if (error) {
+    console.error("Error fetching categories:", error);
     throw error;
   }
 
+  console.log("Fetched categories:", data);
   return data;
 };

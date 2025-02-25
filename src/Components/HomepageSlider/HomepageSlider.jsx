@@ -5,9 +5,28 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import useModal from "../React Custom Hooks/useModal/useModal";
+import { v4 as uuidv4 } from "uuid";
+import BranchSelectionModal from "../BranchSelectionModal/BranchSelectionModal";
 
 function HomepageSlider() {
   const navigate = useNavigate();
+  const [menuId, setMenuId] = useState();
+  const selectedBranch = useSelector(
+    (state) => state.branches?.selectedBranch?.id,
+  );
+  const { isOpen, modalType, openModalHandler, modalId } = useModal();
+  const handleOpenMenuItem = () => {
+    if (!selectedBranch) {
+      const newModalId = uuidv4();
+      setMenuId(newModalId);
+      openModalHandler("BranchSelectionModal", null, newModalId);
+    } else {
+      navigate("/menu");
+    }
+  };
   return (
     <div className="font-Estedad flex h-[336px] w-full">
       <Swiper
@@ -32,7 +51,7 @@ function HomepageSlider() {
               تجربه غذای سالم وگیاهی به سبک ترخینه
             </h2>
             <button
-              onClick={() => navigate("/menu")}
+              onClick={handleOpenMenuItem}
               className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold"
             >
               سفارش آنلاین غذا
@@ -50,7 +69,7 @@ function HomepageSlider() {
               طعم بی‌نظیر طبیعت!
             </h2>
             <button
-              onClick={() => navigate("/menu")}
+              onClick={handleOpenMenuItem}
               className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold"
             >
               سفارش آنلاین غذا
@@ -68,7 +87,7 @@ function HomepageSlider() {
               لذت غذای سالم و گیاهی را با ترخینه تجربه کنید!
             </h2>
             <button
-              onClick={() => navigate("/menu")}
+              onClick={handleOpenMenuItem}
               className="mt-4 rounded-md bg-[#417F56] px-4 py-2 font-semibold"
             >
               سفارش آنلاین غذا
@@ -76,6 +95,9 @@ function HomepageSlider() {
           </div>
         </SwiperSlide>
       </Swiper>
+      {isOpen && modalType == "BranchSelectionModal" && modalId == menuId && (
+        <BranchSelectionModal branchSelectionId={menuId} />
+      )}
     </div>
   );
 }

@@ -23,6 +23,10 @@ function PaymentButtons() {
 
   const branch_id = useSelector((state) => state.branches?.selectedBranch?.id);
   const delivery_address_id = useSelector((state) => state.cart?.address?.id);
+  const delivery_address = useSelector(
+    (state) => state.cart?.address?.exactaddress,
+  );
+
   const discount_code = useSelector((state) => state.cart?.discountCode);
   const delivery_method = useSelector((state) => state.cart?.deliveryMethod); // Fixed the field name
   const user_phone_number = useSelector(
@@ -61,8 +65,7 @@ function PaymentButtons() {
         order_id: uuidv4(),
         customer_id: userId, // Unique identifier for the customer
         branch_id, // Unique identifier for the branch
-        delivery_address_id:
-          delivery_method === "delivery" ? delivery_address_id : null, // Only include delivery address if the method is delivery
+        delivery_address,
         order_date: moment().tz("Asia/Tehran").format(), // The date and time when the order was placed
         order_status: "Processing", // The current status of the order ('Processing')
         items: simplifiedCart, // The items in the order, stored as a JSON array

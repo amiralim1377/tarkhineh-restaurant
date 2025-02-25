@@ -21,7 +21,7 @@ function DashboardFavoritesItems() {
   return (
     <div>
       {favorites && favorites.length > 0 ? (
-        <ul className="grid grid-cols-2 gap-4 py-6 md:grid-cols-3">
+        <ul className="grid grid-cols-2 gap-4 py-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {favorites?.map((favorite) => (
             <DashboardFavoritesItemsLi
               key={favorite.id}

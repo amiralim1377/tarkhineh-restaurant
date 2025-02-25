@@ -15,24 +15,27 @@ function DesktopCartListing({ cartItem }) {
   } = cartItem;
 
   const { handleIncrease, handleDecrease, handleRemoveFromCart } = useCart();
-  const { selectedItem, isOpen, openModalHandler, modalType } = useModal(); // closeModalHandler اضافه شده است
+  const { selectedItem, isOpen, openModalHandler, modalType } = useModal();
 
   return (
-    <div className="flex flex-row rounded-lg border">
-      <div className="w-full max-w-44">
+    <div className="flex w-full gap-2 rounded-lg border">
+      <div className="min-h-32 w-full max-w-32 overflow-hidden rounded-r-lg bg-red-500 lg:min-h-44 lg:max-w-44">
         <img
-          src="/menu/IranianFood/c18324ae6672db4300937e223eb47955.jpg"
-          className="min-h-40 object-cover"
+          src={cartItem.images}
+          className="h-full max-h-32 w-full overflow-hidden object-cover object-center lg:max-h-44"
           alt=""
         />
       </div>
+
       <div
         onClick={() => openModalHandler("productDetails", cartItem)}
         className="w-full cursor-pointer p-2"
       >
         <div className="flex h-full flex-col justify-between p-2">
           <div className="flex flex-row items-center justify-between hover:opacity-65">
-            <h5 className="text-xl font-semibold text-[#353535]">{name_fa}</h5>
+            <h5 className="font-semibold text-[#353535] md:text-xs lg:text-xl">
+              {name_fa}
+            </h5>
             <div>
               <img
                 src="/public/icons/trash.svg"
@@ -47,20 +50,22 @@ function DesktopCartListing({ cartItem }) {
           </div>
           <div className="flex flex-row items-center justify-between">
             <div>
-              <p className="text-sm">{ingredients}</p>
+              <p className="line-clamp-1 text-xs lg:line-clamp-none lg:text-sm">
+                {ingredients}
+              </p>
             </div>
             {discount_percentage !== 0 && (
               <div className="flex items-center gap-2">
-                <div className="text-base text-[#CBCBCB] line-through">
+                <span className="text-xs text-[#CBCBCB] line-through lg:text-base">
                   {price} تومان
-                </div>
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-red-300 text-xs text-red-800">
+                </span>
+                <span className="flex h-6 w-6 items-center justify-center rounded-full bg-red-200 text-xs text-red-800">
                   %{discount_percentage}
-                </div>
+                </span>
               </div>
             )}
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex w-full flex-row items-center justify-between">
             <div className="flex w-full max-w-16 flex-row items-center justify-center gap-3 rounded-lg bg-[#E5F2E9] p-2">
               <img
                 src="/icons/+.svg"
@@ -101,7 +106,7 @@ function DesktopCartListing({ cartItem }) {
                 />
               )}
             </div>
-            <div className="text-xl text-[#353535]">
+            <div className="text-left text-xs text-[#353535] lg:text-xl">
               {formatPrice(discounted_price)}
             </div>
           </div>

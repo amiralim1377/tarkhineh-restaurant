@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import BranchPagePhotoSlider from "../../Components/BranchPagePhotoSlider/BranchPagePhotoSlider";
 import BranchUsersComments from "../../Components/BranchUsersComments/BranchUsersComments";
 import HomepageSlider from "../../Components/HomepageSlider/HomepageSlider";
@@ -14,10 +14,12 @@ import {
   setSelectedBranch,
 } from "../../Slice/branchesSlice/branchesSlice";
 import { useEffect } from "react";
+import IranianFoodsBranchesPages from "../../Components/IranianFoodsBranchesPages/IranianFoodsBranchesPages";
 
 function BranchesPages() {
   const { branchname } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const branchData = useSelector((state) => state.branches?.branches);
 
   const { isLoading, error, data } = useQuery({
@@ -41,12 +43,16 @@ function BranchesPages() {
   const { name_fa } = data;
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center space-y-3">
       <HomepageSlider />
       <SpecialOffer />
-      <PopularFoods />
+      <IranianFoodsBranchesPages />
       <NoniranianFoods />
-      <button className="flex items-center gap-2 border border-green-primary-500 px-4 py-2 text-xs text-green-primary-500 md:text-base">
+      <PopularFoods />
+      <button
+        onClick={() => navigate("/menu")}
+        className="flex items-center gap-2 border border-green-primary-500 px-4 py-2 text-xs text-green-primary-500 md:text-base"
+      >
         <img src="/icons/note.svg" alt="" />
         مشاهده منوی کامل
       </button>

@@ -41,40 +41,42 @@ function MenuItemsContentUpWrapper({ item }) {
   };
 
   return (
-    <div className="flex flex-row items-center justify-between">
-      <h3 className="text-xs text-[#353535] md:text-base md:font-semibold lg:text-xl">
+    <div className="flex flex-row items-center justify-between gap-2">
+      <h3 className="text-wrap text-[10px] text-[#353535] md:text-base md:font-semibold lg:text-xl">
         {item.name_fa}
       </h3>
-      {item.discount_percentage !== 0 && (
-        <div className="flex w-full max-w-20 items-center justify-between gap-1 text-[10px] md:hidden">
-          <span className="w-full text-nowrap text-[#ADADAD] line-through">
-            {formatPrice(item.price)}
-          </span>
-          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-red-200 p-1 text-center text-[9px] text-red-800">
-            %{item.discount_percentage}
+      <div className="flex items-center justify-start gap-3">
+        {item.discount_percentage !== 0 && (
+          <div className="flex w-full max-w-20 items-center justify-between gap-1 md:hidden">
+            <span className="w-full text-nowrap text-[9px] text-[#ADADAD] line-through">
+              {formatPrice(item.price)}
+            </span>
+            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-200 p-1 text-center text-[9px] text-red-800">
+              %{item.discount_percentage}
+            </span>
           </div>
-        </div>
-      )}
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          handleFavoriteToggle();
-        }}
-        className=""
-      >
-        {isFavorite ? (
-          <img
-            src="/icons/heart-bold.svg"
-            className="h-4 w-4 md:h-6 md:w-6"
-            alt="Heart"
-          />
-        ) : (
-          <img
-            src="/icons/heart.svg"
-            className="h-4 w-4 md:h-6 md:w-6"
-            alt="Heart"
-          />
         )}
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            handleFavoriteToggle();
+          }}
+          className="h-full w-full"
+        >
+          {isFavorite ? (
+            <img
+              src="/icons/heart-bold.svg"
+              className="h-4 w-4 md:h-6 md:w-6"
+              alt="Heart"
+            />
+          ) : (
+            <img
+              src="/icons/heart.svg"
+              className="h-4 w-4 md:h-6 md:w-6"
+              alt="Heart"
+            />
+          )}
+        </div>
       </div>
     </div>
   );

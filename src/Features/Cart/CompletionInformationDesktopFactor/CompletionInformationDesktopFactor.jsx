@@ -68,7 +68,7 @@ function CompletionInformationDesktopFactor() {
   };
 
   return (
-    <div className="w-full min-w-[512px] rounded-lg border border-gray-300 bg-white px-4 py-4">
+    <div className="w-full max-w-lg rounded-lg border border-gray-300 bg-white p-4">
       <div className="flex w-full flex-col items-start justify-between space-y-7 divide-y">
         <div className="flex w-full flex-row items-center justify-between">
           <div>

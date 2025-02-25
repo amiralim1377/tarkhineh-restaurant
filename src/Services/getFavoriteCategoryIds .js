@@ -7,8 +7,10 @@ export const getFavoriteCategoryIds = async (userId) => {
     .eq("customer_id", userId);
 
   if (error) {
+    console.error("Error fetching favorite category IDs:", error);
     throw error;
   }
 
+  console.log("Fetched favorite category IDs:", data);
   return data;
 };

@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useUserData from "../useUserData/useUserData";
 import { getOrders } from "../../../Services/getOrders";
-import { fetchAddressById } from "../../../Services/fetchAddressById";
 import { fetchBranchesById } from "../../../Services/fetchBranchesById";
 import { fetchOrderedItemsById } from "../../../Services/fetchOrderedItemsById";
 
@@ -16,22 +15,6 @@ const useDashboardOrderTracking = () => {
     queryKey: ["orders", customerId],
     queryFn: () => getOrders(customerId),
     enabled: !!customerId,
-  });
-
-  const addressIds = orders
-    ? orders.map((order) => order?.delivery_address_id)
-    : [];
-  const {
-    data: addresses,
-    isLoading: isLoadingAddresses,
-    error: addressesError,
-  } = useQuery({
-    queryKey: ["addresses", addressIds],
-    queryFn: async () => {
-      const addressPromises = addressIds?.map((id) => fetchAddressById(id));
-      return Promise.all(addressPromises);
-    },
-    enabled: addressIds.length > 0,
   });
 
   const branchIds = orders ? orders.map((order) => order.branch_id) : [];
@@ -61,15 +44,10 @@ const useDashboardOrderTracking = () => {
     enabled: menuItemsIds.length > 0,
   });
 
-  const isLoading =
-    isLoadingOrders ||
-    isLoadingAddresses ||
-    isLoadingBranches ||
-    isLoadingMenuItems;
-  const error =
-    ordersError || addressesError || branchesError || menuItemsError;
+  const isLoading = isLoadingOrders || isLoadingBranches || isLoadingMenuItems;
+  const error = ordersError || branchesError || menuItemsError;
 
-  return { isLoading, error, orders, addresses, branches, menuItems };
+  return { isLoading, error, orders, branches, menuItems };
 };
 
 export default useDashboardOrderTracking;

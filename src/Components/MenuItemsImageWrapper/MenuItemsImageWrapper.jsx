@@ -1,17 +1,12 @@
 function MenuItemsImageWrapper({ item }) {
   return (
-    <>
-      <div className="h-full w-full max-w-24 md:max-w-32 lg:max-w-52">
-        <img
-          src={
-            item.image ||
-            "/menu/IranianFood/c18324ae6672db4300937e223eb47955.jpg"
-          }
-          alt={item.name_fa}
-          className="min-h-32 w-full min-w-24 object-cover md:min-h-44"
-        />
-      </div>
-    </>
+    <img
+      src={
+        item.images || "/menu/IranianFood/c18324ae6672db4300937e223eb47955.jpg"
+      }
+      alt={item.name_fa}
+      className="h-full max-h-32 w-full max-w-24 object-cover object-center md:min-h-48 md:max-w-36 lg:min-h-44 lg:max-w-44"
+    />
   );
 }
 

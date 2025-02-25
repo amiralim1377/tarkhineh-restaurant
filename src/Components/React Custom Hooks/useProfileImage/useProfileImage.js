@@ -7,12 +7,14 @@ const useProfileImage = (userId) => {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState("");
   const queryClient = useQueryClient();
+  const [editMode, setEditMode] = useState(false);
 
   const handleUploadProfileImage = async (file) => {
     setIsLoading(true);
+    setEditMode(true);
     try {
       const profileImageUrl = await uploadProfileImage(file, userId);
-      if (profileImageUrl) {
+      if (profileImageUrl && editMode) {
         // Image uploaded successfully
         setSelectedFileName(file.name);
         queryClient.invalidateQueries(["userData", userId]);
@@ -27,6 +29,7 @@ const useProfileImage = (userId) => {
       );
     } finally {
       setIsLoading(false);
+      setEditMode(false);
     }
   };
 
@@ -38,6 +41,7 @@ const useProfileImage = (userId) => {
     }
 
     setIsLoading(true);
+    setEditMode(true);
     try {
       const fileName = `${userId}/${imageUrl.split("/").pop()}`;
       const result = await deleteProfileImage(userId, fileName);
@@ -56,6 +60,7 @@ const useProfileImage = (userId) => {
       );
     } finally {
       setIsLoading(false);
+      setEditMode(false);
     }
   };
 
@@ -63,6 +68,8 @@ const useProfileImage = (userId) => {
     isLoading,
     selectedFileName,
     setSelectedFileName,
+    setEditMode,
+    editMode,
     handleUploadProfileImage,
     handleDeleteProfileImage,
   };

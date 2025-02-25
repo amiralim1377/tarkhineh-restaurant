@@ -8,7 +8,7 @@ import CompletionInformationDesktopFactor from "../CompletionInformationDesktopF
 function CompletionInformationDesktop() {
   const deliveryMethod = useSelector((state) => state.cart?.deliveryMethod);
   return (
-    <div className="felx-row mx-auto my-8 hidden max-w-8xl items-start justify-between md:flex">
+    <div className="mx-auto my-8 hidden max-w-8xl flex-row items-start justify-between gap-2 md:flex">
       <div className="flex w-full max-w-4xl flex-col space-y-2">
         <OrderDeliveryMethod />
         {deliveryMethod == "delivery" ? (
@@ -18,9 +18,7 @@ function CompletionInformationDesktop() {
         )}
         <OrderDescription />
       </div>
-      <div className="max-w-lg">
-        <CompletionInformationDesktopFactor />
-      </div>
+      <CompletionInformationDesktopFactor />
     </div>
   );
 }

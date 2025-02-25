@@ -22,7 +22,7 @@ function DashboardOrderTrackingSecondItem({ order, deliveryAddress }) {
         </span>
         <span className="flex items-center gap-1 text-[10px] md:text-xs">
           <img src="/icons/location.svg" className="h-3 w-3" alt="" />
-          {exactaddress || mapaddress}
+          {exactaddress || mapaddress || deliveryAddress}
         </span>
         <div className="flex flex-col items-center gap-3 text-[10px] md:flex-row md:text-xs">
           <div className="flex items-center gap-1 text-nowrap">

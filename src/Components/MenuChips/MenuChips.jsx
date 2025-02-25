@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSubCategory } from "../../Slice/categorySlice/categorySlice";
 import { fetchSubcategoriesByBranchAndCategory } from "../../Services/fetchSubcategoriesByBranchAndCategory";
 import MenuChipsSearchInput from "../MenuChipsSearchInput/MenuChipsSearchInput";
+import { Riple } from "react-loading-indicators";
 
 function MenuChips() {
   const dispatch = useDispatch();
@@ -38,12 +39,19 @@ function MenuChips() {
     );
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center">
+        <Riple color="#417F56" size="medium" text="" textColor="" />
+      </div>
+    );
+  }
+
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="mx-auto mt-4 flex w-full max-w-md flex-col items-center justify-between gap-3 md:max-w-8xl md:flex-row">
-      <ul className="flex w-full gap-3 overflow-y-scroll p-2 text-center text-sm md:max-w-3xl md:overflow-visible xl:text-base">
+    <div className="mx-auto mt-4 flex w-full flex-col items-center justify-between gap-3 md:max-w-8xl md:flex-row">
+      <ul className="flex gap-3 overflow-y-scroll p-2 text-center text-xs md:overflow-visible xl:text-base">
         {subcategories?.map((subcategory) => (
           <li
             key={subcategory.id}

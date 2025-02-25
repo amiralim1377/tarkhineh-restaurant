@@ -56,7 +56,7 @@ function BranchPagePhotoSlider({ branchData }) {
             </div>
             <div className="flex w-full flex-row items-center gap-1 md:max-w-52 md:flex-col">
               <img src="/icons/clock.svg" className="md:h-8 md:w-8" alt="" />
-              <h6 className="w-full text-center text-[10px] md:text-base">
+              <h6 className="w-full text-[10px] md:text-center md:text-base">
                 {working_hours}
               </h6>
             </div>

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { formatPrice } from "../../../helper_functions/formatPrice";
 import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
+import useSendOrder from "../../../Components/React Custom Hooks/useSendOrder/useSendOrder";
+import PaymentButtons from "../../../Components/PaymentButtons/PaymentButtons";
 
 function PaymentFactor() {
   const navigate = useNavigate();
@@ -20,6 +22,7 @@ function PaymentFactor() {
     totalCost,
     totalTime,
   } = useCartCalculations();
+  const { mutate: sendOrderToServer, isLoading } = useSendOrder();
 
   const notifyError = () =>
     toast.error("لطفاً بر روی یک درگاه پرداخت کلیک کنید !", {
@@ -56,20 +59,14 @@ function PaymentFactor() {
             </div>
           </div>
         )}
-        <div className="mt-2 flex w-full items-center justify-between">
-          <h5 className="text-sm text-[#353535]"> مبلغ قابل پرداخت</h5>
+        <div className="flex w-full items-center justify-between py-2">
+          <span className="text-sm text-[#353535]"> مبلغ قابل پرداخت</span>
           <span className="text-sm font-semibold text-green-primary-500">
             {formatPrice(totalCost)}
           </span>
         </div>
         <div className="mt-3 w-full">
-          <button
-            onClick={handleGoToPaymentGateway}
-            className="flex w-full flex-row items-center justify-center rounded-md bg-green-primary-500 p-2 text-xs text-white"
-          >
-            <img src="/icons/tick-circle.svg" alt="" />
-            تایید و پرداخت
-          </button>
+          <PaymentButtons />
         </div>
       </div>
     </div>

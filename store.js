@@ -8,6 +8,7 @@ import modalReducer from "./src/Slice/modalSlice/modalSlice";
 import userReducer from "./src/Slice/userSlice/userSlice";
 import authReducer from "./src/Slice/authSlice/authSlice";
 import orderCategoryReducer from "./src/Slice/orderCategorySlice/orderCategorySlice";
+import searchDesireReducer from "./src/Slice/searchDesireSlice/searchDesireSlice";
 
 const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
     user: userReducer,
     auth: authReducer,
     orderCategory: orderCategoryReducer,
+    searchDesire: searchDesireReducer,
   },
 });
 
