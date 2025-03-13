@@ -8,6 +8,7 @@ const useFormhandler = () => {
     reset,
     formState: { errors },
     setValue,
+    control,
   } = useForm();
 
   const isDeliveryForMe = watch("isDeliveryForMe", true);

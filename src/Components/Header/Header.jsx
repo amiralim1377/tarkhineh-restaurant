@@ -1,8 +1,24 @@
 import { Link, NavLink } from "react-router-dom";
 import HeaderNavbarMenu from "../HeaderNavbarMenu/HeaderNavbarMenu";
 import HeaderNavLinkLeft from "../HeaderNavLinkLeft/HeaderNavLinkLeft";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 function Header() {
+  const selectedBranch = useSelector(
+    (state) => state.branches?.selectedBranch?.id,
+  );
+  const boolSelectedBranch = Boolean(selectedBranch);
+
+  const notifyError = () =>
+    toast.error("لطفا اول شعبه ی مد نظر برای سفارش را انتخاب نمایید", {
+      position: "top-left",
+      style: {
+        background: "#E50046",
+        color: "white",
+      },
+    });
+
   return (
     <header className="sticky top-0 z-50 w-full bg-white px-2 py-9 shadow-md transition-all duration-300">
       <div className="mx-auto flex w-full max-w-8xl items-center justify-between">
@@ -36,12 +52,17 @@ function Header() {
             <HeaderNavbarMenu />
             <li>
               <NavLink
-                to="/menu"
+                to={boolSelectedBranch ? "/menu" : ""}
                 className={({ isActive }) =>
-                  isActive
+                  isActive && boolSelectedBranch
                     ? "block font-bold text-green-primary-500 underline-offset-2 transition-all duration-300"
                     : "transition-all duration-300"
                 }
+                onClick={() => {
+                  if (!boolSelectedBranch) {
+                    notifyError();
+                  }
+                }}
               >
                 منو
               </NavLink>

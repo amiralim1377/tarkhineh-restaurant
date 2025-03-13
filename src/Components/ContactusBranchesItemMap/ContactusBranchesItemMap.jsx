@@ -1,8 +1,10 @@
 import { Dialog } from "@headlessui/react";
 import useModal from "../React Custom Hooks/useModal/useModal";
+import ContactUsMapContainer from "../ContactUsMapContainer/ContactUsMapContainer";
 
 function ContactusBranchesItemMap({ branches, modalMapId }) {
   const { name_fa, latitude, longitude } = branches;
+  const center = [latitude, longitude];
 
   const { isOpen, modalType, closeModalHandler, modalId } = useModal();
   return (
@@ -19,22 +21,18 @@ function ContactusBranchesItemMap({ branches, modalMapId }) {
           </Dialog.Title>
           <Dialog.Description className="cursor-pointer text-sm text-gray-500">
             موقعیت شعبه {name_fa} روی نقشه.
-            <div className="overflow-hidden rounded-lg p-2">
-              <iframe
-                title="Map"
-                src={`https://www.google.com/maps?q=${latitude},${longitude}&z=15&output=embed`}
-                className="h-32 w-full rounded-md border-none md:h-48"
-              ></iframe>
-            </div>
-            <div className="mt-2 flex justify-end space-x-2 md:mt-4">
-              <button
-                onClick={() => closeModalHandler()}
-                className="rounded-md bg-red-500 px-3 py-1 text-xs font-medium text-white md:px-4 md:py-2 md:text-sm"
-              >
-                بستن
-              </button>
-            </div>
           </Dialog.Description>
+          <div className="h-full w-full p-2">
+            <ContactUsMapContainer center={center} />
+          </div>
+          <div className="mt-2 flex justify-end space-x-2 md:mt-4">
+            <button
+              onClick={() => closeModalHandler()}
+              className="rounded-md bg-red-500 px-3 py-1 text-xs font-medium text-white md:px-4 md:py-2 md:text-sm"
+            >
+              بستن
+            </button>
+          </div>
         </Dialog.Panel>
       </div>
     </Dialog>

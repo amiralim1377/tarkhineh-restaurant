@@ -19,7 +19,7 @@ function HomepageRestaurantInformation() {
           <div className="flex justify-end">
             <button
               onClick={() => navigate("/about-us")}
-              className="flex items-center rounded-md border-2 border-white p-2 hover:border-gray-400 md:px-4 md:py-2"
+              className="flex items-center rounded-md border-2 border-white p-2 md:px-4 md:py-2"
             >
               اطلاعات بیشتر
               <img src="/icons/arrow-left.svg" className="" alt="" />

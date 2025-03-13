@@ -2,17 +2,15 @@ import { useDispatch } from "react-redux";
 import { setSelectedBranch } from "../../Slice/branchesSlice/branchesSlice";
 import { useNavigate } from "react-router-dom";
 import { setCategory } from "../../Slice/categorySlice/categorySlice";
+import useModal from "../React Custom Hooks/useModal/useModal";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import BranchModalImage from "../BranchModalImage/BranchModalImage";
 
 function TharkhineBranches({ branches }) {
-  const {
-    address,
-    name_fa,
-    branch_id,
-    latitude,
-    longitude,
-    default_category,
-    name,
-  } = branches;
+  const { address, name_fa, branch_id, branch_images, name } = branches;
+
+  const [modalImageId, setModalImageId] = useState();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,12 +27,23 @@ function TharkhineBranches({ branches }) {
     navigate(`/branches/${branches.name}`);
   };
 
+  const { isOpen, modalType, openModalHandler, modalId } = useModal();
+
+  const handleBranchesModalImage = () => {
+    const newModalId = uuidv4();
+    setModalImageId(newModalId);
+    openModalHandler("branchModalImage", null, newModalId);
+  };
+
   return (
     <div className="relative flex w-full flex-row items-center justify-center overflow-hidden rounded-lg border transition-all duration-500 ease-in-out hover:border-green-primary-500 hover:shadow-md md:min-h-[344px] md:flex-col">
-      <div className="h-full w-full transform transition-transform duration-500 ease-in-out md:min-h-60 group-hover:md:translate-y-[-20px]">
+      <div
+        onClick={handleBranchesModalImage}
+        className="h-full w-1/2 transform cursor-pointer bg-red-400 transition-transform duration-500 ease-in-out md:w-full"
+      >
         <img
-          src="/public/branches/d5c39ff5c7dcfd7412a964561eb2869d.jpg"
-          className="h-full min-h-20 w-full max-w-36 object-cover md:min-h-48 md:max-w-full"
+          src={branch_images[0]}
+          className="h-full max-h-20 w-full object-cover object-center md:max-h-96 md:max-w-full"
           alt=""
         />
       </div>
@@ -49,6 +58,12 @@ function TharkhineBranches({ branches }) {
           <img src="/icons/arrow-left-green.svg" className="" alt="" />
         </button>
       </div>
+      {isOpen && modalType == "branchModalImage" && modalId == modalImageId && (
+        <BranchModalImage
+          branch_images={branch_images}
+          modalImageId={modalImageId}
+        />
+      )}
     </div>
   );
 }

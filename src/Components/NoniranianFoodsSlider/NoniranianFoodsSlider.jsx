@@ -72,7 +72,7 @@ function NoniranianFoodsSlider({ data }) {
               <h4 className="line-clamp-1 text-center text-xs md:text-lg">
                 {item?.name_fa}
               </h4>
-              <div className="flex w-full flex-row items-center justify-between">
+              <div className="flex h-6 w-full flex-row items-center justify-between">
                 <AddToFavoritesFromSlider item={item} />
                 <div className="justify بین flex items-center gap-1">
                   {item.discount_percentage !== 0 && (

@@ -34,7 +34,7 @@ function DashboardDesktop() {
     return null;
   }
 
-  const { email, firstname, lastname, phonenumber, username } = userData;
+  const { email, firstname, lastname, phonenumber } = userData;
 
   return (
     <div className="mx-auto hidden max-w-8xl py-8 md:block">
@@ -49,7 +49,7 @@ function DashboardDesktop() {
               />
             </div>
             <div className="flex flex-col items-center space-y-2 text-base">
-              <span className="text-base text-[#353535]">{`${firstname} ${lastname}`}</span>
+              <span className="text-base text-[#353535]">{`${firstname || "کاربر"} ${lastname || "ترخینه"}`}</span>
               <span className="text-xs text-[#717171]">{`${email}`}</span>
               <span className="text-xs text-[#717171]">{`${phonenumber}`}</span>
             </div>

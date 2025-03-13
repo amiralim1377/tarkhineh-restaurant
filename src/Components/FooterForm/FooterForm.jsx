@@ -1,18 +1,16 @@
-import React from "react";
 import { useForm } from "react-hook-form";
-import { toast, Toaster } from "react-hot-toast"; // برای نمایش پیام‌ها
+import { toast } from "react-hot-toast";
 
 function FooterForm() {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
-    setValue,
+    clearErrors,
   } = useForm();
 
-  const notifySuccess = () =>
+  const onSubmit = (data) => {
     toast.success("پیغام شما با موفقیت دریافت شد", {
       position: "top-left",
       style: {
@@ -20,10 +18,13 @@ function FooterForm() {
         color: "white",
       },
     });
-
-  const onSubmit = (data) => {
-    notifySuccess();
     reset();
+  };
+
+  const handleClearErrors = () => {
+    setTimeout(() => {
+      clearErrors();
+    }, 5000);
   };
 
   return (
@@ -31,7 +32,8 @@ function FooterForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full flex-col items-center space-y-4"
     >
-      <h3 className="text-xl font-bold text-white">پیام به ترخینه </h3>
+      <h3 className="text-xl font-bold text-white">پیام به ترخینه</h3>
+
       <div className="flex w-full flex-col gap-4 md:flex-row md:justify-between">
         <div className="flex w-full flex-col gap-y-2">
           <input
@@ -39,6 +41,7 @@ function FooterForm() {
             {...register("name", { required: "نام و نام خانوادگی الزامی است" })}
             className="w-full max-w-72 rounded-md border border-gray-400 bg-transparent px-4 py-2 text-white caret-white focus:border-white"
             placeholder="نام و نام خانوادگی"
+            onBlur={handleClearErrors}
           />
           {errors.name && (
             <span className="text-xs text-red-500">{errors.name.message}</span>
@@ -55,6 +58,7 @@ function FooterForm() {
             })}
             className="w-full max-w-72 rounded-md border border-gray-400 bg-transparent px-4 py-2 text-white caret-white"
             placeholder="شماره تماس"
+            onBlur={handleClearErrors}
           />
           {errors.phone && (
             <span className="text-xs text-red-500">{errors.phone.message}</span>
@@ -65,8 +69,10 @@ function FooterForm() {
             {...register("email")}
             className="w-full max-w-72 rounded-md border border-gray-400 bg-transparent px-4 py-2 text-white caret-white"
             placeholder="آدرس ایمیل (اختیاری)"
+            onBlur={handleClearErrors}
           />
         </div>
+
         <div className="w-full max-w-72">
           <textarea
             {...register("message", {
@@ -78,6 +84,7 @@ function FooterForm() {
             })}
             className="h-full w-full max-w-72 rounded-md border border-gray-400 bg-transparent px-4 py-2 text-white caret-white"
             placeholder="پیام شما"
+            onBlur={handleClearErrors}
           ></textarea>
           {errors.message && (
             <span className="text-xs text-red-500">
@@ -86,6 +93,7 @@ function FooterForm() {
           )}
         </div>
       </div>
+
       <div className="flex w-full items-start justify-end">
         <button
           type="submit"

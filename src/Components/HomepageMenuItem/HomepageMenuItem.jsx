@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import BranchSelectionModal from "../BranchSelectionModal/BranchSelectionModal";
 import { useState } from "react";
@@ -6,11 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 
 function HomepageMenuItem() {
   const [menuId, setMenuId] = useState();
-  const selectedBranch = useSelector(
-    (state) => state.branches?.selectedBranch?.id,
-  );
-  const { selectedItem, isOpen, modalType, openModalHandler, modalId } =
-    useModal();
+
+  const { isOpen, modalType, openModalHandler, modalId } = useModal();
   const handleOpenMenuItem = () => {
     const newModalId = uuidv4();
     setMenuId(newModalId);

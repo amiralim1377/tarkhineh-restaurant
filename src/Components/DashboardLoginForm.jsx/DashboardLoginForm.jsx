@@ -19,7 +19,6 @@ function DashboardLoginForm({ setLoginFalse }) {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 

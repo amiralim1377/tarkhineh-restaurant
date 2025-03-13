@@ -177,9 +177,9 @@ const UpdateDashboardAddressBox = memo(({ Address, seletedEditAdressId }) => {
                 className={`w-full rounded-md border p-2 ${errors.mapaddress ? "border border-red-300" : "border border-green-primary-500"}`}
               />
               {errors.mapaddress && (
-                <p role="alert" className="text-[10px] text-red-600">
+                <span role="alert" className="text-[10px] text-red-600">
                   {errors.mapaddress?.message}
-                </p>
+                </span>
               )}
               <div className="flex items-center gap-3">
                 <input

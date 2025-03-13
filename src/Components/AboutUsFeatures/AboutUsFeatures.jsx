@@ -1,6 +1,6 @@
 function AboutUsFeatures() {
   return (
-    <div className="mt-8 w-full bg-gray-200 px-2 py-6 md:py-11">
+    <div className="mt-8 w-full bg-[#EDEDED] px-2 py-6 md:py-11">
       <div className="mx-auto flex max-w-7xl flex-row items-center justify-between">
         <div className="flex flex-col items-center">
           <img

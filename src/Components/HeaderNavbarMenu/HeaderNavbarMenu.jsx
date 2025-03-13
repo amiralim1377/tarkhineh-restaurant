@@ -1,6 +1,6 @@
-import { useState, useRef, Fragment, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useNavigation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { setSelectedBranch } from "../../Slice/branchesSlice/branchesSlice";
 import { Popover, Transition } from "@headlessui/react";
 import { useQuery } from "@tanstack/react-query";
@@ -9,9 +9,7 @@ import { setCategory } from "../../Slice/categorySlice/categorySlice";
 import ErrorNotification from "../ErrorNotification/ErrorNotification";
 
 function HeaderNavbarMenu() {
-  const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
-
   const selectedBranch = useSelector((state) => state.branches?.selectedBranch);
 
   const {
@@ -30,7 +28,8 @@ function HeaderNavbarMenu() {
     }
   }, [selectedBranch]);
 
-  const handleBranchClick = (branch) => {
+  const handleBranchClick = (branch, closePopover) => {
+    // به‌روزرسانی اطلاعات انتخاب شده
     dispatch(
       setSelectedBranch({
         id: branch.branch_id,
@@ -39,8 +38,13 @@ function HeaderNavbarMenu() {
       }),
     );
     dispatch(setCategory(branch.default_category));
-    setIsOpen(false);
+
+    closePopover();
   };
+
+  if (isLoading) {
+    return <div>در حال بارگذاری...</div>;
+  }
 
   if (isError) {
     return <ErrorNotification error={error.message} />;
@@ -48,18 +52,21 @@ function HeaderNavbarMenu() {
 
   return (
     <Popover className="relative">
-      {({ open }) => (
+      {({ open, close }) => (
         <>
           <Popover.Button
             className={`flex items-center transition-all duration-300 ${
               selectedBranch?.name ? "text-green-primary-500" : ""
             }`}
           >
-            <span>{`شعبه ${branches?.find((branch) => branch.name === selectedBranch.name)?.name_fa || ""}`}</span>
+            <span>{`شعبه ${
+              branches?.find((branch) => branch.name === selectedBranch.name)
+                ?.name_fa || ""
+            }`}</span>
             <img
               src={`${open ? "/icons/Direct=Up, Color=Black.svg" : "/icons/Direct=down, Color=Black.svg"}`}
               className="w-4 rounded-full hover:bg-gray-200"
-              alt=""
+              alt="Toggle"
             />
           </Popover.Button>
 
@@ -79,7 +86,7 @@ function HeaderNavbarMenu() {
                     <NavLink
                       key={branch.branch_id}
                       to={`/branches/${branch.name}`}
-                      onClick={() => handleBranchClick(branch)}
+                      onClick={() => handleBranchClick(branch, close)}
                       className="py-2 text-base hover:text-green-primary-500 hover:underline"
                     >
                       {branch.name_fa}

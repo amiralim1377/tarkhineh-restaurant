@@ -17,16 +17,21 @@ function DashboardSignupForm({ setLoginFalse }) {
   const password = watch("password");
 
   const onSubmit = async (formData) => {
+    console.log(formData);
+
     const { error, data } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
+      phone: formData.phonenumber,
       options: {
         data: {
           phone: formData.phonenumber,
-          displayname: formData.fullname,
         },
       },
     });
+
+    console.log(data);
+
     console.log(error);
 
     if (error) {
@@ -61,9 +66,9 @@ function DashboardSignupForm({ setLoginFalse }) {
             })}
           />
           {errors.email && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errors?.email.message}
-            </p>
+            </span>
           )}
           <input
             type="text"

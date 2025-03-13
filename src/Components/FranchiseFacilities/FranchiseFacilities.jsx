@@ -1,4 +1,20 @@
+import { useForm, useFormContext } from "react-hook-form";
+
 function FranchiseFacilities() {
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  // handleImageChange.js
+  const handleImageChange = (event, setValue) => {
+    const files = event.target.files;
+    if (files) {
+      setValue("propertyImages", files);
+    }
+  };
+
   return (
     <div className="mt-8 w-full">
       <h2 className="text-right text-base font-semibold md:text-lg">
@@ -14,8 +30,7 @@ function FranchiseFacilities() {
               <input
                 type="checkbox"
                 className="h-4 w-4 accent-green-600"
-                name=""
-                id=""
+                {...register("hasLicense")}
               />
               <h4 className="text-sm text-[#717171]">پروانه کسب دارد.</h4>
             </div>
@@ -23,8 +38,7 @@ function FranchiseFacilities() {
               <input
                 type="checkbox"
                 className="h-4 w-4 accent-green-600"
-                name=""
-                id=""
+                {...register("hasKitchen")}
               />
               <h4 className="text-sm text-[#717171]">آشپزخانه دارد.</h4>
             </div>
@@ -32,8 +46,7 @@ function FranchiseFacilities() {
               <input
                 type="checkbox"
                 className="h-4 w-4 accent-green-600"
-                name=""
-                id=""
+                {...register("hasParking")}
               />
               <h4 className="text-sm text-[#717171]">پارکینگ دارد.</h4>
             </div>
@@ -41,8 +54,7 @@ function FranchiseFacilities() {
               <input
                 type="checkbox"
                 className="h-4 w-4 accent-green-600"
-                name=""
-                id=""
+                {...register("hasWarehouse")}
               />
               <h4 className="text-sm text-[#717171]">انبار دارد.</h4>
             </div>
@@ -50,7 +62,7 @@ function FranchiseFacilities() {
         </div>
         <div className="w-full max-w-md md:max-w-2xl">
           <h2 className="mb-3 text-right text-base font-semibold text-[#717171] md:text-base">
-            تصاویر ملک{" "}
+            تصاویر ملک
           </h2>
           <div className="flex min-h-64 flex-col items-center justify-center rounded-lg border-2 border-gray-300">
             <div>
@@ -59,13 +71,21 @@ function FranchiseFacilities() {
                   src="/Franchise/folder-add.svg"
                   className="h-8 w-8 md:h-16 md:w-16"
                   alt="Upload Icon"
-                />{" "}
-              </label>{" "}
-              <input type="file" id="file-upload" style={{ display: "none" }} />
+                />
+              </label>
+              <input
+                type="file"
+                id="file-upload"
+                accept="image/*"
+                multiple
+                style={{ display: "none" }}
+                {...register("propertyImages")}
+                onChange={handleImageChange}
+              />
             </div>
-            <h2 className="p-2 text-right text-xs font-semibold text-[#717171] md:text-base">
+            <p className="p-2 text-right text-xs font-semibold text-[#717171] md:text-base">
               تصاویری از ملک را بارگذاری کنید...
-            </h2>
+            </p>
           </div>
         </div>
       </div>

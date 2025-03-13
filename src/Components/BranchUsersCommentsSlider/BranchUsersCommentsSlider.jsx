@@ -14,6 +14,7 @@ import "swiper/css/autoplay";
 
 function BranchUsersCommentsSlider({ branchData }) {
   const { comments } = branchData;
+  console.log(branchData);
 
   return (
     <Swiper
@@ -52,9 +53,9 @@ function BranchUsersCommentsSlider({ branchData }) {
             <div className="flex max-h-36 w-full flex-row items-center justify-between gap-x-4 p-2">
               <div className="flex w-full max-w-16 flex-col items-center text-[#717171] md:min-w-28">
                 <img
-                  src="/Comment/49e93a33a95adeec5fb423e4debd5312.jpg"
+                  src={comment.user_image_url}
                   alt="avatar"
-                  className="h-14 w-14 rounded-full md:h-24 md:w-24"
+                  className="h-14 w-14 rounded-full object-cover md:h-24 md:w-24"
                 />
                 <h6 className="text-nowrap text-[10px] md:text-sm">
                   {`${comment.first_name} ${comment.last_name}`}

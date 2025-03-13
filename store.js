@@ -9,6 +9,7 @@ import userReducer from "./src/Slice/userSlice/userSlice";
 import authReducer from "./src/Slice/authSlice/authSlice";
 import orderCategoryReducer from "./src/Slice/orderCategorySlice/orderCategorySlice";
 import searchDesireReducer from "./src/Slice/searchDesireSlice/searchDesireSlice";
+import mapReducer from "./src/Slice/mapSlice/mapSlice";
 
 const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
     auth: authReducer,
     orderCategory: orderCategoryReducer,
     searchDesire: searchDesireReducer,
+    map: mapReducer,
   },
 });
 

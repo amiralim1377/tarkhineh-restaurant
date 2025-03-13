@@ -8,7 +8,7 @@ function Contactus() {
           با ترخینه در تماس باشید.
         </h2>
       </div>
-      <div className="mt-8 px-2">
+      <div className="px-2 py-8">
         <ContactusBranches />
       </div>
     </div>

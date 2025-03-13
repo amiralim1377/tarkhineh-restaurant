@@ -56,9 +56,9 @@ function DashboardForgottenPasswordEmail({ setIsShowForgottenPassword }) {
             })}
           />
           {errors.email && (
-            <p role="alert" className="text-xs text-red-700">
+            <span role="alert" className="text-xs text-red-700">
               {errors.email.message}
-            </p>
+            </span>
           )}
 
           <div className="flex w-full flex-row items-center justify-between gap-3">
