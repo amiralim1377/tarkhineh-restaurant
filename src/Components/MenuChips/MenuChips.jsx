@@ -49,12 +49,12 @@ function MenuChips() {
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <ul className="hide-scrollbar flex gap-3 overflow-scroll p-2 text-center text-xs md:overflow-visible xl:text-base">
+    <ul className="flex w-full gap-2 overflow-x-scroll p-2 text-center text-xs md:overflow-visible xl:text-base">
       {subcategories?.map((subcategory) => (
         <li
           key={subcategory.id}
           onClick={() => handleSubCategoryClick(subcategory)}
-          className={`flex w-full cursor-pointer items-center justify-center text-nowrap rounded-lg px-4 py-3 text-xs transition-all duration-300 ${
+          className={`flex max-w-28 flex-shrink-0 cursor-pointer items-center justify-center text-nowrap rounded-lg px-4 py-3 text-xs transition-all duration-300 ${
             selectedSubCategoryId === subcategory.id
               ? "bg-gray-200 font-bold text-green-primary-500"
               : "bg-[#EDEDED] text-gray-700"

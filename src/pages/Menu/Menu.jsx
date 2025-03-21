@@ -19,7 +19,7 @@ function Menu() {
     <div>
       <HomepageSlider />
       <MenupageNavbar />
-      <div className="mx-auto flex max-w-8xl flex-col items-center justify-between pt-4 md:flex-row md:overflow-hidden">
+      <div className="mx-auto flex max-w-8xl flex-col items-center justify-between pt-4 md:flex-row">
         <MenuChips />
         <MenuChipsSearchInput />
       </div>
