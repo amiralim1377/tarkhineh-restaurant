@@ -68,7 +68,7 @@ function AddressBox({ Address, onClick }) {
       </div>
       <div className="flex flex-row items-center justify-between">
         <div className="text-xs text-[#717171] md:text-sm">
-          {recipientName || `${firstname} ${lastname}`}
+          {recipientName || `${firstname || "کاربر"} ${lastname || "ترخینه"}`}
         </div>
         <div>
           <span className="text-xs text-[#717171] md:text-sm">

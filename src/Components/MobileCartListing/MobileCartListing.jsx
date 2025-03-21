@@ -34,11 +34,7 @@ function MobileCartListing({ cartItem }) {
               alt=""
             />
           ) : (
-            <img
-              src="/public/icons/-.svg"
-              className="h-3 w-3 cursor-pointer"
-              alt=""
-            />
+            <img src="/icons/-.svg" className="h-3 w-3 cursor-pointer" alt="" />
           )}
         </div>
       </div>

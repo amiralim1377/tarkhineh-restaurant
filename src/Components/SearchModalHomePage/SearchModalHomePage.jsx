@@ -9,7 +9,10 @@ import { setSelectedBranch } from "../../Slice/branchesSlice/branchesSlice";
 import { setCategory } from "../../Slice/categorySlice/categorySlice";
 import { useForm } from "react-hook-form";
 import { fetchSearchDesireItems } from "../../Slice/searchDesireSlice/searchDesireSlice";
-import { setSearchQuery } from "../../Slice/searchSlice/searchSlice";
+import {
+  resetSearchQuery,
+  setSearchQuery,
+} from "../../Slice/searchSlice/searchSlice";
 
 const SearchModalHomePage = memo(({ searchModalId }) => {
   const dispatch = useDispatch();
@@ -36,8 +39,10 @@ const SearchModalHomePage = memo(({ searchModalId }) => {
   useEffect(() => {
     if (searchDesireStatus === "succeeded") {
       navigate("/search"); // Navigate to the search page
+      closeModalHandler();
+      // dispatch(resetSearchQuery());
     }
-  }, [searchDesireStatus, navigate]);
+  }, [searchDesireStatus, navigate, closeModalHandler]);
 
   const handleBranchClick = (branch) => {
     dispatch(
@@ -65,8 +70,6 @@ const SearchModalHomePage = memo(({ searchModalId }) => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
-
     const cleanedQuery = cleanQuery(data.searchQuery);
 
     // Dispatch the thunk action to fetch and store the desired menu items

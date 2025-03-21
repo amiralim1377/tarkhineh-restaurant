@@ -21,9 +21,9 @@ function HeaderNavLinkLeftSearchIcon() {
     <>
       <div
         onClick={handleOpenSearchModal}
-        className="hidden rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300 hover:scale-105 md:block"
+        className="hidden cursor-pointer rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300 hover:scale-105 md:block"
       >
-        <img src="/icons/search-normal.svg" alt="Search" className="h-5 w-5" />
+        <img src="/icons/search-normal.svg" alt="Search" className="h-6 w-6" />
       </div>
       {isOpen && modalType == "searchModalId" && modalId == searchModalId && (
         <SearchModalHomePage searchModalId={searchModalId} />

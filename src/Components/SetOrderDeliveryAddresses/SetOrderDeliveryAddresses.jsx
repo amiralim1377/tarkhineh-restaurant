@@ -19,6 +19,8 @@ import { addAddress } from "../../Slice/userSlice/userSlice";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import supabase from "../../Services/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 const SetOrderDeliveryAddresses = ({}) => {
   const queryClient = useQueryClient();

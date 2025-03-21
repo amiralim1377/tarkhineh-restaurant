@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import useUserData from "../React Custom Hooks/useUserData/useUserData";
 import DatePicker from "react-multi-date-picker";
 import { Controller, useForm } from "react-hook-form";
@@ -20,6 +20,9 @@ function DashboardProfileItems() {
     isUserDataLoading,
     userDataError,
   } = useUserData();
+
+  console.log(userData);
+
   const {
     isLoading,
     selectedFileName,
@@ -86,11 +89,11 @@ function DashboardProfileItems() {
       username,
       profileImage,
     } = data;
-    const formattedBirthdate = birthdate
-      ? moment(birthdate, "jYYYY/jMM/jDD").format("YYYY-MM-DD")
-      : null;
 
-    let profileImageUrl = null;
+    console.log(data);
+    console.log(birthdate);
+
+    let profileImageUrl = userData.image;
     if (profileImage && profileImage.length > 0) {
       const file = profileImage[0];
       profileImageUrl = await handleUploadProfileImage(file);
@@ -101,7 +104,7 @@ function DashboardProfileItems() {
       lastname: lastname,
       email: email,
       phonenumber: phonenumber,
-      birthdate: formattedBirthdate,
+      birthdate: birthdate,
       username: username,
       image: profileImageUrl,
     };
@@ -264,9 +267,12 @@ function DashboardProfileItems() {
                   calendar={persian}
                   locale={persian_fa}
                   value={value || userData.birthdate}
-                  onChange={(date) =>
-                    onChange(date ? date.format("jYYYY/jMM/jDD") : null)
-                  }
+                  onChange={(date) => {
+                    const updatedDate = date
+                      ? date.format("YYYY/MM/DD")
+                      : userData.birthdate;
+                    onChange(updatedDate);
+                  }}
                   readOnly={!editMode}
                   inputClass={`block p-2 border text-[#717171] rounded-md focus:outline-none ${
                     editMode
@@ -277,7 +283,7 @@ function DashboardProfileItems() {
                   }`}
                   className="green w-full"
                   placeholder="تاریخ تولد"
-                  format="jYYYY/jMM/jDD"
+                  format="YYYY/MM/DD"
                 />
                 {editMode && error && (
                   <span role="alert" className="p-2 text-xs text-red-700">

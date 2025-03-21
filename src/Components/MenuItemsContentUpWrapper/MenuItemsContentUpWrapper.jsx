@@ -42,7 +42,7 @@ function MenuItemsContentUpWrapper({ item }) {
 
   return (
     <div className="flex flex-row items-center justify-between gap-2">
-      <h3 className="text-wrap text-[10px] text-[#353535] md:text-base md:font-semibold lg:text-xl">
+      <h3 className="text-wrap text-[12px] text-[#353535] md:text-base md:font-semibold lg:text-xl">
         {item.name_fa}
       </h3>
       <div className="flex items-center justify-start gap-3">

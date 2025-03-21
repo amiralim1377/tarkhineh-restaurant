@@ -36,18 +36,18 @@ function TharkhineBranches({ branches }) {
   };
 
   return (
-    <div className="relative flex w-full flex-row items-center justify-center overflow-hidden rounded-lg border transition-all duration-500 ease-in-out hover:border-green-primary-500 hover:shadow-md md:min-h-[344px] md:flex-col">
+    <div className="relative flex w-full flex-row items-center justify-center overflow-hidden rounded-lg border transition-all duration-500 ease-in-out hover:border-green-primary-500 hover:shadow-md md:flex-col">
       <div
         onClick={handleBranchesModalImage}
-        className="h-full w-1/2 transform cursor-pointer bg-red-400 transition-transform duration-500 ease-in-out md:w-full"
+        className="h-24 w-1/2 transform cursor-pointer transition-transform duration-500 ease-in-out md:h-52 md:w-full"
       >
         <img
           src={branch_images[0]}
-          className="h-full max-h-20 w-full object-cover object-center md:max-h-96 md:max-w-full"
+          className="h-full w-full object-cover object-center md:h-full"
           alt=""
         />
       </div>
-      <div className="group bottom-0 z-30 flex w-full flex-col items-center justify-center bg-white p-3 transition-all duration-500 ease-in-out md:absolute md:min-h-24 hover:md:min-h-40 hover:md:justify-between group-hover:md:translate-y-[-20px]">
+      <div className="group bottom-0 z-30 flex w-full flex-col items-center justify-center bg-white p-4 transition-all duration-500 ease-in-out md:absolute md:h-20 hover:md:min-h-40 hover:md:justify-between group-hover:md:translate-y-[-20px]">
         <h4 className="text-sm font-semibold md:text-xl">شعبه {name_fa}</h4>
         <p className="text-center text-xs md:p-2 md:text-sm">{address}</p>
         <button

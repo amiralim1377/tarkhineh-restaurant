@@ -1,6 +1,8 @@
 import { Dialog } from "@headlessui/react";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import ContactUsMapContainer from "../ContactUsMapContainer/ContactUsMapContainer";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 function ContactusBranchesItemMap({ branches, modalMapId }) {
   const { name_fa, latitude, longitude } = branches;

@@ -3,8 +3,14 @@ import MobileCartListing from "../../../Components/MobileCartListing/MobileCartL
 import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
 import { formatPrice } from "../../../helper_functions/formatPrice";
 import { useNavigate } from "react-router-dom";
+import LoginLogoutModal from "../../../Components/LoginLogoutModal/LoginLogoutModal";
+import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
+import { v4 as uuidv4 } from "uuid";
+import { useState } from "react";
 
 function MobileCartFactor() {
+  const [modalLoginId, setModalLoginId] = useState();
+
   const cart = useSelector((state) => state.cart?.cart);
   const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
 
@@ -18,6 +24,14 @@ function MobileCartFactor() {
     totalCost,
     totalTime,
   } = useCartCalculations();
+
+  const { isOpen, modalType, openModalHandler, modalId } = useModal();
+
+  const handleOpenLoginModal = () => {
+    const newModalId = uuidv4();
+    setModalLoginId(newModalId);
+    openModalHandler("LoginLogout", null, newModalId);
+  };
 
   return (
     <div className="mt-4 rounded-lg border border-gray-300 bg-white p-3">
@@ -68,13 +82,19 @@ function MobileCartFactor() {
               <img src="/icons/arrow-left.svg" className="h-3 w-3" alt="" />
             </button>
           ) : (
-            <button className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white">
-              <img src="/public/icons/user.svg" className="h-4 w-4" alt="" />
-              ورود/ثبت‌نام
+            <button
+              onClick={() => handleOpenLoginModal()}
+              className="flex w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
+            >
+              <img src="/icons/user.svg" className="h-4 w-4" alt="" />
+              ورود/ثبت‌ نام
             </button>
           )}
         </div>
       </div>
+      {isOpen && modalType === "LoginLogout" && modalId == modalLoginId && (
+        <LoginLogoutModal modalLoginId={modalLoginId} />
+      )}
     </div>
   );
 }

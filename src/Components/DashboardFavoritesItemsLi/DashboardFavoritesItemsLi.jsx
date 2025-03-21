@@ -83,7 +83,7 @@ const DashboardFavoritesItemsLi = ({ favorite }) => {
                 e.stopPropagation();
                 handleRemoveFromCart(id);
               }}
-              className="flex w-full max-w-24 items-center text-nowrap rounded-lg border border-green-primary-500 bg-white p-2 text-green-primary-500 hover:opacity-90 md:max-w-40 md:text-sm"
+              className="flex h-7 w-full max-w-24 items-center text-nowrap rounded-lg border border-green-primary-500 bg-white p-2 text-[8px] text-green-primary-500 hover:opacity-90 md:h-10 md:max-w-40 md:text-sm"
             >
               <img
                 src="/icons/greentrash.svg"
@@ -98,7 +98,7 @@ const DashboardFavoritesItemsLi = ({ favorite }) => {
                 e.stopPropagation();
                 handleAddToCart(favorite);
               }}
-              className="w-full max-w-24 text-nowrap rounded-lg bg-green-primary-500 p-2 text-[8px] text-white hover:opacity-90 md:max-w-40 md:text-sm lg:text-base"
+              className="h-7 w-full max-w-24 text-nowrap rounded-lg bg-green-primary-500 p-2 text-[8px] text-white hover:opacity-90 md:h-10 md:max-w-40 md:text-sm lg:text-base"
             >
               افزودن به سبد خرید
             </button>

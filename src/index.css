@@ -139,7 +139,7 @@ body {
     min-height: 320px;
   }
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("/public/FAQ/6956321429c870b11fe0695ce138fd8f.jfif");
+    url("/FAQ/6956321429c870b11fe0695ce138fd8f.jfif");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -221,11 +221,11 @@ body {
   transition: color 0.3s ease-in-out;
 }
 
-/* password input login=logout style */
+/* Style for password input fields in login and logout forms */
 .large-dots-input {
-  @apply text-2xl; /* کلاس‌های تیلویند برای اندازه متن */
-  -webkit-text-security: disc; /* برای مرورگرهای وب‌کیت */
-  text-security: disc; /* فقط برای مرورگرهای وب‌کیت */
+  @apply text-2xl; /* Tailwind class for text size */
+  -webkit-text-security: disc; /* Hides input characters as dots in WebKit-based browsers */
+  text-security: disc; /* Ensures the same behavior, supported in some WebKit browsers */
 }
 
 /* HAMBURGER MENU */
@@ -281,4 +281,16 @@ body {
 .open .hamburger-bottom {
   transform: rotate(-45deg) translateY(6px) translateX(-6px);
   background: #417f56;
+}
+
+/* Ensure scrollbar is hidden in all browsers */
+.hide-scrollbar {
+  overflow-y: scroll; /* Keeps scrolling functionality */
+  scrollbar-width: none !important; /* For Firefox */
+  -ms-overflow-style: none !important; /* For Internet Explorer */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0 !important; /* Hides scrollbar for Chrome and WebKit-based browsers */
+  height: 0 !important;
 }

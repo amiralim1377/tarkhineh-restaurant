@@ -2,8 +2,6 @@ import OrderTrackingFoodItems from "../OrderTrackingFoodItems/OrderTrackingFoodI
 import OrderTrackingStatus from "../OrderTrackingStatus/OrderTrackingStatus";
 
 function DashboardOrderTrackingThirdItem({ order, menuItems }) {
-  console.log(order);
-
   const { items } = order;
 
   return (

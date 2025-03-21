@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_KEY = "5b3ce3597851110001cf6248eaba6afb92bb428e8562c1ce0de9af5e"; // کلید API خود را وارد کنید
+const API_KEY = "5b3ce3597851110001cf6248eaba6afb92bb428e8562c1ce0de9af5e";
 
 const calculateDrivingDistanceAndTime = async (lat1, lng1, lat2, lng2) => {
   const response = await axios.post(

@@ -25,12 +25,12 @@ function HeaderNavLinkLeftLogIn() {
         ) : (
           <div
             onClick={handleUserIconClick}
-            className="flex items-center justify-center rounded-md bg-[#E5F2E9] p-2 transition-transform duration-300 hover:scale-105"
+            className="flex items-center justify-center rounded-md transition-transform duration-300 hover:scale-105"
           >
             <img
-              src="/icons/user2.svg"
+              src="/Login-Logout/mobile/Device=Mobile, Style=Normal, Login State=Not Loged.svg"
               alt="User"
-              className="h-5 w-5 cursor-pointer object-cover"
+              className="h-6 w-6 cursor-pointer object-cover md:h-10 md:w-10"
             />
           </div>
         )}

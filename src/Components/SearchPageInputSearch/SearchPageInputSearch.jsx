@@ -14,11 +14,9 @@ import { setSearchQuery } from "../../Slice/searchSlice/searchSlice";
 function SearchPageInputSearch() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isOpen, modalType, modalId, closeModalHandler } = useModal();
   const selectedBranch = useSelector(
     (state) => state.branches?.selectedBranch?.id,
   );
-  console.log(selectedBranch);
 
   const isSelectedBranch = Boolean(selectedBranch);
   const searchDesireStatus = useSelector((state) => state.searchDesire.status);

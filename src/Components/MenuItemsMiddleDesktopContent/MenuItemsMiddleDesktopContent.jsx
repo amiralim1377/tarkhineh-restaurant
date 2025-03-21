@@ -4,7 +4,7 @@ function MenuItemsMiddleDesktopContent({ item }) {
   return (
     <div className="flex items-center justify-between text-[10px] md:text-xs lg:text-base">
       <div className="w-full max-w-28 text-[#353535] md:line-clamp-2 md:max-w-64">
-        <p className="line-clamp-2 text-wrap text-xs md:line-clamp-2 md:text-sm">
+        <p className="line-clamp-2 text-wrap text-[10px] md:line-clamp-2 md:text-sm">
           {item.description}
         </p>
       </div>

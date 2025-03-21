@@ -14,7 +14,7 @@ function DashboardMyaddressesList({ addressState }) {
           src="/icons/arrow-left-blakc.svg"
           className="rotate-180 cursor-pointer md:hidden"
           alt=""
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/dashboard")}
         />
         <div className="flex w-full items-center justify-center py-3 md:justify-start md:py-2">
           <h3 className="text-base font-semibold text-[#353535] md:text-xl">

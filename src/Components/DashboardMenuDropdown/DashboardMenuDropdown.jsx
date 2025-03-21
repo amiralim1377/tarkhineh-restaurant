@@ -10,6 +10,7 @@ function DashboardMenuDropdown() {
 
   const activePaths = useMemo(
     () => [
+      "/dashboard",
       "/dashboard/profile",
       "/dashboard/ordertracking",
       "/dashboard/favorites",
@@ -33,12 +34,12 @@ function DashboardMenuDropdown() {
       {({ open }) => (
         <>
           <Popover.Button
-            className={`flex items-center justify-center gap-4 rounded-md p-2 ${background}`}
+            className={`flex w-[34px] items-center justify-center rounded-md p-1 md:h-10 md:w-14 ${background}`}
           >
             <img
               src={icon}
               alt="User"
-              className="h-5 w-5 object-cover"
+              className="h-4 w-4 object-cover md:h-6 md:w-6"
               onClick={(e) => {
                 e.stopPropagation();
                 navigate("/dashboard/profile");

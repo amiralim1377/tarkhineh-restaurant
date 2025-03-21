@@ -10,8 +10,6 @@ function DashboardFavoritesSearchChips() {
     error: categoriesError,
   } = useFavoriteCategories(userId);
 
-  console.log(categories);
-
   if (categoriesLoading) {
     return <div>در حال بارگذاری...</div>;
   }

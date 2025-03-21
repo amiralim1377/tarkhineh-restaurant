@@ -23,7 +23,7 @@ function CompletionInformationDesktopFactor() {
   const { totalItems, totalDiscount, totalCost } = useCartCalculations();
 
   const notifyErrorAddress = () =>
-    toast.error(" برای ارسال سفارش بر روی یک ادرس کلیک کرده", {
+    toast.error(" برای ارسال سفارش بر روی یک ادرس کلیک کنید", {
       position: "top-left",
       style: {
         background: "#f44336",
@@ -54,7 +54,7 @@ function CompletionInformationDesktopFactor() {
     });
 
   const handleGoToPayment = () => {
-    if (isAddressEmpty) {
+    if (isAddressEmpty && OrderDeliveryMethod === "delivery") {
       notifyErrorNoAddress(); // Show error message if no address
       return; // Stop further execution
     }

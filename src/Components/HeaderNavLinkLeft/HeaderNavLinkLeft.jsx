@@ -4,7 +4,7 @@ import HeaderNavLinkLeftSearchIcon from "../HeaderNavLinkLeftSearchIcon/HeaderNa
 
 function HeaderNavLinkLeft() {
   return (
-    <div className="relative flex flex-row items-center justify-between gap-2">
+    <div className="relative flex flex-row items-center justify-between">
       <HeaderNavLinkLeftSearchIcon />
       <HeaderNavLinkLeftCartIcon />
       <HeaderNavLinkLeftLogIn />

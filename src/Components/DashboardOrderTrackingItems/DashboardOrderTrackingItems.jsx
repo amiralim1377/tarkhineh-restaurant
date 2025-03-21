@@ -9,8 +9,6 @@ function DashboardOrderTrackingItems({
   menuItems,
   branches,
 }) {
-  console.log(deliveryAddress);
-
   return (
     <li className="shadow-y-sm flex w-full flex-col space-y-5 rounded-lg border border-gray-300 p-2">
       <DashboardOrderTrackingFirsItem

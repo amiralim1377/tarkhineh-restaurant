@@ -17,6 +17,8 @@ import { addAddress } from "../../Slice/userSlice/userSlice";
 import useModal from "../React Custom Hooks/useModal/useModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import supabase from "../../Services/supabase";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 const SetDashboardAddresses = () => {
   const dispatch = useDispatch();
@@ -155,7 +157,7 @@ const SetDashboardAddresses = () => {
             <div className="relative">
               <MapContainer
                 center={location}
-                zoom={13}
+                zoom={8}
                 style={{ width: "100%", height: "250px" }}
               >
                 <TileLayer

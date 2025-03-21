@@ -4,8 +4,8 @@ function HomepageRestaurantInformation() {
   const navigate = useNavigate();
   return (
     <div className="bg-homepageinformation mt-16 flex flex-col items-center justify-center md:justify-center">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between space-y-2 p-2 md:flex-row md:items-center md:space-y-6">
-        <div className="max-w-80 space-y-1 text-white md:max-w-sm md:space-y-10 lg:max-w-xl xl:max-w-3xl">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-between space-y-2 md:flex-row md:items-center md:space-y-6">
+        <div className="space-y-1 p-2 text-white md:max-w-sm md:space-y-10 lg:max-w-xl xl:max-w-3xl">
           <h4 className="text-base font-bold md:text-xl">
             رستوران‌های زنجیره‌ای ترخینه
           </h4>
@@ -26,10 +26,10 @@ function HomepageRestaurantInformation() {
             </button>
           </div>
         </div>
-        <div className="grid w-full max-w-80 grid-cols-2 items-center gap-6 text-nowrap">
+        <div className="grid w-full grid-cols-2 items-center gap-5 text-nowrap">
           <div className="flex flex-col items-center text-sm font-semibold text-white md:text-lg">
             <img
-              src="/public/icons/user.svg"
+              src="/icons/user.svg"
               className="h-6 w-6 fill-white md:h-12 md:w-12"
               alt=""
             />

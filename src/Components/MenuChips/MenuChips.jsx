@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { setSubCategory } from "../../Slice/categorySlice/categorySlice";
 import { fetchSubcategoriesByBranchAndCategory } from "../../Services/fetchSubcategoriesByBranchAndCategory";
-import MenuChipsSearchInput from "../MenuChipsSearchInput/MenuChipsSearchInput";
 import { Riple } from "react-loading-indicators";
 
 function MenuChips() {
@@ -50,30 +49,26 @@ function MenuChips() {
   if (isError) return <div>Error: {error.message}</div>;
 
   return (
-    <div className="mx-auto mt-4 flex w-full flex-col items-center justify-between gap-3 md:max-w-8xl md:flex-row">
-      <ul className="flex gap-3 overflow-y-scroll p-2 text-center text-xs md:overflow-visible xl:text-base">
-        {subcategories?.map((subcategory) => (
-          <li
-            key={subcategory.id}
-            onClick={() => handleSubCategoryClick(subcategory)}
-            className={`flex w-full cursor-pointer items-center justify-center text-nowrap rounded-lg px-4 py-3 text-xs transition-all duration-300 ${
-              selectedSubCategoryId === subcategory.id
-                ? "bg-gray-200 font-bold text-green-primary-500"
-                : "bg-[#EDEDED] text-gray-700"
-            }`}
-          >
-            {subcategory.name_fa}
-            <img
-              src="/icons/arrow-left-blakc.svg"
-              className="ml-2 h-3 w-3"
-              alt="Arrow"
-            />
-          </li>
-        ))}
-      </ul>
-
-      <MenuChipsSearchInput />
-    </div>
+    <ul className="hide-scrollbar flex gap-3 overflow-scroll p-2 text-center text-xs md:overflow-visible xl:text-base">
+      {subcategories?.map((subcategory) => (
+        <li
+          key={subcategory.id}
+          onClick={() => handleSubCategoryClick(subcategory)}
+          className={`flex w-full cursor-pointer items-center justify-center text-nowrap rounded-lg px-4 py-3 text-xs transition-all duration-300 ${
+            selectedSubCategoryId === subcategory.id
+              ? "bg-gray-200 font-bold text-green-primary-500"
+              : "bg-[#EDEDED] text-gray-700"
+          }`}
+        >
+          {subcategory.name_fa}
+          <img
+            src="/icons/arrow-left-blakc.svg"
+            className="ml-2 h-3 w-3"
+            alt="Arrow"
+          />
+        </li>
+      ))}
+    </ul>
   );
 }
 

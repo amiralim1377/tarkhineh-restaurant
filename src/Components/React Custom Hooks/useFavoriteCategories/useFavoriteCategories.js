@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFavoriteCategoryIds } from "../../../Services/getFavoriteCategoryIds ";
+import { getFavoriteCategoryIds } from "../../../Services/getFavoriteCategoryIds";
 import { getFavoriteCategories } from "../../../Services/getFavoriteCategories";
 
 const useFavoriteCategories = (userId) => {
@@ -12,10 +12,6 @@ const useFavoriteCategories = (userId) => {
     queryFn: () => getFavoriteCategoryIds(userId),
   });
 
-  console.log("Favorite Category IDs:", favoriteCategoriesIds);
-  console.log("Loading Favorite Category IDs:", isLoadingFavoriteCategoryIds);
-  console.log("Error Favorite Category IDs:", errorFavoriteCategoryIds);
-
   const categoryIds =
     favoriteCategoriesIds?.map((favorite) => favorite.category_id) || [];
 
@@ -26,12 +22,8 @@ const useFavoriteCategories = (userId) => {
   } = useQuery({
     queryKey: ["favoriteCategories", categoryIds],
     queryFn: () => getFavoriteCategories(categoryIds),
-    enabled: !!categoryIds.length, // فعال‌سازی کوئری تنها زمانی که categoryIds موجود باشند
+    enabled: !!categoryIds.length,
   });
-
-  console.log("Categories:", categories);
-  console.log("Loading Categories:", isLoadingCategories);
-  console.log("Error Categories:", errorCategories);
 
   return {
     categories,

@@ -5,12 +5,22 @@ import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
 import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
 import { useSelector } from "react-redux";
 import LoginLogoutModal from "../../../Components/LoginLogoutModal/LoginLogoutModal";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 function DesktopCartItemFactor() {
+  const [modalLoginId, setModalLoginId] = useState();
+
   const navigate = useNavigate();
   const { totalItems, totalDiscount, totalPrice } = useCartCalculations();
-  const { isOpen, modalType, openModalHandler } = useModal();
   const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated);
+  const { isOpen, modalType, modalId, openModalHandler } = useModal();
+
+  const handleOpenLoginModal = () => {
+    const newModalId = uuidv4();
+    setModalLoginId(newModalId);
+    openModalHandler("LoginLogout", null, newModalId);
+  };
 
   return (
     <div className="w-full max-w-lg rounded-lg border border-gray-300 px-4 py-4">
@@ -69,17 +79,20 @@ function DesktopCartItemFactor() {
             </button>
           ) : (
             <button
-              onClick={() => openModalHandler("LoginLogout")}
+              onClick={() => handleOpenLoginModal()}
               className="flex min-h-10 w-full flex-row items-center justify-center gap-1 rounded-md bg-green-primary-500 p-2 text-xs text-white"
             >
-              <img src="/public/icons/user.svg" className="h-4 w-4" alt="" />
+              <img src="/icons/user.svg" className="h-4 w-4" alt="" />
               ورود/ثبت‌ نام
             </button>
           )}
         </div>
       </div>
       {isOpen && modalType === "deleteAll" && <DeleteAllItem />}
-      {isOpen && modalType === "LoginLogout" && <LoginLogoutModal />}
+
+      {isOpen && modalType === "LoginLogout" && modalId == modalLoginId && (
+        <LoginLogoutModal modalLoginId={modalLoginId} />
+      )}
     </div>
   );
 }

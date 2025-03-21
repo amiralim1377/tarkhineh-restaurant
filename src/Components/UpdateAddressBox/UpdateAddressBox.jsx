@@ -17,6 +17,8 @@ import supabase from "../../Services/supabase";
 import { fetchAddresses } from "../../Slice/userSlice/userSlice";
 import { useDispatch } from "react-redux";
 import { setAddress } from "../../Slice/cartSlice/cartSlice";
+import "leaflet-defaulticon-compatibility";
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
 
 const UpdateAddressBox = memo(({ Address, seletedEditAdressId }) => {
   const dispatch = useDispatch();

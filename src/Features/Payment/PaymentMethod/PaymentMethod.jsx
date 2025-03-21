@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setPaymentMethod } from "../../../Slice/cartSlice/cartSlice"; // فرض بر این که اکشنی به نام setPaymentMethod دارید
+import { setPaymentMethod } from "../../../Slice/cartSlice/cartSlice";
 
 function PaymentMethod() {
   const dispatch = useDispatch();
@@ -31,7 +31,10 @@ function PaymentMethod() {
               onChange={handlePaymentMethodChange}
               checked={paymentMethod === "online"}
             />
-            <label htmlFor="online" className="flex items-center">
+            <label
+              htmlFor="online"
+              className="flex cursor-pointer items-center"
+            >
               <h5
                 className={`text-xs md:text-sm ${paymentMethod === "online" ? "font-semibold text-gray-600" : "text-[#717171]"}`}
               >
@@ -50,7 +53,10 @@ function PaymentMethod() {
               onChange={handlePaymentMethodChange}
               checked={paymentMethod === "on-site"}
             />
-            <label htmlFor="on-site" className="flex items-center">
+            <label
+              htmlFor="on-site"
+              className="flex cursor-pointer items-center"
+            >
               <h5
                 className={`text-xs md:text-sm ${paymentMethod === "on-site" ? "font-semibold text-gray-600" : "text-[#717171]"}`}
               >

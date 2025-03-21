@@ -7,7 +7,7 @@ function DashboardFavoritesSearch() {
         placeholder="جست وجو"
       />
       <img
-        src="/public/icons/search-normal.svg"
+        src="/icons/search-normal.svg"
         alt="آیکون جست وجو"
         className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 transform text-gray-400"
       />

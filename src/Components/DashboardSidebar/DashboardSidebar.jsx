@@ -174,7 +174,7 @@ function DashboardSidebar({ handleMenuClick }) {
         className="transition-text block w-full py-2 font-bold text-red-700"
         onClick={() => openModalHandler("exitDashboard")}
       >
-        <li className="flex flex-row items-center justify-start gap-1">
+        <li className="flex flex-row items-center justify-start gap-1 px-2">
           <img src="/dashboard/logout.svg" alt="" />
           <span
             className={

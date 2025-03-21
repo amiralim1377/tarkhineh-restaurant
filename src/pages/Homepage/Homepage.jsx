@@ -8,7 +8,7 @@ function Homepage() {
   return (
     <div className="w-full">
       <HomepageSlider />
-      <HomepageSearchInput />
+      {/* <HomepageSearchInput /> */}
       <HomepageMenu />
       <HomepageRestaurantInformation />
       <HomepageRestaurantBranches />

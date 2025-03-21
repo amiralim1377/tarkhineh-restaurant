@@ -3,14 +3,11 @@ import MobileCartListing from "../../../Components/MobileCartListing/MobileCartL
 import { useSelector } from "react-redux";
 import useCartCalculations from "../../../Components/React Custom Hooks/useCartCalculations/useCartCalculations";
 import { formatPrice } from "../../../helper_functions/formatPrice";
-import toast from "react-hot-toast";
 import useModal from "../../../Components/React Custom Hooks/useModal/useModal";
 import DeleteAllItem from "../../../Components/DeleteAllItem/DeleteAllItem";
-import useSendOrder from "../../../Components/React Custom Hooks/useSendOrder/useSendOrder";
 import PaymentButtons from "../../../Components/PaymentButtons/PaymentButtons";
 
 function PaymentDesktopFactor() {
-  const navigate = useNavigate();
   const cart = useSelector((state) => state.cart?.cart);
   const DeliveryMethod = useSelector((state) => state.cart?.deliveryMethod);
 
@@ -18,19 +15,12 @@ function PaymentDesktopFactor() {
     totalItems,
     totalDiscount,
     extraDiscount,
-    totalPrice,
+
     deliveryCost,
     totalCost,
-    totalTime,
   } = useCartCalculations();
 
-  const {
-    selectedItem,
-    isOpen,
-    modalType,
-    openModalHandler,
-    closeModalHandler,
-  } = useModal();
+  const { isOpen, modalType, openModalHandler } = useModal();
 
   return (
     <div className="rounded-lg border border-gray-300 bg-white p-3">

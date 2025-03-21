@@ -45,6 +45,7 @@ function BranchPagePhotoSlider({ branchData }) {
           </SwiperSlide>
         </Swiper>
       </div>
+
       <div className="absolute -bottom-8 left-0 right-0 z-10 mx-auto flex max-w-xs flex-col gap-y-3 rounded-lg border border-green-primary-500 bg-white p-4 md:max-w-xl md:flex-row lg:-bottom-10 lg:max-w-3xl">
         <div className="mx-auto flex w-full flex-col items-center md:flex-row">
           <div className="mx-auto flex w-full flex-col items-center justify-evenly md:flex-row-reverse">

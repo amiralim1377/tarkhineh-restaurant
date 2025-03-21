@@ -4,14 +4,14 @@ import { useState } from "react";
 import DashboardLoginForm from "../DashboardLoginForm.jsx/DashboardLoginForm";
 import DashboardSignupForm from "../DashboardSignupForm/DashboardSignupForm";
 
-function LoginLogoutModal() {
-  const { isOpen, modalType, closeModalHandler } = useModal();
+function LoginLogoutModal({ modalLoginId }) {
+  const { isOpen, modalType, closeModalHandler, modalId } = useModal();
 
   const [isSelectedLogin, setIsSelectedLogin] = useState(true);
 
   return (
     <Dialog
-      open={isOpen && modalType === "LoginLogout"}
+      open={isOpen && modalType === "LoginLogout" && modalId == modalLoginId}
       onClose={closeModalHandler}
       className="relative z-50"
     >

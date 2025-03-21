@@ -6,7 +6,7 @@ const useSendOrder = () => {
   return useMutation({
     mutationFn: sendOrderToServer,
     onSuccess: (data) => {
-      toast.success("سفارش با موفقیت ارسال شد!", {
+      toast.success("سفارش با موفقیت ثبت شد!", {
         position: "top-left",
         style: {
           background: "#4caf50",

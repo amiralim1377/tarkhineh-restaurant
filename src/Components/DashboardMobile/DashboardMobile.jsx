@@ -56,9 +56,11 @@ function DashboardMobile() {
     return null;
   }
 
+  const { firstname, lastname, phonenumber } = userData;
+
   return (
     <div className="block md:hidden">
-      {showMenu ? (
+      {showMenu && (
         <div className="divide-y divide-gray-500 px-2 py-4">
           <div className="flex flex-row items-center gap-3 py-1">
             <div>
@@ -69,21 +71,14 @@ function DashboardMobile() {
               />
             </div>
             <div className="flex flex-col items-center text-xs">
-              <span className="text-base text-[#353535]">کاربر ترخینه</span>
-              <span className="text-xs text-[#717171]">۰۹۱۴ ۸۶۴ ۳۳۵۰</span>
+              <span className="text-base text-[#353535]">{`${firstname || "کاربر"} ${lastname || "ترخینه"}`}</span>
+              <span className="text-xs text-[#717171]">{`${phonenumber}`}</span>
             </div>
           </div>
           <ul className="flex flex-col space-y-4 py-2 text-xs">
             <DashboardSidebar handleMenuClick={handleMenuClick} />
           </ul>
         </div>
-      ) : (
-        <button
-          onClick={() => setShowMenu(true)}
-          className="rounded bg-gray-200 p-2"
-        >
-          بازگشت به منو
-        </button>
       )}
       {!showMenu && (
         <div className={fade ? "fade-in" : ""}>

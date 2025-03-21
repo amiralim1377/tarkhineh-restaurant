@@ -46,7 +46,6 @@ function MobileCartItem() {
         minWidth: "100px",
         fontSize: "12px",
       },
-
       className: "custom-toast-error",
       ariaProps: {
         role: "status",
@@ -55,7 +54,7 @@ function MobileCartItem() {
     });
 
   const handleGoToPayment = () => {
-    if (isAddressEmpty) {
+    if (isAddressEmpty && OrderDeliveryMethod === "delivery") {
       notifyErrorNoAddress(); // Show error message if no address
       return; // Stop further execution
     }

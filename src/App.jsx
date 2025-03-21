@@ -6,17 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Loading from "./Components/Loading/Loading";
 import { Toaster } from "react-hot-toast";
-import Dahboard from "./pages/Dashboard/Dashboard";
-import DashboardProfile from "./pages/DashboardProfile/DashboardProfile";
-import DashboardOrderTracking from "./pages/DashboardOrderTracking/DashboardOrderTracking";
-import DashboardFavorites from "./pages/DashboardFavorites/DashboardFavorites";
-import DashboardMyaddresses from "./pages/DashboardMyaddresses/DashboardMyaddresses";
-import Wrapper from "./pages/Wrapper/Wrapper";
-import LoginLogoutModal from "./Components/LoginLogoutModal/LoginLogoutModal";
-import DashboardUpdatePassword from "./Components/DashboardUpdatePassword/DashboardUpdatePassword";
-import AuthWrapper from "./Components/AuthWrapper/AuthWrapper";
-import Search from "./pages/Search/Search";
-// Lazy loading components
+
+// Lazy loading all components
 const AppLayout = lazy(() => import("./Components/AppLayout/AppLayout"));
 const Homepage = lazy(() => import("./pages/Homepage/Homepage"));
 const Contactus = lazy(() => import("./pages/Contactus/contactus"));
@@ -35,6 +26,30 @@ const SuccessfulPayment = lazy(
   () => import("./pages/SuccessfulPayment/SuccessfulPayment"),
 );
 const BranchesPages = lazy(() => import("./pages/BranchesPages/BranchesPages"));
+
+// Lazy loading Dashboard and related components
+const Dashboard = lazy(() => import("./pages/Dashboard/Dashboard"));
+const DashboardProfile = lazy(
+  () => import("./pages/DashboardProfile/DashboardProfile"),
+);
+const DashboardOrderTracking = lazy(
+  () => import("./pages/DashboardOrderTracking/DashboardOrderTracking"),
+);
+const DashboardFavorites = lazy(
+  () => import("./pages/DashboardFavorites/DashboardFavorites"),
+);
+const DashboardMyaddresses = lazy(
+  () => import("./pages/DashboardMyaddresses/DashboardMyaddresses"),
+);
+const DashboardUpdatePassword = lazy(
+  () => import("./Components/DashboardUpdatePassword/DashboardUpdatePassword"),
+);
+const AuthWrapper = lazy(() => import("./Components/AuthWrapper/AuthWrapper"));
+const Search = lazy(() => import("./pages/Search/Search"));
+const LoginLogoutModal = lazy(
+  () => import("./Components/LoginLogoutModal/LoginLogoutModal"),
+);
+const Wrapper = lazy(() => import("./pages/Wrapper/Wrapper"));
 
 const queryClient = new QueryClient();
 
@@ -172,7 +187,7 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback={<Loading />}>
             <Wrapper>
-              <Dahboard />
+              <Dashboard />
             </Wrapper>
           </Suspense>
         ),

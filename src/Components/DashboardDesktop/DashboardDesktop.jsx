@@ -37,21 +37,21 @@ function DashboardDesktop() {
   const { email, firstname, lastname, phonenumber } = userData;
 
   return (
-    <div className="mx-auto hidden max-w-8xl py-8 md:block">
+    <div className="mx-auto hidden max-w-8xl px-2 py-8 md:block">
       <div className="flex flex-row items-start gap-10">
-        <aside className="w-1/4 divide-y-2 rounded-lg border border-gray-300 bg-white p-4">
-          <div className="flex flex-row items-center gap-3 py-1">
-            <div>
+        <aside className="w-1/4 divide-y-2 rounded-lg border border-gray-300 bg-white p-2">
+          <div className="flex flex-row items-center justify-start gap-3 py-1">
+            <div className="flex items-center justify-center p-1">
               <img
                 src={profileImageUrl ? profileImageUrl : `/icons/Ellipse.svg`}
-                className="h-20 w-20 rounded-full object-cover"
+                className="h-7 w-7 rounded-full object-cover lg:h-10 lg:w-10 xl:h-16 xl:w-16"
                 alt=""
               />
             </div>
-            <div className="flex flex-col items-center space-y-2 text-base">
+            <div className="flex flex-col items-center space-y-2">
               <span className="text-base text-[#353535]">{`${firstname || "کاربر"} ${lastname || "ترخینه"}`}</span>
-              <span className="text-xs text-[#717171]">{`${email}`}</span>
               <span className="text-xs text-[#717171]">{`${phonenumber}`}</span>
+              <span className="flex-wrap text-[10px] text-[#717171] lg:text-xs">{`${email}`}</span>
             </div>
           </div>
           <DashboardSidebar />

@@ -19,7 +19,7 @@ function DesktopCartListing({ cartItem }) {
 
   return (
     <div className="flex w-full gap-2 rounded-lg border">
-      <div className="min-h-32 w-full max-w-32 overflow-hidden rounded-r-lg bg-red-500 lg:min-h-44 lg:max-w-44">
+      <div className="min-h-32 w-full max-w-32 overflow-hidden rounded-r-lg lg:min-h-44 lg:max-w-44">
         <img
           src={cartItem.images}
           className="h-full max-h-32 w-full overflow-hidden object-cover object-center lg:max-h-44"
@@ -38,7 +38,7 @@ function DesktopCartListing({ cartItem }) {
             </h5>
             <div>
               <img
-                src="/public/icons/trash.svg"
+                src="/icons/trash.svg"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleRemoveFromCart(id);

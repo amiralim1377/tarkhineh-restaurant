@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useSendOrder from "../React Custom Hooks/useSendOrder/useSendOrder";
 import toast from "react-hot-toast";
@@ -6,9 +6,11 @@ import useCartCalculations from "../React Custom Hooks/useCartCalculations/useCa
 import useUserData from "../React Custom Hooks/useUserData/useUserData";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment-timezone";
+import { clearCart } from "../../Slice/cartSlice/cartSlice";
 
 function PaymentButtons() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const paymentMethod = useSelector((state) => state.cart?.paymentMethod);
   const selectedBank = useSelector((state) => state.cart?.paymentGateway);
@@ -22,7 +24,6 @@ function PaymentButtons() {
   const { userId, userData } = useUserData();
 
   const branch_id = useSelector((state) => state.branches?.selectedBranch?.id);
-  const delivery_address_id = useSelector((state) => state.cart?.address?.id);
   const delivery_address = useSelector(
     (state) => state.cart?.address?.exactaddress,
   );
@@ -94,6 +95,7 @@ function PaymentButtons() {
         onSuccess: () => {
           // Navigate to the successful payment page upon successful order submission
           navigate("/successful-payment");
+          dispatch(clearCart());
         },
       });
     }

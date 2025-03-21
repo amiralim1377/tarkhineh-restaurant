@@ -14,7 +14,6 @@ import "swiper/css/autoplay";
 
 function BranchUsersCommentsSlider({ branchData }) {
   const { comments } = branchData;
-  console.log(branchData);
 
   return (
     <Swiper
@@ -33,9 +32,9 @@ function BranchUsersCommentsSlider({ branchData }) {
       modules={[Mousewheel, Keyboard, FreeMode, Scrollbar, Autoplay]}
       breakpoints={{
         320: {
-          slidesPerView: 1,
+          slidesPerView: 2,
         },
-        420: {
+        425: {
           slidesPerView: 2,
         },
         768: {
@@ -48,23 +47,23 @@ function BranchUsersCommentsSlider({ branchData }) {
       className="overflow-hidden"
     >
       {comments?.map((comment, index) => (
-        <SwiperSlide key={index}>
-          <div className="w-full max-w-72 overflow-hidden rounded-lg border border-gray-300 bg-white p-4 md:max-w-xl">
-            <div className="flex max-h-36 w-full flex-row items-center justify-between gap-x-4 p-2">
-              <div className="flex w-full max-w-16 flex-col items-center text-[#717171] md:min-w-28">
-                <img
-                  src={comment.user_image_url}
-                  alt="avatar"
-                  className="h-14 w-14 rounded-full object-cover md:h-24 md:w-24"
-                />
-                <h6 className="text-nowrap text-[10px] md:text-sm">
-                  {`${comment.first_name} ${comment.last_name}`}
-                </h6>
-                <h6 className="text-[10px] md:text-sm">{comment.created_at}</h6>
-              </div>
-              <div className="w-full max-w-36 text-justify md:max-w-md">
-                <p className="text-xs md:text-base">{comment.comment}</p>
-              </div>
+        <SwiperSlide className="py-3" key={index}>
+          <div className="justify-betweenoverflow-hidden flex h-32 w-full max-w-56 flex-row items-center gap-2 rounded-lg border border-gray-300 bg-white p-1 md:max-h-60 md:max-w-lg">
+            <div className="flex w-full max-w-16 flex-col items-center text-[#717171] md:min-w-28">
+              <img
+                src={comment.user_image_url}
+                alt="avatar"
+                className="h-9 w-9 rounded-full object-cover md:h-12 md:w-12 lg:h-16 lg:w-16"
+              />
+              <h6 className="text-nowrap text-[10px] md:text-sm">
+                {`${comment.first_name} ${comment.last_name}`}
+              </h6>
+              <h6 className="text-[10px] md:text-sm">{comment.created_at}</h6>
+            </div>
+            <div className="w-full max-w-40 md:max-w-md">
+              <p className="line-clamp-5 text-[10px] leading-relaxed md:text-base">
+                {comment.comment}
+              </p>
             </div>
           </div>
         </SwiperSlide>

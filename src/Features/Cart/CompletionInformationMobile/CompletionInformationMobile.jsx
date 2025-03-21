@@ -15,7 +15,7 @@ function CompletionInformationMobile() {
       <div className="my-4 flex items-center justify-between">
         <div onClick={() => navigate(-1)}>
           <img
-            src="/public/icons/arrow-left-blakc.svg"
+            src="/icons/arrow-left-blakc.svg"
             className="h-3 w-3 rotate-180 cursor-pointer"
             alt=""
           />

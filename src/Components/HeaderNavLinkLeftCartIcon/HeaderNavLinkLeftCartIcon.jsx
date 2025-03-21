@@ -24,11 +24,12 @@ function HeaderNavLinkLeftCartIcon() {
     };
     updateIconAndBackground();
   }, [location.pathname]);
+
   return (
     <NavLink to="cart">
       {({ isActive }) => (
         <div
-          className={`relative rounded-md p-2 transition-transform duration-300 hover:scale-105`}
+          className={`relative z-0 rounded-md p-1 transition-transform duration-300 hover:scale-105`}
         >
           <img
             src={
@@ -37,11 +38,11 @@ function HeaderNavLinkLeftCartIcon() {
                 : icon
             }
             alt="Shopping Cart"
-            className="h-9 w-9 object-cover"
+            className="h-6 w-6 rounded-md object-cover md:h-10 md:w-10"
           />
           {totalItems !== 0 && (
             <span
-              className={`absolute right-0 top-0 flex h-4 w-4 items-center justify-center rounded-full text-center text-[10px] ${isActive ? textColor : "text-[#E5F2E9]"} ${isActive ? background : "bg-green-primary-500"} `}
+              className={`absolute right-0 top-0 flex h-3 w-3 items-center justify-center rounded-full text-center text-[10px] md:h-4 md:w-4 ${isActive ? textColor : "text-[#E5F2E9]"} ${isActive ? background : "bg-green-primary-500"} `}
             >
               {totalItems}
             </span>

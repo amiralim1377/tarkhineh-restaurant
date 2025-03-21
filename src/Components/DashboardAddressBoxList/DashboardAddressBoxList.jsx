@@ -1,5 +1,4 @@
 import useModal from "../React Custom Hooks/useModal/useModal";
-
 import UpdateDashboardAddressBox from "../UpdateDashboardAddressBox/UpdateDashboardAddressBox";
 import useUserData from "../React Custom Hooks/useUserData/useUserData";
 import DeleteAddress from "../DeleteAddress/DeleteAddress";
@@ -57,7 +56,9 @@ function DashboardAddressBoxList({ address }) {
       </div>
       <div className="flex flex-row items-center justify-between">
         <span className="text-xs text-[#717171] md:text-sm">
-          {is_recipient_self ? `${firstname} ${lastname} ` : recipient_name}
+          {is_recipient_self
+            ? `${firstname || "کاربر"} ${lastname || "ترخینه"} `
+            : recipient_name}
         </span>
         <div>
           <span className="text-xs text-[#717171] md:text-sm">

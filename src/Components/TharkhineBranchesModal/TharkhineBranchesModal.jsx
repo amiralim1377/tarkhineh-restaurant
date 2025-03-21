@@ -18,8 +18,7 @@ function TharkhineBranchesModal({ branches }) {
       }),
     ),
       dispatch(setCategory(branches.default_category));
-    // navigate(`/branches/${branches.name}`);
-    navigate(`/menu`);
+    navigate(`/branches/${branches.name}`);
   };
 
   return (
@@ -27,7 +26,7 @@ function TharkhineBranchesModal({ branches }) {
       onClick={() => handleGoToBranchesPage(branch_id)}
       className="flex w-full transform cursor-pointer flex-row overflow-hidden rounded-lg border transition duration-300 ease-in-out hover:scale-105 hover:border-green-primary-500 hover:bg-green-primary-500 hover:shadow-md md:flex-col"
     >
-      <div className="max-h-20 max-w-40 md:max-w-52">
+      <div className="max-h-20 w-full max-w-32 md:max-w-52">
         <img
           src={branch_images[0]}
           className="h-full w-full object-cover"

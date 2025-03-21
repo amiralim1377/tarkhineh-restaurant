@@ -14,18 +14,18 @@ function DashboardOrderTrackingSecondItem({ order, deliveryAddress }) {
   const { exactaddress, mapaddress } = deliveryAddress;
 
   return (
-    <div id="2" className="flex flex-row items-start justify-between">
-      <div className="flex max-w-56 flex-col items-start space-y-2 text-xs text-[#757575] md:max-w-lg">
-        <span className="flex items-center gap-1 text-[10px] md:text-xs">
+    <div id="2" className="flex flex-row items-start justify-between gap-1">
+      <div className="flex w-full flex-col items-start space-y-2 text-xs text-[#757575] md:max-w-lg">
+        <span className="flex items-start gap-1 text-[10px] md:text-xs">
           <img src="/icons/calendar.svg" alt="" />
           {moment(order_date).locale("fa").format("dddd، jD jMMMM، ساعت HH:mm")}
         </span>
-        <span className="flex items-center gap-1 text-[10px] md:text-xs">
+        <span className="flex items-start gap-x-1 text-[10px] md:text-xs">
           <img src="/icons/location.svg" className="h-3 w-3" alt="" />
           {exactaddress || mapaddress || deliveryAddress}
         </span>
-        <div className="flex flex-col items-center gap-3 text-[10px] md:flex-row md:text-xs">
-          <div className="flex items-center gap-1 text-nowrap">
+        <div className="flex flex-col items-start justify-end gap-3 text-[10px] md:flex-row md:text-xs">
+          <div className="flex items-center justify-end gap-1 text-nowrap">
             <img src="/icons/wallet-3.svg" className="h-3 w-3" alt="" />
             <span className="flex items-center gap-1">
               {formatPrice(payable_amount)}
@@ -40,13 +40,13 @@ function DashboardOrderTrackingSecondItem({ order, deliveryAddress }) {
         </div>
       </div>
       {order_status !== "Delivered" && (
-        <div className="flex items-center gap-1">
+        <div className="flex w-full items-start justify-end gap-1">
           <img src="/icons/clock.svg" alt="" />
-          <span className="text-nowrap text-xs text-[#717171]">
+          <span className="text-wrap text-xs text-[#717171]">
             آماده تحویل تا
           </span>
           <span className="text-xs text-[#417F56]">
-            {moment(estimated_delivery_time).locale("fa").format("ساعت HH:mm")}
+            {moment(estimated_delivery_time).locale("fa").format("HH:mm")}
           </span>
         </div>
       )}
