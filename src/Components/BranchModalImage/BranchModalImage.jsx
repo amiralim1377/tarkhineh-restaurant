@@ -12,8 +12,6 @@ const BranchModalImage = memo(({ modalImageId, branch_images }) => {
   const { isOpen, modalType, modalId, closeModalHandler } = useModal();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-  console.log(branch_images);
-
   const isModalOpen =
     isOpen && modalType === "branchModalImage" && modalId == modalImageId;
 

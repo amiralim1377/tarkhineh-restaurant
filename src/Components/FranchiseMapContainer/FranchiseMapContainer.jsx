@@ -23,7 +23,6 @@ function FranchiseMapContainer() {
         dispatch(setPosition(e.latlng));
         setValue("lat", e.latlng.lat.toFixed(3));
         setValue("lng", e.latlng.lng.toFixed(3));
-        console.log("Clicked location:", e.latlng);
       },
     });
 

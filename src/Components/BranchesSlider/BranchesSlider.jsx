@@ -9,8 +9,6 @@ import "swiper/css/autoplay";
 import { formatPrice } from "../../helper_functions/formatPrice";
 
 function BranchesSlider({ item }) {
-  console.log();
-
   return (
     <SwiperSlide key={item.id} className="!w-auto">
       <div className="w-full max-w-44 overflow-hidden rounded-lg border border-gray-300 bg-white md:min-w-80">

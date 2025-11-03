@@ -13,7 +13,6 @@ const useSendOrder = () => {
           color: "white",
         },
       });
-      console.log("Order sent successfully:", data);
     },
     onError: (error) => {
       toast.error("ارسال سفارش با خطا مواجه شد، لطفاً دوباره تلاش کنید.", {

@@ -7,8 +7,6 @@ function PaymentGateway() {
   const dispatch = useDispatch();
 
   const handleIconClick = (id) => {
-    console.log(id);
-
     setSelectedBank(id);
     dispatch(setPaymentGateway(id));
   };

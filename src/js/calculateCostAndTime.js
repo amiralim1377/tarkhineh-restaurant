@@ -1,8 +1,8 @@
 // تابع برای محاسبه فاصله و زمان و هزینه
 export const calculateCostAndTime = async (origin, destination) => {
-  console.log(
-    `"origin": ${JSON.stringify(origin)}, "destination": ${JSON.stringify(destination)}`,
-  );
+  // console.log(
+  //   `"origin": ${JSON.stringify(origin)}, "destination": ${JSON.stringify(destination)}`,
+  // );
 
   try {
     const response = await fetch(

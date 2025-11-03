@@ -19,7 +19,6 @@ const FetchBranches = () => {
     queryKey: ["branches"],
     queryFn: fetchBranches,
     onSuccess: (data) => {
-      console.log("Fetched branches in onSuccess:", data);
       dispatch(setBranches(data)); // اعمال dispatch به محض دریافت داده‌ها
     },
   });

@@ -16,7 +16,6 @@ const useCanceledOrder = () => {
             color: "white",
           },
         });
-        console.log("Order canceled successfully:", data);
       } else {
         toast.error("سفارش با شناسه مورد نظر یافت نشد.", {
           position: "top-left",

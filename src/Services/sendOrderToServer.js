@@ -12,6 +12,5 @@ export const sendOrderToServer = async (orderData) => {
     throw error;
   }
 
-  console.log("Order sent successfully:", data);
   return data;
 };

@@ -21,8 +21,6 @@ function DashboardProfileItems() {
     userDataError,
   } = useUserData();
 
-  console.log(userData);
-
   const {
     isLoading,
     selectedFileName,
@@ -67,7 +65,6 @@ function DashboardProfileItems() {
   const mutation = useMutation({
     mutationFn: (newData) => updateUserInfo(newData, userId),
     onSuccess: (data) => {
-      console.log("Data updated successfully:", data);
       queryClient.invalidateQueries(["userData", userId]);
       setEditMode(false);
     },
@@ -89,9 +86,6 @@ function DashboardProfileItems() {
       username,
       profileImage,
     } = data;
-
-    console.log(data);
-    console.log(birthdate);
 
     let profileImageUrl = userData.image;
     if (profileImage && profileImage.length > 0) {

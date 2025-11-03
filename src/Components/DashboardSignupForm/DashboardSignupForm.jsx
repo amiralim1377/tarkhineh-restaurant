@@ -17,8 +17,6 @@ function DashboardSignupForm({ setLoginFalse }) {
   const password = watch("password");
 
   const onSubmit = async (formData) => {
-    console.log(formData);
-
     const { error, data } = await supabase.auth.signUp({
       email: formData.email,
       password: formData.password,
@@ -29,10 +27,6 @@ function DashboardSignupForm({ setLoginFalse }) {
         },
       },
     });
-
-    console.log(data);
-
-    console.log(error);
 
     if (error) {
       setErrorMessage(error.message);
