@@ -139,7 +139,6 @@ const UpdateAddressBox = memo(({ Address, seletedEditAdressId }) => {
 
   const handleCheckboxChange = (event) => {
     setIsDeliveryForMe(event.target.checked);
-    console.log(event.target.checked);
   };
 
   const LocationMarker = () => {

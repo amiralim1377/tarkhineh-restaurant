@@ -50,7 +50,6 @@ const SetDashboardAddresses = () => {
       return data;
     },
     onSuccess: (data) => {
-      console.log("Address added successfully:", data);
       queryClient.invalidateQueries("addresses");
     },
     onError: (error) => {
