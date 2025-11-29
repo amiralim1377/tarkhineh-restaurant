@@ -44,10 +44,11 @@ function FranchiseMapContainer() {
         zoom={10}
         scrollWheelZoom={true}
         style={{ height: "100%", width: "100%" }}
+        attribution="توسعه داده شده توسط امیرعلی مرادی نیا"
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution="توسعه داده شده توسط امیرعلی مرادی نیا"
         />
 
         <LocationMarker />
